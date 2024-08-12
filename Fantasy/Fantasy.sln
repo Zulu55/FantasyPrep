@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fantasy.Backend", "Fantasy.Backend\Fantasy.Backend.csproj", "{5AFF9A51-4E58-45C4-8A7E-AA2F81373334}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fantasy.Backend", "Fantasy.Backend\Fantasy.Backend.csproj", "{5AFF9A51-4E58-45C4-8A7E-AA2F81373334}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fantasy.Frontend", "Fantasy.Frontend\Fantasy.Frontend.csproj", "{47EE6DD4-28F9-4794-B58C-67D9B8318402}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fantasy.Frontend", "Fantasy.Frontend\Fantasy.Frontend.csproj", "{47EE6DD4-28F9-4794-B58C-67D9B8318402}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fantasy.Shared", "Fantasy.Shared\Fantasy.Shared.csproj", "{7377A10A-BF57-419E-A2FD-3CFB21BA224B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fantasy.Shared", "Fantasy.Shared\Fantasy.Shared.csproj", "{7377A10A-BF57-419E-A2FD-3CFB21BA224B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fantasy.Tests", "Fantasy.Tests\Fantasy.Tests.csproj", "{A58A152D-F575-47DB-A7F8-B10423891C36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fantasy.Tests", "Fantasy.Tests\Fantasy.Tests.csproj", "{A58A152D-F575-47DB-A7F8-B10423891C36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

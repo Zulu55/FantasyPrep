@@ -1,0 +1,38 @@
+﻿@page "/teams"
+
+<h3>Equipos</h3>
+
+<div class="mb-3">
+    <a class="btn btn-primary" href="/terams/create">Nuevo Equipo</a>
+</div>
+
+<GenericList MyList="Teams">
+    <Body>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Equipo</th>
+                    <th>Imagen</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var team in Teams!)
+                {
+                    <tr>
+                        <td>
+                            @team.Name
+                        </td>
+                        <td>
+                            @team.Image
+                        </td>
+                        <td>
+                            <a class="btn btn-warning">Editar</a>
+                            <button class="btn btn-danger">Borrar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </Body>
+</GenericList>
