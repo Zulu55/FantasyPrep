@@ -1,9 +1,9 @@
 ﻿@page "/teams"
 
-<h3>Equipos</h3>
+<h3>@Localizer["Teams"]</h3>
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/terams/create">Nuevo Equipo</a>
+    <a class="btn btn-primary" href="/terams/create">@Localizer["NewTeam"]</a>
 </div>
 
 <GenericList MyList="Teams">
@@ -11,8 +11,8 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Equipo</th>
-                    <th>Imagen</th>
+                    <th>@Localizer["Team"]</th>
+                    <th>@Localizer["Image"]</th>
                     <th></th>
                 </tr>
             </thead>
@@ -27,8 +27,8 @@
                             @team.Image
                         </td>
                         <td>
-                            <a class="btn btn-warning">Editar</a>
-                            <button class="btn btn-danger">Borrar</button>
+                            <a class="btn btn-warning">@Localizer["Edit"]</a>
+                            <button class="btn btn-danger">@Localizer["Delete"]</button>
                         </td>
                     </tr>
                 }
