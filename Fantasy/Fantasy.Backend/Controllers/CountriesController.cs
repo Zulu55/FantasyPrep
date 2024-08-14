@@ -7,11 +7,11 @@ namespace Fantasy.Backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TeamsController : ControllerBase
+public class CountriesController : ControllerBase
 {
     private readonly DataContext _context;
 
-    public TeamsController(DataContext context)
+    public CountriesController(DataContext context)
     {
         _context = context;
     }
@@ -19,13 +19,13 @@ public class TeamsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAsync()
     {
-        return Ok(await _context.Teams.ToListAsync());
+        return Ok(await _context.Countries.ToListAsync());
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAsync(int id)
     {
-        var country = await _context.Teams.FirstOrDefaultAsync(c => c.Id == id);
+        var country = await _context.Countries.FirstOrDefaultAsync(c => c.Id == id);
         if (country == null)
         {
             return NotFound();
@@ -35,17 +35,17 @@ public class TeamsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> PostAsync(Team team)
+    public async Task<IActionResult> PostAsync(Country country)
     {
-        _context.Add(team);
+        _context.Add(country);
         await _context.SaveChangesAsync();
-        return Ok(team);
+        return Ok(country);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(int id)
     {
-        var country = await _context.Teams.FirstOrDefaultAsync(c => c.Id == id);
+        var country = await _context.Countries.FirstOrDefaultAsync(c => c.Id == id);
         if (country == null)
         {
             return NotFound();
@@ -57,10 +57,10 @@ public class TeamsController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> PutAsync(Team team)
+    public async Task<IActionResult> PutAsync(Country country)
     {
-        _context.Update(team);
+        _context.Update(country);
         await _context.SaveChangesAsync();
-        return Ok(team);
+        return Ok(country);
     }
 }

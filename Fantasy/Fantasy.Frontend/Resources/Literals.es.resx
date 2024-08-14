@@ -132,8 +132,8 @@
   <data name="Image" xml:space="preserve">
     <value>Imagén</value>
   </data>
-  <data name="NewTeam" xml:space="preserve">
-    <value>Nuevo Equipo</value>
+  <data name="NewCountry" xml:space="preserve">
+    <value>Nuevo País</value>
   </data>
   <data name="Subtitle" xml:space="preserve">
     <value>Aplicación de pronosticos futboleros</value>
@@ -141,13 +141,13 @@
   <data name="Title" xml:space="preserve">
     <value>Polla</value>
   </data>
-  <data name="Teams" xml:space="preserve">
-    <value>Equipos</value>
+  <data name="Countries" xml:space="preserve">
+    <value>Paises</value>
   </data>
   <data name="NoRecords" xml:space="preserve">
     <value>No hay registros para mostrar...</value>
   </data>
-  <data name="Team" xml:space="preserve">
-    <value>Equipo</value>
+  <data name="Country" xml:space="preserve">
+    <value>País</value>
   </data>
 </root>

@@ -1,30 +1,26 @@
-﻿@page "/teams"
+﻿@page "/countries"
 
-<h3>@Localizer["Teams"]</h3>
+<h3>@Localizer["Countries"]</h3>
 
 <div class="mb-3">
-    <a class="btn btn-primary" href="/terams/create">@Localizer["NewTeam"]</a>
+    <a class="btn btn-primary" href="/terams/create">@Localizer["NewCountry"]</a>
 </div>
 
-<GenericList MyList="Teams">
+<GenericList MyList="Countries">
     <Body>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>@Localizer["Team"]</th>
-                    <th>@Localizer["Image"]</th>
+                    <th>@Localizer["Country"]</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var team in Teams!)
+                @foreach (var country in Countries!)
                 {
                     <tr>
                         <td>
-                            @team.Name
-                        </td>
-                        <td>
-                            @team.Image
+                            @country.Name
                         </td>
                         <td>
                             <a class="btn btn-warning">@Localizer["Edit"]</a>

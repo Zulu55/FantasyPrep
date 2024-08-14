@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fantasy.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240811195527_InitialDb")]
+    [Migration("20240814180551_InitialDb")]
     partial class InitialDb
     {
         /// <inheritdoc />
@@ -24,16 +24,13 @@ namespace Fantasy.Backend.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Fantasy.Shared.Entities.Team", b =>
+            modelBuilder.Entity("Fantasy.Shared.Entities.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -45,7 +42,7 @@ namespace Fantasy.Backend.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Teams");
+                    b.ToTable("Countries");
                 });
 #pragma warning restore 612, 618
         }

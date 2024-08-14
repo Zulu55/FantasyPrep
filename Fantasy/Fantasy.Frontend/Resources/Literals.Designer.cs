@@ -70,6 +70,24 @@ namespace Fantasy.Frontend.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Countries.
+        /// </summary>
+        public static string Countries {
+            get {
+                return ResourceManager.GetString("Countries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        public static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -106,11 +124,11 @@ namespace Fantasy.Frontend.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Team.
+        ///   Looks up a localized string similar to New Country.
         /// </summary>
-        public static string NewTeam {
+        public static string NewCountry {
             get {
-                return ResourceManager.GetString("NewTeam", resourceCulture);
+                return ResourceManager.GetString("NewCountry", resourceCulture);
             }
         }
         
@@ -129,24 +147,6 @@ namespace Fantasy.Frontend.Resources {
         public static string Subtitle {
             get {
                 return ResourceManager.GetString("Subtitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Team.
-        /// </summary>
-        public static string Team {
-            get {
-                return ResourceManager.GetString("Team", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Teams.
-        /// </summary>
-        public static string Teams {
-            get {
-                return ResourceManager.GetString("Teams", resourceCulture);
             }
         }
         
