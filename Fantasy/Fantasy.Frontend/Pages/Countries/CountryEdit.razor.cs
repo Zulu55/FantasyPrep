@@ -48,7 +48,7 @@ public partial class CountryEdit
         if (responseHttp.Error)
         {
             var mensajeError = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync(Localizer["Error"], mensajeError, SweetAlertIcon.Error);
+            await SweetAlertService.FireAsync(Localizer["Error"], Localizer[mensajeError!], SweetAlertIcon.Error);
             return;
         }
 

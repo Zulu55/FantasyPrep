@@ -132,7 +132,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         return new ActionResponse<T>
         {
             WasSuccess = false,
-            Message = ""
+            Message = "ERR003"
         };
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Fantasy.Shared.Resources;
 
 namespace Fantasy.Shared.Entities;
 
@@ -6,9 +7,9 @@ public class Country
 {
     public int Id { get; set; }
 
-    [Display(Name = "País")]
-    [MaxLength(100, ErrorMessage = "El campo {0} no puede tener más de {1} caracteres.")]
-    [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+    [Display(Name = "Country", ResourceType = typeof(Literals))]
+    [MaxLength(100, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
+    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public string Name { get; set; } = null!;
 
     public ICollection<Team>? Teams { get; set; }
