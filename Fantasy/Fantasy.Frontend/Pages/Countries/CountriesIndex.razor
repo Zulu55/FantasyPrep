@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th>@Localizer["Country"]</th>
+                    <th># @Localizer["Teams"]</th>
                     <th></th>
                 </tr>
             </thead>
@@ -21,6 +22,9 @@
                     <tr>
                         <td>
                             @country.Name
+                        </td>
+                        <td>
+                            @country.TeamsCount
                         </td>
                         <td>
                             <a class="btn btn-warning" href="/countries/edit/@country.Id">@Localizer["Edit"]</a>

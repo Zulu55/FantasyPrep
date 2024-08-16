@@ -126,4 +126,7 @@
   <data name="RequiredField" xml:space="preserve">
     <value>Field {0} is required.</value>
   </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
 </root>

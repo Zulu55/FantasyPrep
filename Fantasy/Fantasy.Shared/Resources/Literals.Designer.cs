@@ -86,5 +86,14 @@ namespace Fantasy.Shared.Resources {
                 return ResourceManager.GetString("RequiredField", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Team {
+            get {
+                return ResourceManager.GetString("Team", resourceCulture);
+            }
+        }
     }
 }
