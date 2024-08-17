@@ -129,4 +129,7 @@
   <data name="Team" xml:space="preserve">
     <value>Equipo</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Imagen</value>
+  </data>
 </root>

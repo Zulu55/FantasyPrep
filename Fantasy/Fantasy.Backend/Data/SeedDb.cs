@@ -32,12 +32,19 @@ public class SeedDb
     {
         if (!_context.Teams.Any())
         {
-            var country = await _context.Countries.FirstOrDefaultAsync(x => x.Name == "Colombia");
-            _context.Teams.Add(new Team { Name = "Colombia", Country = country! });
-            _context.Teams.Add(new Team { Name = "Medellín", Country = country! });
-            _context.Teams.Add(new Team { Name = "Nacional", Country = country! });
-            _context.Teams.Add(new Team { Name = "Millonarios", Country = country! });
-            _context.Teams.Add(new Team { Name = "Junior", Country = country! });
+            foreach (var country in _context.Countries)
+            {
+                _context.Teams.Add(new Team { Name = country.Name, Country = country! });
+                if (country.Name == "Colombia")
+                {
+                    _context.Teams.Add(new Team { Name = "Colombia", Country = country! });
+                    _context.Teams.Add(new Team { Name = "Medellín", Country = country! });
+                    _context.Teams.Add(new Team { Name = "Nacional", Country = country! });
+                    _context.Teams.Add(new Team { Name = "Millonarios", Country = country! });
+                    _context.Teams.Add(new Team { Name = "Junior", Country = country! });
+                }
+            }
+
             await _context.SaveChangesAsync();
         }
     }

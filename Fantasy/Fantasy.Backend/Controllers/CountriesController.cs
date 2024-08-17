@@ -15,6 +15,12 @@ public class CountriesController : GenericController<Country>
         _countriesUnitOfWork = countriesUnitOfWork;
     }
 
+    [HttpGet("combo")]
+    public async Task<IActionResult> GetComboAsync()
+    {
+        return Ok(await _countriesUnitOfWork.GetComboAsync());
+    }
+
     [HttpGet]
     public override async Task<IActionResult> GetAsync()
     {
