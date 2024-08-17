@@ -137,4 +137,38 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
             };
         }
     }
+
+    public override async Task<ActionResponse<IEnumerable<Team>>> GetAsync()
+    {
+        var teams = await _context.Teams
+            .Include(x => x.Country)
+            .ToListAsync();
+        return new ActionResponse<IEnumerable<Team>>
+        {
+            WasSuccess = true,
+            Result = teams
+        };
+    }
+
+    public override async Task<ActionResponse<Team>> GetAsync(int id)
+    {
+        var team = await _context.Teams
+             .Include(x => x.Country)
+             .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (team == null)
+        {
+            return new ActionResponse<Team>
+            {
+                WasSuccess = false,
+                Message = "ERR001"
+            };
+        }
+
+        return new ActionResponse<Team>
+        {
+            WasSuccess = true,
+            Result = team
+        };
+    }
 }

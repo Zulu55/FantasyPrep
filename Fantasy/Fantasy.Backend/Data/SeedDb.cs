@@ -37,7 +37,6 @@ public class SeedDb
                 _context.Teams.Add(new Team { Name = country.Name, Country = country! });
                 if (country.Name == "Colombia")
                 {
-                    _context.Teams.Add(new Team { Name = "Colombia", Country = country! });
                     _context.Teams.Add(new Team { Name = "Medellín", Country = country! });
                     _context.Teams.Add(new Team { Name = "Nacional", Country = country! });
                     _context.Teams.Add(new Team { Name = "Millonarios", Country = country! });

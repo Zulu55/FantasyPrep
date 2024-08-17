@@ -165,8 +165,8 @@
   <data name="LeaveAndLoseChanges" xml:space="preserve">
     <value>Do you want to leave the page and lose your changes?</value>
   </data>
-  <data name="NewCountry" xml:space="preserve">
-    <value>New Country</value>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
   </data>
   <data name="NoRecords" xml:space="preserve">
     <value>No records to show...</value>
@@ -200,5 +200,8 @@
   </data>
   <data name="ERR005" xml:space="preserve">
     <value>The team Id is not valid.</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Teams</value>
   </data>
 </root>

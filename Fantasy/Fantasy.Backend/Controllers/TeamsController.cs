@@ -16,6 +16,28 @@ public class TeamsController : GenericController<Team>
         _teamsUnitOfWork = teamsUnitOfWork;
     }
 
+    [HttpGet]
+    public override async Task<IActionResult> GetAsync()
+    {
+        var response = await _teamsUnitOfWork.GetAsync();
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("{id}")]
+    public override async Task<IActionResult> GetAsync(int id)
+    {
+        var response = await _teamsUnitOfWork.GetAsync(id);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return NotFound(response.Message);
+    }
+
     [HttpGet("combo/{countryId:int}")]
     public async Task<IActionResult> GetComboAsync(int countryId)
     {

@@ -11,4 +11,8 @@ public interface ITeamsUnitOfWork
     Task<ActionResponse<Team>> AddAsync(TeamDTO teamDTO);
 
     Task<ActionResponse<Team>> UpdateAsync(TeamDTO teamDTO);
+
+    Task<ActionResponse<Team>> GetAsync(int id);
+
+    Task<ActionResponse<IEnumerable<Team>>> GetAsync();
 }

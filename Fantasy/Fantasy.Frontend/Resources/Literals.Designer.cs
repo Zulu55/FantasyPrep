@@ -169,6 +169,24 @@ namespace Fantasy.Frontend.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The country Id is not valid..
+        /// </summary>
+        public static string ERR004 {
+            get {
+                return ResourceManager.GetString("ERR004", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The team Id is not valid..
+        /// </summary>
+        public static string ERR005 {
+            get {
+                return ResourceManager.GetString("ERR005", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -205,11 +223,11 @@ namespace Fantasy.Frontend.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Country.
+        ///   Looks up a localized string similar to New.
         /// </summary>
-        public static string NewCountry {
+        public static string New {
             get {
-                return ResourceManager.GetString("NewCountry", resourceCulture);
+                return ResourceManager.GetString("New", resourceCulture);
             }
         }
         
@@ -273,6 +291,15 @@ namespace Fantasy.Frontend.Resources {
         public static string Subtitle {
             get {
                 return ResourceManager.GetString("Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Teams.
+        /// </summary>
+        public static string Teams {
+            get {
+                return ResourceManager.GetString("Teams", resourceCulture);
             }
         }
         

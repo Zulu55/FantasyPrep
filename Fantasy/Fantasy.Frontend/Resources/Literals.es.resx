@@ -132,8 +132,8 @@
   <data name="Image" xml:space="preserve">
     <value>Imagén</value>
   </data>
-  <data name="NewCountry" xml:space="preserve">
-    <value>Nuevo País</value>
+  <data name="New" xml:space="preserve">
+    <value>Nuevo</value>
   </data>
   <data name="Subtitle" xml:space="preserve">
     <value>Aplicación de pronosticos futboleros</value>
@@ -200,5 +200,8 @@
   </data>
   <data name="ERR005" xml:space="preserve">
     <value>El código del equipo no es válido.</value>
+  </data>
+  <data name="Teams" xml:space="preserve">
+    <value>Equipos</value>
   </data>
 </root>
