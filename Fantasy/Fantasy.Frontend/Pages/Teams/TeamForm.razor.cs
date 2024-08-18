@@ -37,6 +37,16 @@ public partial class TeamForm
         await LoadCountriesAsync();
     }
 
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (!string.IsNullOrEmpty(TeamDTO.Image))
+        {
+            imageUrl = TeamDTO.Image;
+            TeamDTO.Image = null;
+        }
+    }
+
     private async Task LoadCountriesAsync()
     {
         var responseHttp = await Repository.GetAsync<List<Country>>("/api/countries/combo");
