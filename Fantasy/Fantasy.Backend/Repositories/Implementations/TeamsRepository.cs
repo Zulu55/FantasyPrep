@@ -37,7 +37,7 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
             Name = teamDTO.Name,
         };
 
-        if (string.IsNullOrEmpty(teamDTO.Image))
+        if (!string.IsNullOrEmpty(teamDTO.Image))
         {
             var imageBase64 = Convert.FromBase64String(teamDTO.Image!);
             team.Image = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "teams");
@@ -101,7 +101,7 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
             };
         }
 
-        if (string.IsNullOrEmpty(teamDTO.Image))
+        if (!string.IsNullOrEmpty(teamDTO.Image))
         {
             var imageBase64 = Convert.FromBase64String(teamDTO.Image!);
             currentTeam.Image = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "teams");
@@ -142,6 +142,7 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
     {
         var teams = await _context.Teams
             .Include(x => x.Country)
+            .OrderBy(x => x.Name)
             .ToListAsync();
         return new ActionResponse<IEnumerable<Team>>
         {

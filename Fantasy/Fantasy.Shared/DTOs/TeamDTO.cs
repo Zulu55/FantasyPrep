@@ -16,6 +16,6 @@ public class TeamDTO
     public string? Image { get; set; }
 
     [Display(Name = "Country", ResourceType = typeof(Literals))]
-    [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
+    [Range(1, int.MaxValue, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int CountryId { get; set; }
 }

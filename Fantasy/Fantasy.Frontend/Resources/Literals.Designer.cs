@@ -286,11 +286,29 @@ namespace Fantasy.Frontend.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to -- Select a Country ---.
+        /// </summary>
+        public static string SelectACountry {
+            get {
+                return ResourceManager.GetString("SelectACountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Soccer predictions app.
         /// </summary>
         public static string Subtitle {
             get {
                 return ResourceManager.GetString("Subtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        public static string Team {
+            get {
+                return ResourceManager.GetString("Team", resourceCulture);
             }
         }
         
