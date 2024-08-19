@@ -1,7 +1,6 @@
 ﻿using Fantasy.Backend.Helpers;
 using Fantasy.Shared.Entities;
 using Microsoft.EntityFrameworkCore;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Fantasy.Backend.Data;
 
