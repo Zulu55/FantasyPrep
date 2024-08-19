@@ -17,4 +17,6 @@ public interface ITeamsRepository
     Task<ActionResponse<IEnumerable<Team>>> GetAsync();
 
     Task<ActionResponse<IEnumerable<Team>>> GetAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);
 }

@@ -167,6 +167,23 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
         };
     }
 
+    public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Teams.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
+    }
+
     public override async Task<ActionResponse<Team>> GetAsync(int id)
     {
         var team = await _context.Teams

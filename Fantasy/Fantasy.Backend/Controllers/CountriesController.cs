@@ -44,6 +44,17 @@ public class CountriesController : GenericController<Country>
         return BadRequest();
     }
 
+    [HttpGet("totalRecordsPaginated")]
+    public async Task<IActionResult> GetTotalRecordsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _countriesUnitOfWork.GetTotalRecordsAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
+    }
+
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetAsync(int id)
     {
