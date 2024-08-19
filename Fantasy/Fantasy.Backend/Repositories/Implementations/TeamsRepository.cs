@@ -157,6 +157,11 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
             .Include(x => x.Country)
             .AsQueryable();
 
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Name.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
         return new ActionResponse<IEnumerable<Team>>
         {
             WasSuccess = true,
