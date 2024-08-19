@@ -16,6 +16,8 @@ public class Team
 
     public Country Country { get; set; } = null!;
 
+    [Display(Name = "Country", ResourceType = typeof(Literals))]
+    [Range(1, int.MaxValue, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int CountryId { get; set; }
 
     public string ImageFull => string.IsNullOrEmpty(Image) ? "/images/NoImage.png" : Image;
