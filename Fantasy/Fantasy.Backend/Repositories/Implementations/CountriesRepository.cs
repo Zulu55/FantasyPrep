@@ -1,5 +1,7 @@
 ﻿using Fantasy.Backend.Data;
+using Fantasy.Backend.Helpers;
 using Fantasy.Backend.Repositories.Interfaces;
+using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Responses;
 using Microsoft.EntityFrameworkCore;
@@ -19,11 +21,28 @@ public class CountriesRepository : GenericRepository<Country>, ICountriesReposit
     {
         var countries = await _context.Countries
             .Include(c => c.Teams)
+            .OrderBy(c => c.Name)
             .ToListAsync();
         return new ActionResponse<IEnumerable<Country>>
         {
             WasSuccess = true,
             Result = countries
+        };
+    }
+
+    public override async Task<ActionResponse<IEnumerable<Country>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Countries
+            .Include(c => c.Teams)
+            .AsQueryable();
+
+        return new ActionResponse<IEnumerable<Country>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .OrderBy(x => x.Name)
+                .Paginate(pagination)
+                .ToListAsync()
         };
     }
 

@@ -151,6 +151,22 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
         };
     }
 
+    public override async Task<ActionResponse<IEnumerable<Team>>> GetAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Teams
+            .Include(x => x.Country)
+            .AsQueryable();
+
+        return new ActionResponse<IEnumerable<Team>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .OrderBy(x => x.Name)
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
     public override async Task<ActionResponse<Team>> GetAsync(int id)
     {
         var team = await _context.Teams
