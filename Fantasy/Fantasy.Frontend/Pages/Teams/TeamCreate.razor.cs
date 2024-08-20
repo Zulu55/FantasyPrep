@@ -1,6 +1,6 @@
 using Fantasy.Frontend.Repositories;
-using Fantasy.Frontend.Resources;
 using Fantasy.Shared.DTOs;
+using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;

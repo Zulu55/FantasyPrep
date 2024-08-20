@@ -1,5 +1,5 @@
 using Fantasy.Frontend.Pages.Auth;
-using Fantasy.Frontend.Resources;
+using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
