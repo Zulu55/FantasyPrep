@@ -3,12 +3,14 @@ using Fantasy.Frontend.Repositories;
 using Fantasy.Frontend.Resources;
 using Fantasy.Frontend.Shared;
 using Fantasy.Shared.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 
 namespace Fantasy.Frontend.Pages.Countries;
 
+[Authorize(Roles = "Admin")]
 public partial class CountriesIndex
 {
     private List<Country>? Countries { get; set; }
