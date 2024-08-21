@@ -22,6 +22,12 @@ public partial class Login
 
     [CascadingParameter] private MudDialogInstance MudDialog { get; set; } = null!;
 
+    private void ShowModalResendConfirmationEmail()
+    {
+        var closeOnEscapeKey = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true, MaxWidth = MaxWidth.ExtraLarge };
+        DialogService.Show<ResendConfirmationEmailToken>(Localizer["MailForwarding"], closeOnEscapeKey);
+    }
+
     private void CloseModal()
     {
         wasClose = true;
