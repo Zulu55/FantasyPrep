@@ -19,6 +19,7 @@ public class CountriesController : GenericController<Country>
         _countriesUnitOfWork = countriesUnitOfWork;
     }
 
+    [AllowAnonymous]
     [HttpGet("combo")]
     public async Task<IActionResult> GetComboAsync()
     {

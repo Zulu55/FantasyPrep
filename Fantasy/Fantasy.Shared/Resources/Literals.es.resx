@@ -309,4 +309,40 @@
   <data name="EditUserProfile" xml:space="preserve">
     <value>Editar Perfil de Usuario</value>
   </data>
+  <data name="ERR007" xml:space="preserve">
+    <value>Ha superado el máximo número de intentos, su cuenta está bloqueada, intente de nuevo en 5 minutos.</value>
+  </data>
+  <data name="ERR006" xml:space="preserve">
+    <value>Email o contraseña incorrectos.</value>
+  </data>
+  <data name="ERR008" xml:space="preserve">
+    <value>El usuario no ha sido habilitado, debes de seguir las instrucciones del correo enviado para poder habilitar el usuario.</value>
+  </data>
+  <data name="ConfirmedEmailMessage" xml:space="preserve">
+    <value>Gracias por confirmar su email, ahora puedes ingresar al sistema.</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Confirmación de email</value>
+  </data>
+  <data name="ConfirmEmailMessage" xml:space="preserve">
+    <value>Presione el botón para confirmar su cuenta.</value>
+  </data>
+  <data name="AdminRegister" xml:space="preserve">
+    <value>Registro de Administrador</value>
+  </data>
+  <data name="UserRegister" xml:space="preserve">
+    <value>Registro de Usuario</value>
+  </data>
+  <data name="SendEmailConfirmationMessage" xml:space="preserve">
+    <value>Su cuenta ha sido creada con exito. Se te ha enviado un correo electrónico con las instrucciones para activar tu usuario.</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Número de teléfono</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Por favor espera...</value>
+  </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>El correo que ingresaste ya existe.</value>
+  </data>
 </root>

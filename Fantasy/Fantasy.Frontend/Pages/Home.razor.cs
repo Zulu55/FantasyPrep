@@ -7,4 +7,11 @@ namespace Fantasy.Frontend.Pages;
 public partial class Home
 {
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+
+    private string? currentCulture;
+
+    protected override void OnInitialized()
+    {
+        currentCulture = System.Globalization.CultureInfo.CurrentCulture.Name;
+    }
 }
