@@ -34,6 +34,11 @@
                 </MudLink>
             </MudItem>
             <MudItem xs="12" sm="12">
+                <MudLink OnClick="ShowModalRecoverPassword" Underline="Underline.Always">
+                    @Localizer["ForgottenYourPassword"]
+                </MudLink>
+            </MudItem>
+            <MudItem xs="12" sm="12">
                 <MudLink OnClick="ShowModalResendConfirmationEmail" Underline="Underline.Always" Style="display: block; text-align: center;">
                     @Localizer["ResendAccountActivationEmail"]
                 </MudLink>

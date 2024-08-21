@@ -33,6 +33,42 @@ public class AccountsController : ControllerBase
         _fileStorage = fileStorage;
     }
 
+    [HttpPost("RecoverPassword")]
+    public async Task<IActionResult> RecoverPasswordAsync([FromBody] EmailDTO model)
+    {
+        var user = await _usersUnitOfWork.GetUserAsync(model.Email);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var response = await SendRecoverEmailAsync(user, model.Language);
+        if (response.WasSuccess)
+        {
+            return NoContent();
+        }
+
+        return BadRequest(response.Message);
+    }
+
+    [HttpPost("ResetPassword")]
+    public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDTO model)
+    {
+        var user = await _usersUnitOfWork.GetUserAsync(model.Email);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var result = await _usersUnitOfWork.ResetPasswordAsync(user, model.Token, model.NewPassword);
+        if (result.Succeeded)
+        {
+            return NoContent();
+        }
+
+        return BadRequest(result.Errors.FirstOrDefault()!.Description);
+    }
+
     [HttpPost("changePassword")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> ChangePasswordAsync(ChangePasswordDTO model)
@@ -215,6 +251,22 @@ public class AccountsController : ControllerBase
             Token = new JwtSecurityTokenHandler().WriteToken(token),
             Expiration = expiration
         };
+    }
+
+    private async Task<ActionResponse<string>> SendRecoverEmailAsync(User user, string language)
+    {
+        var myToken = await _usersUnitOfWork.GeneratePasswordResetTokenAsync(user);
+        var tokenLink = Url.Action("ResetPassword", "accounts", new
+        {
+            userid = user.Id,
+            token = myToken
+        }, HttpContext.Request.Scheme, _configuration["Url Frontend"]);
+
+        if (language == "es")
+        {
+            return _mailHelper.SendMail(user.FullName, user.Email!, _configuration["Mail:SubjectRecoveryEs"]!, string.Format(_configuration["Mail:BodyRecoveryEs"]!, tokenLink), language);
+        }
+        return _mailHelper.SendMail(user.FullName, user.Email!, _configuration["Mail:SubjectRecoveryEn"]!, string.Format(_configuration["Mail:BodyRecoveryEn"]!, tokenLink), language);
     }
 
     private async Task<ActionResponse<string>> SendConfirmationEmailAsync(User user, string language)
