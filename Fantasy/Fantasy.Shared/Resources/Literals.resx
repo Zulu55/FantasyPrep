@@ -390,4 +390,7 @@
   <data name="Remarks" xml:space="preserve">
     <value>Remarks</value>
   </data>
+  <data name="ERR009" xml:space="preserve">
+    <value>The tournament Id is not valid.</value>
+  </data>
 </root>

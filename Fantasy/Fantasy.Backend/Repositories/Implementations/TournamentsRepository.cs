@@ -93,6 +93,29 @@ public class TournamentsRepository : GenericRepository<Tournament>, ITournaments
         };
     }
 
+    public override async Task<ActionResponse<Tournament>> GetAsync(int id)
+    {
+        var team = await _context.Tournaments
+             .Include(x => x.TournamentTeams!)
+             .ThenInclude(x => x.Team)
+             .FirstOrDefaultAsync(c => c.Id == id);
+
+        if (team == null)
+        {
+            return new ActionResponse<Tournament>
+            {
+                WasSuccess = false,
+                Message = "ERR001"
+            };
+        }
+
+        return new ActionResponse<Tournament>
+        {
+            WasSuccess = true,
+            Result = team
+        };
+    }
+
     public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination)
     {
         var queryable = _context.Tournaments.AsQueryable();

@@ -390,4 +390,7 @@
   <data name="Remarks" xml:space="preserve">
     <value>Comentarios</value>
   </data>
+  <data name="ERR009" xml:space="preserve">
+    <value>El código de torneo no es válido.</value>
+  </data>
 </root>

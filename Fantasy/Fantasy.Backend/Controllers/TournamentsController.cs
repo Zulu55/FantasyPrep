@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Fantasy.Backend.Controllers;
 
 [ApiController]
-//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/[controller]")]
 public class TournamentsController : GenericController<Tournament>
 {

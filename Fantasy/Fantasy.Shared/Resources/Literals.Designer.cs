@@ -340,6 +340,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The tournament Id is not valid..
+        /// </summary>
+        public static string ERR009 {
+            get {
+                return ResourceManager.GetString("ERR009", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
