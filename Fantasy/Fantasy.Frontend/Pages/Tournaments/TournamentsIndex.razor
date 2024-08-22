@@ -27,15 +27,29 @@ else
             <FilterComponent ApplyFilter="SetFilterValue" />
         </ToolBarContent>
         <HeaderContent>
-            <MudTh>@Localizer["Team"]</MudTh>
-            <MudTh style="width: 300px;">@Localizer["Image"]</MudTh>
-            <MudTh style="width: 300px;">@Localizer["Country"]</MudTh>
+            <MudTh>@Localizer["Tournament"]</MudTh>
+            <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["IsActive"]</MudTh>
+            <MudTh>@Localizer["Remarks"]</MudTh>
+            <MudTh># @Localizer["Teams"]</MudTh>
             <MudTh style="width: 300px;">@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
             <MudTd>
                 <img src="@context.ImageFull" style="width:80px;" />
+            </MudTd>
+            <MudTd>
+                <MudCheckBox T="bool" Checked="@context.IsActive" Disabled="true" />
+            </MudTd>
+            <MudTd>@context.Remarks</MudTd>
+            <MudTd>
+                <MudButton Variant="Variant.Filled" 
+                           EndIcon="@Icons.Material.Filled.SportsSoccer" 
+                           Color="Color.Info" 
+                           OnClick="@(() => DetailsAction(@context))" style="width: 100px;">
+                    @context.TeamsCount
+                </MudButton>
             </MudTd>
             <MudTd>
                 <MudButton Variant="Variant.Outlined"

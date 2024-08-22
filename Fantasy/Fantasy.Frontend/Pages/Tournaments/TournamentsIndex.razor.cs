@@ -1,9 +1,8 @@
-using Fantasy.Frontend.Pages.Tournaments;
+using System.Net;
 using Fantasy.Frontend.Repositories;
 using Fantasy.Frontend.Shared;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
-using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -33,6 +32,11 @@ public partial class TournamentsIndex
     protected override async Task OnInitializedAsync()
     {
         await LoadTotalRecordsAsync();
+    }
+
+    private void DetailsAction(Tournament tournament)
+    {
+        NavigationManager.NavigateTo($"/tournament/details/{tournament.Id}");
     }
 
     private async Task LoadTotalRecordsAsync()
