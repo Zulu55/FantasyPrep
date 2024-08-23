@@ -438,4 +438,13 @@
   <data name="ERR012" xml:space="preserve">
     <value>The match Id is not valid.</value>
   </data>
+  <data name="AddMatchToTournament" xml:space="preserve">
+    <value>Add Match to Tournament</value>
+  </data>
+  <data name="Match" xml:space="preserve">
+    <value>Match</value>
+  </data>
+  <data name="Matches" xml:space="preserve">
+    <value>Matches</value>
+  </data>
 </root>

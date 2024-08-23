@@ -39,6 +39,11 @@ public partial class TournamentsIndex
         NavigationManager.NavigateTo($"/tournament/teams/{tournament.Id}");
     }
 
+    private void MatchesAction(Tournament tournament)
+    {
+        NavigationManager.NavigateTo($"/tournament/matches/{tournament.Id}");
+    }
+
     private async Task LoadTotalRecordsAsync()
     {
         loading = true;

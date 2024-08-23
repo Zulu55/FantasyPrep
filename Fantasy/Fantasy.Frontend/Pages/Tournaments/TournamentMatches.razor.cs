@@ -1,8 +1,8 @@
-using System.Net;
 using Fantasy.Frontend.Repositories;
 using Fantasy.Frontend.Shared;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
+using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
@@ -11,17 +11,17 @@ using MudBlazor;
 namespace Fantasy.Frontend.Pages.Tournaments;
 
 [Authorize(Roles = "Admin")]
-public partial class TournamentTeams
+public partial class TournamentMatches
 {
     private Tournament? tournament;
-    private List<TournamentTeam>? tournamentTeams;
+    private List<Match>? matches;
 
-    private MudTable<TournamentTeam> table = new();
+    private MudTable<Match> table = new();
     private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
     private int totalRecords = 0;
     private bool loading;
     private const string baseUrlTournament = "api/tournaments";
-    private const string baseUrlTournamentTeam = "api/tournamentTeams";
+    private const string baseUrlMatch = "api/matches";
     private string infoFormat = "{first_item}-{last_item} de {all_items}";
 
     [Parameter] public int TournamentId { get; set; }
@@ -71,12 +71,12 @@ public partial class TournamentTeams
             var ok = await LoadTournamentAsync();
             if (!ok)
             {
-                NoTornament();
+                NoTournament();
                 return false;
             }
         }
 
-        var url = $"{baseUrlTournamentTeam}/totalRecordsPaginated/?id={TournamentId}";
+        var url = $"{baseUrlMatch}/totalRecordsPaginated/?id={TournamentId}";
         if (!string.IsNullOrWhiteSpace(Filter))
         {
             url += $"&filter={Filter}";
@@ -93,29 +93,29 @@ public partial class TournamentTeams
         return true;
     }
 
-    private async Task<TableData<TournamentTeam>> LoadListAsync(TableState state, CancellationToken cancellationToken)
+    private async Task<TableData<Match>> LoadListAsync(TableState state, CancellationToken cancellationToken)
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
-        var url = $"{baseUrlTournamentTeam}/paginated?id={TournamentId}&page={page}&recordsnumber={pageSize}";
+        var url = $"{baseUrlMatch}/paginated?id={TournamentId}&page={page}&recordsnumber={pageSize}";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
             url += $"&filter={Filter}";
         }
 
-        var responseHttp = await Repository.GetAsync<List<TournamentTeam>>(url);
+        var responseHttp = await Repository.GetAsync<List<Match>>(url);
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
             Snackbar.Add(message, Severity.Error);
-            return new TableData<TournamentTeam> { Items = [], TotalItems = 0 };
+            return new TableData<Match> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)
         {
-            return new TableData<TournamentTeam> { Items = [], TotalItems = 0 };
+            return new TableData<Match> { Items = [], TotalItems = 0 };
         }
-        return new TableData<TournamentTeam>
+        return new TableData<Match>
         {
             Items = responseHttp.Response,
             TotalItems = totalRecords
@@ -142,22 +142,22 @@ public partial class TournamentTeams
                     { "Id", TournamentId }
                 };
 
-        var dialog = DialogService.Show<AddTeam>(Localizer["AddTeamToTournament"], parameters, options);
+        var dialog = DialogService.Show<AddMatch>(Localizer["AddMatchToTournament"], parameters, options);
         await dialog.Result;
         await LoadAsync();
         await table.ReloadServerData();
     }
 
-    private void NoTornament()
+    private void NoTournament()
     {
         NavigationManager.NavigateTo("/tournaments");
     }
 
-    private async Task DeleteAsync(TournamentTeam tournamentTeam)
+    private async Task DeleteAsync(Match match)
     {
         var parameters = new DialogParameters
         {
-            { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Team"], tournamentTeam.Team.Name) }
+            { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Match"], $"{match.Local.Name} Vs. {match.Visitor.Name}") }
         };
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
         var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
@@ -167,7 +167,7 @@ public partial class TournamentTeams
             return;
         }
 
-        var responseHttp = await Repository.DeleteAsync($"{baseUrlTournamentTeam}/{tournamentTeam.Id}");
+        var responseHttp = await Repository.DeleteAsync($"{baseUrlMatch}/{match.Id}");
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
