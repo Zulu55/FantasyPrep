@@ -394,6 +394,33 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The local Id is not valid..
+        /// </summary>
+        public static string ERR010 {
+            get {
+                return ResourceManager.GetString("ERR010", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The visitor Id is not valid..
+        /// </summary>
+        public static string ERR011 {
+            get {
+                return ResourceManager.GetString("ERR011", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The match Id is not valid..
+        /// </summary>
+        public static string ERR012 {
+            get {
+                return ResourceManager.GetString("ERR012", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {

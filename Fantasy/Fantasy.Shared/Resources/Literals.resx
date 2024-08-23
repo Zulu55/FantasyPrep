@@ -429,4 +429,13 @@
   <data name="GoalsVisitor" xml:space="preserve">
     <value>Goals Visitor</value>
   </data>
+  <data name="ERR010" xml:space="preserve">
+    <value>The local Id is not valid.</value>
+  </data>
+  <data name="ERR011" xml:space="preserve">
+    <value>The visitor Id is not valid.</value>
+  </data>
+  <data name="ERR012" xml:space="preserve">
+    <value>The match Id is not valid.</value>
+  </data>
 </root>

@@ -429,4 +429,13 @@
   <data name="GoalsVisitor" xml:space="preserve">
     <value>Goles del Visitante</value>
   </data>
+  <data name="ERR010" xml:space="preserve">
+    <value>El código del equipo local no es válido.</value>
+  </data>
+  <data name="ERR011" xml:space="preserve">
+    <value>El código del equipo visitante no es válido.</value>
+  </data>
+  <data name="ERR012" xml:space="preserve">
+    <value>El código del partido no es válido.</value>
+  </data>
 </root>
