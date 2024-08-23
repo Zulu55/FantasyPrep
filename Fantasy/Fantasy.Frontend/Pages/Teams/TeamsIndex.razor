@@ -28,16 +28,16 @@ else
         </ToolBarContent>
         <HeaderContent>
             <MudTh>@Localizer["Team"]</MudTh>
-            <MudTh style="width: 300px;">@Localizer["Image"]</MudTh>
+            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
             <MudTh style="width: 300px;">@Localizer["Country"]</MudTh>
             <MudTh style="width: 300px;">@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
-            <MudTd DataLabel="Imagén Principal">
-                <img src="@context.ImageFull" style="width:80px;" />
-            </MudTd>
-            <MudTd>@context.Country.Name</MudTd>
+                <MudTd>
+                    <img src="@context.ImageFull" style="width:80px;" />
+                </MudTd>
+                <MudTd>@context.Country.Name</MudTd>
             <MudTd>
                 <MudButton Variant="Variant.Outlined"
                            EndIcon="@Icons.Material.Filled.Edit"
