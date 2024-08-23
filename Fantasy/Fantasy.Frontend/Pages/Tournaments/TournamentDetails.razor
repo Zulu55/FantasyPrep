@@ -15,7 +15,7 @@ else
               FixedHeader="true"
               FixedFooter="true">
         <ToolBarContent>
-            <img src="@tournament!.ImageFull" style="height:80px;" />
+            <img src="@tournament!.ImageFull" style="max-width:80px; max-height:80px;" />
             <MudText Typo="Typo.h6" Class="mr-4">@tournament?.Name</MudText>
             <MudButton Variant="Variant.Outlined" 
                        Class="mr-4" 
@@ -29,7 +29,7 @@ else
                        EndIcon="@Icons.Material.Filled.Add" 
                        Color="Color.Info" 
                        OnClick="@(() => ShowModalAsync())">
-                @Localizer["AddTeam"]
+                @Localizer["Team"]
             </MudButton>
             <MudSpacer />
             <FilterComponent ApplyFilter="SetFilterValue" />
@@ -41,8 +41,8 @@ else
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Team.Name</MudTd>
-            <MudTd>
-                <img src="@context.Team.ImageFull" style="width:80px;" />
+            <MudTd style="text-align:center; vertical-align:middle;">
+                <img src="@context.Team.ImageFull" style="max-width:80px; max-height:80px;" />
             </MudTd>
             <MudTd>
                 <MudButton Variant="Variant.Outlined" 

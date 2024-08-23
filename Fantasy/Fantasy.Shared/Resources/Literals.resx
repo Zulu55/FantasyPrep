@@ -235,7 +235,7 @@
     <value>Teams</value>
   </data>
   <data name="SelectACountry" xml:space="preserve">
-    <value>-- Select a Country ---</value>
+    <value>-- Select a Country --</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -410,5 +410,8 @@
   </data>
   <data name="AddTeam" xml:space="preserve">
     <value>Add Team</value>
+  </data>
+  <data name="SelectATeam" xml:space="preserve">
+    <value>-- Select a Team --</value>
   </data>
 </root>

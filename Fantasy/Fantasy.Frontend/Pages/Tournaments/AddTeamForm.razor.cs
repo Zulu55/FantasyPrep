@@ -3,25 +3,29 @@ using Fantasy.Frontend.Repositories;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Components.Routing;
+using MudBlazor;
 
-namespace Fantasy.Frontend.Pages.Teams;
+namespace Fantasy.Frontend.Pages.Tournaments;
 
-public partial class TeamForm
+public partial class AddTeamForm
 {
     private EditContext editContext = null!;
     private Country selectedCountry = new();
+    private Team selectedTeam = new();
     private List<Country>? countries;
+    private List<Team>? teams;
     private string? imageUrl;
 
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
+    [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
-    [EditorRequired, Parameter] public TeamDTO TeamDTO { get; set; } = null!;
+    [EditorRequired, Parameter] public TournamentTeamDTO TournamentTeamDTO { get; set; } = null!;
     [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
     [EditorRequired, Parameter] public EventCallback ReturnAction { get; set; }
 
@@ -29,22 +33,12 @@ public partial class TeamForm
 
     protected override void OnInitialized()
     {
-        editContext = new(TeamDTO);
+        editContext = new(TournamentTeamDTO);
     }
 
     protected override async Task OnInitializedAsync()
     {
         await LoadCountriesAsync();
-    }
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-        if (!string.IsNullOrEmpty(TeamDTO.Image))
-        {
-            imageUrl = TeamDTO.Image;
-            TeamDTO.Image = null;
-        }
     }
 
     private async Task LoadCountriesAsync()
@@ -53,17 +47,11 @@ public partial class TeamForm
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            await SweetAlertService.FireAsync("Error", message, SweetAlertIcon.Error);
+            Snackbar.Add(message, Severity.Error);
             return;
         }
 
         countries = responseHttp.Response;
-    }
-
-    private void ImageSelected(string imagenBase64)
-    {
-        TeamDTO.Image = imagenBase64;
-        imageUrl = null;
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
@@ -106,9 +94,43 @@ public partial class TeamForm
             .ToList();
     }
 
-    private void CountryChanged(Country country)
+    private async Task<IEnumerable<Team>> SearchTeam(string searchText, CancellationToken cancellationToken)
+    {
+        await Task.Delay(5);
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            return teams!;
+        }
+
+        return teams!
+            .Where(x => x.Name.Contains(searchText, StringComparison.InvariantCultureIgnoreCase))
+            .ToList();
+    }
+
+    private async Task CountryChangedAsync(Country country)
     {
         selectedCountry = country;
-        TeamDTO.CountryId = country.Id;
+        selectedTeam = new Team();
+        teams = null;
+        await LoadTeamsAsyn(country.Id);
+    }
+
+    private async Task LoadTeamsAsyn(int countryId)
+    {
+        var responseHttp = await Repository.GetAsync<List<Team>>($"/api/teams/combo/{countryId}");
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            Snackbar.Add(message, Severity.Error);
+            return;
+        }
+        teams = responseHttp.Response;
+    }
+
+    private void TeamChanged(Team team)
+    {
+        selectedTeam = team;
+        imageUrl = team.ImageFull;
+        TournamentTeamDTO.TeamId = team.Id;
     }
 }

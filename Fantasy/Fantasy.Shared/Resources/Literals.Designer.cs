@@ -799,11 +799,20 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -- Select a Country ---.
+        ///   Looks up a localized string similar to -- Select a Country --.
         /// </summary>
         public static string SelectACountry {
             get {
                 return ResourceManager.GetString("SelectACountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Select a Team --.
+        /// </summary>
+        public static string SelectATeam {
+            get {
+                return ResourceManager.GetString("SelectATeam", resourceCulture);
             }
         }
         

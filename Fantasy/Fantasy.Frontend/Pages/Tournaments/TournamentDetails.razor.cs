@@ -134,22 +134,18 @@ public partial class TournamentDetails
         NavigationManager.NavigateTo("/tournaments");
     }
 
-    private async Task ShowModalAsync(int id = 0)
+    private async Task ShowModalAsync()
     {
         var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
-        IDialogReference? dialog;
         var parameters = new DialogParameters
-        {
-            { "TournamentId", TournamentId }
-        };
-        dialog = DialogService.Show<AddTeam>(Localizer["AddTeamToTournament"], parameters, options);
+                {
+                    { "Id", TournamentId }
+                };
 
-        var result = await dialog.Result;
-        if (!result!.Canceled)
-        {
-            await LoadAsync();
-            await table.ReloadServerData();
-        }
+        var dialog = DialogService.Show<AddTeam>(Localizer["AddTeamToTournament"], parameters, options);
+        await dialog.Result;
+        await LoadAsync();
+        await table.ReloadServerData();
     }
 
     private void NoCountry()
@@ -161,7 +157,7 @@ public partial class TournamentDetails
     {
         var parameters = new DialogParameters
         {
-            { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Tournament"], tournamentTeam.Team.Name) }
+            { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Team"], tournamentTeam.Team.Name) }
         };
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
         var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
