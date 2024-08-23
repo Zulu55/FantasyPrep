@@ -414,4 +414,19 @@
   <data name="SelectATeam" xml:space="preserve">
     <value>-- Select a Team --</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Local" xml:space="preserve">
+    <value>Local</value>
+  </data>
+  <data name="Visitor" xml:space="preserve">
+    <value>Visitor</value>
+  </data>
+  <data name="GoalsLocal" xml:space="preserve">
+    <value>Goals Local</value>
+  </data>
+  <data name="GoalsVisitor" xml:space="preserve">
+    <value>Goals Visitor</value>
+  </data>
 </root>
