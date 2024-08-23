@@ -46,6 +46,6 @@ public partial class AddTeam
     private void Return()
     {
         addTeamForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo($"/tournament/details/{Id}");
+        NavigationManager.NavigateTo($"/tournament/teams/{Id}");
     }
 }

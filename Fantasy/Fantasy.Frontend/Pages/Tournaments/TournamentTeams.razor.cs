@@ -11,7 +11,7 @@ using MudBlazor;
 namespace Fantasy.Frontend.Pages.Tournaments;
 
 [Authorize(Roles = "Admin")]
-public partial class TournamentDetails
+public partial class TournamentTeams
 {
     private Tournament? tournament;
     private List<TournamentTeam>? tournamentTeams;

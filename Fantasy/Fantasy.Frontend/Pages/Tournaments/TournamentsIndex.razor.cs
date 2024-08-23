@@ -34,9 +34,9 @@ public partial class TournamentsIndex
         await LoadTotalRecordsAsync();
     }
 
-    private void DetailsAction(Tournament tournament)
+    private void TeamsAction(Tournament tournament)
     {
-        NavigationManager.NavigateTo($"/tournament/details/{tournament.Id}");
+        NavigationManager.NavigateTo($"/tournament/teams/{tournament.Id}");
     }
 
     private async Task LoadTotalRecordsAsync()
