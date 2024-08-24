@@ -38,8 +38,8 @@ public partial class TournamentForm
         {
             imageUrl = TournamentDTO.Image;
             TournamentDTO.Image = null;
-            isActiveMessage = TournamentDTO.IsActive ? Localizer["TournamentActive"] : Localizer["TournamentInactive"];
         }
+        isActiveMessage = TournamentDTO.IsActive ? Localizer["TournamentActive"] : Localizer["TournamentInactive"];
     }
 
     private void ImageSelected(string imagenBase64)
