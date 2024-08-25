@@ -465,4 +465,7 @@
   <data name="MustSelectVisitorTeam" xml:space="preserve">
     <value>You must select a visitor team.</value>
   </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select a File… </value>
+  </data>
 </root>

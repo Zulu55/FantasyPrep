@@ -8,10 +8,11 @@ namespace Fantasy.Frontend.Shared;
 public partial class InputImg
 {
     private string? imageBase64;
+    private string? fileName;
 
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
-    [Parameter] public string Label { get; set; }
+    [Parameter] public string? Label { get; set; }
     [Parameter] public string? ImageURL { get; set; }
     [Parameter] public EventCallback<string> ImageSelected { get; set; }
 
@@ -26,12 +27,13 @@ public partial class InputImg
 
     private async Task OnChange(InputFileChangeEventArgs e)
     {
-        var imagenes = e.GetMultipleFiles();
-
-        foreach (var imagen in imagenes)
+        var file = e.File;
+        if (file != null)
         {
-            var arrBytes = new byte[imagen.Size];
-            await imagen.OpenReadStream().ReadAsync(arrBytes);
+            fileName = file.Name;
+
+            var arrBytes = new byte[file.Size];
+            await file.OpenReadStream().ReadAsync(arrBytes);
             imageBase64 = Convert.ToBase64String(arrBytes);
             ImageURL = null;
             await ImageSelected.InvokeAsync(imageBase64);
