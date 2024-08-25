@@ -4,6 +4,7 @@ using Fantasy.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fantasy.Backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240825005510_AddGroupsAndUserGroupsEntities")]
+    partial class AddGroupsAndUserGroupsEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,9 +73,6 @@ namespace Fantasy.Backend.Migrations
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TournamentId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasMaxLength(450)
@@ -82,8 +82,6 @@ namespace Fantasy.Backend.Migrations
 
                     b.HasIndex("Code")
                         .IsUnique();
-
-                    b.HasIndex("TournamentId");
 
                     b.HasIndex("UserId");
 
@@ -461,12 +459,6 @@ namespace Fantasy.Backend.Migrations
 
             modelBuilder.Entity("Fantasy.Shared.Entities.Group", b =>
                 {
-                    b.HasOne("Fantasy.Shared.Entities.Tournament", "Tournament")
-                        .WithMany("Groups")
-                        .HasForeignKey("TournamentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Fantasy.Shared.Entities.User", "Admin")
                         .WithMany("GroupsManaged")
                         .HasForeignKey("UserId")
@@ -474,8 +466,6 @@ namespace Fantasy.Backend.Migrations
                         .IsRequired();
 
                     b.Navigation("Admin");
-
-                    b.Navigation("Tournament");
                 });
 
             modelBuilder.Entity("Fantasy.Shared.Entities.Match", b =>
@@ -635,8 +625,6 @@ namespace Fantasy.Backend.Migrations
 
             modelBuilder.Entity("Fantasy.Shared.Entities.Tournament", b =>
                 {
-                    b.Navigation("Groups");
-
                     b.Navigation("Matches");
 
                     b.Navigation("TournamentTeams");

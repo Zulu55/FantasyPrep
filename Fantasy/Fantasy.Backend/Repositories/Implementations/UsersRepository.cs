@@ -75,7 +75,7 @@ public class UsersRepository : IUsersRepository
 
     public async Task<IdentityResult> AddUserAsync(User user, string password)
     {
-        if (!string.IsNullOrEmpty(user.Photo))
+        if (!string.IsNullOrEmpty(user.Photo) && !user.Photo.StartsWith("http"))
         {
             var imageBase64 = Convert.FromBase64String(user.Photo!);
             user.Photo = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "users");
