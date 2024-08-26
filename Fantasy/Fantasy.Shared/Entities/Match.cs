@@ -41,4 +41,8 @@ public class Match
     [Display(Name = "Date", ResourceType = typeof(Literals))]
     [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
     public DateTime DateLocal => Date.ToLocalTime();
+
+    public ICollection<Prediction>? Predictions { get; set; }
+
+    public int PredictionsCount => Predictions == null ? 0 : Predictions.Count;
 }

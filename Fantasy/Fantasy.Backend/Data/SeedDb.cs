@@ -1,4 +1,5 @@
-﻿using Fantasy.Backend.Helpers;
+﻿using Azure.Storage.Blobs.Models;
+using Fantasy.Backend.Helpers;
 using Fantasy.Backend.UnitsOfWork.Interfaces;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Enums;
@@ -28,6 +29,7 @@ public class SeedDb
         await CheckUsersAsync();
         await CheckTournamentsAsync();
         await CheckGroupsAsync();
+        await CheckPredictionsAsync();
     }
 
     private async Task CheckUsersAsync()
@@ -141,6 +143,40 @@ public class SeedDb
             };
             _context.Add(selenaGoup);
 
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    private async Task CheckPredictionsAsync()
+    {
+        if (!_context.Predictions.Any())
+        {
+            var random = new Random();
+            var predictions = new List<Prediction>();
+            var groups = await _context.Groups
+                .Include(x => x.Tournament)
+                .ThenInclude(x => x.Matches)
+                .Include(x => x.Members)
+                .ToListAsync();
+            foreach (var group in groups)
+            {
+                foreach (var match in group.Tournament.Matches!)
+                {
+                    foreach (var member in group.Members!)
+                    {
+                        predictions.Add(new Prediction
+                        {
+                            GoalsLocal = random.Next(4),
+                            GoalsVisitor = random.Next(4),
+                            Group = group,
+                            Match = match,
+                            Tournament = group.Tournament,
+                            User = member.User,
+                        });
+                    }
+                }
+            }
+            _context.AddRange(predictions);
             await _context.SaveChangesAsync();
         }
     }

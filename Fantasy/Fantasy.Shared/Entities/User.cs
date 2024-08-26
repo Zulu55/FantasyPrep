@@ -36,4 +36,8 @@ public class User : IdentityUser
     public ICollection<Group>? GroupsManaged { get; set; }
 
     public ICollection<UserGroup>? GroupsBelong { get; set; }
+
+    public ICollection<Prediction>? Predictions { get; set; }
+
+    public int PredictionsCount => Predictions == null ? 0 : Predictions.Count;
 }

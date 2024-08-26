@@ -33,4 +33,8 @@ public class Tournament
     public ICollection<Group>? Groups { get; set; }
 
     public int GroupsCount => Groups == null ? 0 : Groups.Count;
+
+    public ICollection<Prediction>? Predictions { get; set; }
+
+    public int PredictionsCount => Predictions == null ? 0 : Predictions.Count;
 }
