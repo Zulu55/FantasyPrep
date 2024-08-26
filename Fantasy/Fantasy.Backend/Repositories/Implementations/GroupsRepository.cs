@@ -69,7 +69,7 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
 
     public async Task<ActionResponse<Group>> AddAsync(GroupDTO groupDTO)
     {
-        var admin = await _usersRepository.GetUserAsync(groupDTO.AdminId);
+        var admin = await _usersRepository.GetUserAsync(Guid.Parse(groupDTO.AdminId));
         if (admin == null)
         {
             return new ActionResponse<Group>
