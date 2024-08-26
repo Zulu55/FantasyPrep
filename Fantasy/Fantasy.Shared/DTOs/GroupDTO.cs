@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Fantasy.Shared.Resources;
 
-namespace Fantasy.Shared.Entities;
+namespace Fantasy.Shared.DTOs;
 
-public class Group
+public class GroupDTO
 {
     public int Id { get; set; }
 
@@ -12,14 +12,10 @@ public class Group
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public string Name { get; set; } = null!;
 
-    public User Admin { get; set; } = null!;
-
     [Display(Name = "Admin", ResourceType = typeof(Literals))]
     [MaxLength(450, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(Literals))]
     [Required(ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public string AdminId { get; set; } = null!;
-
-    public Tournament Tournament { get; set; } = null!;
 
     [Display(Name = "Tournament", ResourceType = typeof(Literals))]
     [Range(1, int.MaxValue, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
@@ -37,8 +33,4 @@ public class Group
 
     [Display(Name = "Remarks", ResourceType = typeof(Literals))]
     public string? Remarks { get; set; }
-
-    public ICollection<UserGroup>? Members { get; set; }
-
-    public string ImageFull => string.IsNullOrEmpty(Image) ? "/images/NoImage.png" : Image;
 }
