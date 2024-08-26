@@ -2,6 +2,7 @@
 using Fantasy.Shared.Enums;
 using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Identity;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Fantasy.Shared.Entities;
 
@@ -40,4 +41,6 @@ public class User : IdentityUser
     public ICollection<Prediction>? Predictions { get; set; }
 
     public int PredictionsCount => Predictions == null ? 0 : Predictions.Count;
+
+    public string PhotoFull => string.IsNullOrEmpty(Photo) ? "/images/NoImage.png" : Photo;
 }

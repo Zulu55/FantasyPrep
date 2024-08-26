@@ -40,6 +40,8 @@ public class Group
 
     public ICollection<UserGroup>? Members { get; set; }
 
+    public int MembersCount => Members == null ? 0 : Members.Count;
+
     public string ImageFull => string.IsNullOrEmpty(Image) ? "/images/NoImage.png" : Image;
 
     public ICollection<Prediction>? Predictions { get; set; }

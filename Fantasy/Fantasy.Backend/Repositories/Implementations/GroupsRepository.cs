@@ -26,6 +26,7 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
         var queryable = _context.Groups
             .Include(x => x.Members!)
             .ThenInclude(x => x.User)
+            .Include(x => x.Tournament)
             .AsQueryable();
         queryable = queryable.Where(x => x.Members!.Any(x => x.User.Email == pagination.Email));
 
@@ -49,6 +50,7 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
         var group = await _context.Groups
             .Include(x => x.Members!)
             .ThenInclude(x => x.User)
+            .Include(x => x.Tournament)
             .FirstOrDefaultAsync(c => c.Id == id);
 
         if (group == null)

@@ -484,6 +484,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The prediction Id is not valid..
+        /// </summary>
+        public static string ERR016 {
+            get {
+                return ResourceManager.GetString("ERR016", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -547,6 +556,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group Details.
+        /// </summary>
+        public static string GroupDetails {
+            get {
+                return ResourceManager.GetString("GroupDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Groups.
         /// </summary>
         public static string Groups {
@@ -588,6 +606,15 @@ namespace Fantasy.Shared.Resources {
         public static string IsActive {
             get {
                 return ResourceManager.GetString("IsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join Group.
+        /// </summary>
+        public static string JoinGroup {
+            get {
+                return ResourceManager.GetString("JoinGroup", resourceCulture);
             }
         }
         
@@ -714,6 +741,15 @@ namespace Fantasy.Shared.Resources {
         public static string MaxLength {
             get {
                 return ResourceManager.GetString("MaxLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Members.
+        /// </summary>
+        public static string Members {
+            get {
+                return ResourceManager.GetString("Members", resourceCulture);
             }
         }
         
@@ -885,6 +921,15 @@ namespace Fantasy.Shared.Resources {
         public static string PleaseWait {
             get {
                 return ResourceManager.GetString("PleaseWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Points.
+        /// </summary>
+        public static string Points {
+            get {
+                return ResourceManager.GetString("Points", resourceCulture);
             }
         }
         

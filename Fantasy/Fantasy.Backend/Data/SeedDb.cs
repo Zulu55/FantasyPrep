@@ -107,6 +107,7 @@ public class SeedDb
                 Remarks = "Valor COP$50,000. Primer puesto 70% del premio, segundo puesto 30% del premio",
                 Tournament = copaAmerica!,
                 Image = copaAmerica?.Image,
+                IsActive = true,
                 Members =
                 [
                     new UserGroup { IsActive = true, User = zulu! },
@@ -129,6 +130,7 @@ public class SeedDb
                 Remarks = "Valor USD$30.00. Primer puesto 80% del premio, segundo puesto 20% del premio",
                 Tournament = copaAmerica!,
                 Image = copaAmerica?.Image,
+                IsActive = true,
                 Members =
                 [
                     new UserGroup { IsActive = true, User = zulu! },
