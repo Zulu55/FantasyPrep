@@ -84,11 +84,7 @@ else
                                    Color="Color.Warning"
                                    OnClick="@(() => ShowModalAsync(context.Id, true))" 
                                    Class="m-2">
-                        </MudButton>
-                        <MudButton Variant="Variant.Outlined"
-                                    EndIcon="@Icons.Material.Filled.Delete"
-                                    Color="Color.Error"
-                                    OnClick=@(() => DeleteAsync(@context))>
+                            @Localizer["Edit"]
                         </MudButton>
                     }
                 </MudTd>

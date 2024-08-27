@@ -8,17 +8,20 @@
                   For="@(() => GroupDTO.Name)"
                   Class="mb-4" />
 
-    <MudAutocomplete T="Tournament"
-                     Label=@Localizer["Tournament"]
-                     Placeholder=@Localizer["SelectATournament"]
-                     SearchFunc="SearchTournament"
-                     Value="selectedTournament"
-                     ValueChanged="TournamentChanged"
-                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
-        <ItemTemplate Context="itemContext">
-            @itemContext.Name
-        </ItemTemplate>
-    </MudAutocomplete>
+    @if(GroupDTO.Id == 0)
+    {
+        <MudAutocomplete T="Tournament"
+                         Label=@Localizer["Tournament"]
+                         Placeholder=@Localizer["SelectATournament"]
+                         SearchFunc="SearchTournament"
+                         Value="selectedTournament"
+                         ValueChanged="TournamentChanged"
+                         ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+            <ItemTemplate Context="itemContext">
+                @itemContext.Name
+            </ItemTemplate>
+        </MudAutocomplete>
+    }
 
     <MudTextField Label="@Localizer["Remarks"]"
                   @bind-Value="@GroupDTO.Remarks"
