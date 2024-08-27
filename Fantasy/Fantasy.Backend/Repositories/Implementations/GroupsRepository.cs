@@ -71,7 +71,7 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
 
     public async Task<ActionResponse<Group>> AddAsync(GroupDTO groupDTO)
     {
-        var admin = await _usersRepository.GetUserAsync(Guid.Parse(groupDTO.AdminId));
+        var admin = await _usersRepository.GetUserAsync(groupDTO.AdminId);
         if (admin == null)
         {
             return new ActionResponse<Group>
@@ -116,10 +116,10 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
         if (!string.IsNullOrEmpty(groupDTO.Image))
         {
             var imageBase64 = Convert.FromBase64String(groupDTO.Image!);
-            tournament.Image = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "groups");
+            group.Image = await _fileStorage.SaveFileAsync(imageBase64, ".jpg", "groups");
         }
 
-        _context.Add(tournament);
+        _context.Add(group);
         try
         {
             await _context.SaveChangesAsync();

@@ -1,3 +1,5 @@
-﻿<h3>GroupCreate</h3>
-
-
+﻿<MudDialog>
+    <DialogContent>
+        <GroupForm @ref="groupForm" GroupDTO="groupDTO" OnValidSubmit="CreateAsync" ReturnAction="Return" />
+    </DialogContent>
+</MudDialog>

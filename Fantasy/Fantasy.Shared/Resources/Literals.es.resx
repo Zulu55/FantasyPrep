@@ -510,4 +510,16 @@
   <data name="JoinGroup" xml:space="preserve">
     <value>Unirme a un grupo</value>
   </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactivo</value>
+  </data>
+  <data name="SelectATournament" xml:space="preserve">
+    <value>-- Seleccione un Torneo --</value>
+  </data>
+  <data name="GroupCreated" xml:space="preserve">
+    <value>Se ha creado el grupo: {0}, con el código: {1}, por favor envíe el código del grupo a las personas que deseen uniserse a este grupo.</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activo</value>
+  </data>
 </root>

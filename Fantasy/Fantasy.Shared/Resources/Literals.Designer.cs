@@ -88,6 +88,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Active.
+        /// </summary>
+        public static string Active {
+            get {
+                return ResourceManager.GetString("Active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Add {
@@ -556,6 +565,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Group: {0} has been created, with code: {1}, please send the group code to people who want to join this group..
+        /// </summary>
+        public static string GroupCreated {
+            get {
+                return ResourceManager.GetString("GroupCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Group Details.
         /// </summary>
         public static string GroupDetails {
@@ -597,6 +615,15 @@ namespace Fantasy.Shared.Resources {
         public static string Image {
             get {
                 return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inactive.
+        /// </summary>
+        public static string Inactive {
+            get {
+                return ResourceManager.GetString("Inactive", resourceCulture);
             }
         }
         
@@ -1056,6 +1083,15 @@ namespace Fantasy.Shared.Resources {
         public static string SelectATeam {
             get {
                 return ResourceManager.GetString("SelectATeam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -- Select a Tournament --.
+        /// </summary>
+        public static string SelectATournament {
+            get {
+                return ResourceManager.GetString("SelectATournament", resourceCulture);
             }
         }
         
