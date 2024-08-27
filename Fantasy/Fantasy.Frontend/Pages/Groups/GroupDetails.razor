@@ -1,0 +1,35 @@
+﻿@page "/groups/details/{GroupId:int}"
+
+@if(group is null)
+{
+    <Loading/>
+}
+else
+{
+    <MudPaper Class="p-4 my-4">
+        <MudGrid AlignItems="Center" JustifyContent="Center">
+            <MudItem xs="4" Class="d-flex justify-center">
+                <MudImage Src="@group.ImageFull" Height="100" />
+            </MudItem>
+            <MudItem xs="4" Class="d-flex justify-center">
+                <MudText Typo="Typo.h4" Align="Align.Center">@group.Name</MudText>
+            </MudItem>
+            <MudItem xs="4" Class="d-flex justify-center">
+                <MudImage Src="@group.Tournament.ImageFull" Height="100" />
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+
+    <MudTabs>
+        <MudTabPanel Text="@Localizer["Predictions"]">
+            <MudContainer MaxWidth="MaxWidth.Large">
+                <Predictions />
+            </MudContainer>
+        </MudTabPanel>
+        <MudTabPanel Text="@Localizer["Positions"]">
+            <MudContainer MaxWidth="MaxWidth.Large">
+                <Positions />
+            </MudContainer>
+        </MudTabPanel>
+    </MudTabs>
+}

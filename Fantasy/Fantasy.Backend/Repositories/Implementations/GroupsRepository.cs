@@ -234,4 +234,51 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
             Result = group
         };
     }
+
+    public async Task CheckPredictionsForAllMatchesAsync(int id)
+    {
+        var group = await _context.Groups
+            .Include(x => x.Members)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        if (group == null)
+        {
+            return;
+        }
+
+        var tournament = await _context.Tournaments
+            .Include(x => x.Matches)
+            .FirstOrDefaultAsync(x => x.Id == group.TournamentId);
+        if (group == null)
+        {
+            return;
+        }
+
+        var wasChanges = false;
+        foreach (var userGroup in group.Members!)
+        {
+            foreach (var match in tournament!.Matches!)
+            {
+                var prediction = await _context.Predictions.FirstOrDefaultAsync(x => x.GroupId == group.Id &&
+                                                                                        x.Match.Id == match.Id &&
+                                                                                        x.UserId == userGroup.UserId &&
+                                                                                        x.TournamentId == tournament.Id);
+                if (prediction == null)
+                {
+                    wasChanges = true;
+                    _context.Predictions.Add(new Prediction
+                    {
+                        Group = group,
+                        Match = match,
+                        Tournament = tournament,
+                        User = userGroup.User,
+                    });
+                }
+            }
+        }
+
+        if (wasChanges)
+        {
+            await _context.SaveChangesAsync();
+        }
+    }
 }

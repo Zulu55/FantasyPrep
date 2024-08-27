@@ -60,7 +60,7 @@ public partial class GroupsIndex
         Snackbar.Add(text, Severity.Success);
     }
 
-    private void TeamsAction(Group group)
+    private void GroupDetails(Group group)
     {
         NavigationManager.NavigateTo($"/groups/details/{group.Id}");
     }

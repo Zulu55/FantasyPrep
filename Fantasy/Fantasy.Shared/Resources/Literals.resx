@@ -540,4 +540,10 @@
   <data name="InvitationURLCopied" xml:space="preserve">
     <value>Group invitation link {0} copied to clipboard. Share it with your friends to join the group.</value>
   </data>
+  <data name="Predictions" xml:space="preserve">
+    <value>Predictions</value>
+  </data>
+  <data name="Positions" xml:space="preserve">
+    <value>Positions</value>
+  </data>
 </root>

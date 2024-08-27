@@ -19,6 +19,13 @@ public class GroupsController : GenericController<Group>
         _groupsUnitOfWork = groupsUnitOfWork;
     }
 
+    [HttpGet("CheckPredictionsForAllMatches/{id}")]
+    public async Task<IActionResult> CheckPredictionsForAllMatchesAsync(int id)
+    {
+        await _groupsUnitOfWork.CheckPredictionsForAllMatchesAsync(id);
+        return Ok();
+    }
+
     [HttpGet("paginated")]
     public override async Task<IActionResult> GetAsync(PaginationDTO pagination)
     {

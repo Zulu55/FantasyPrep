@@ -26,4 +26,6 @@ public class GroupsUnitOfWork : GenericUnitOfWork<Group>, IGroupsUnitOfWork
     public async Task<ActionResponse<Group>> UpdateAsync(GroupDTO groupDTO) => await _groupsRepository.UpdateAsync(groupDTO);
 
     public async Task<ActionResponse<Group>> GetAsync(string code) => await _groupsRepository.GetAsync(code);
+
+    public async Task CheckPredictionsForAllMatchesAsync(int id) => await _groupsRepository.CheckPredictionsForAllMatchesAsync(id);
 }

@@ -41,7 +41,7 @@ public partial class GroupEdit
             var group = responseHttp.Response;
             groupDTO = new GroupDTO()
             {
-                AdminId = group.AdminId,
+                AdminId = group!.AdminId,
                 Name = group.Name,
                 Code = group.Code,
                 Id = group.Id,

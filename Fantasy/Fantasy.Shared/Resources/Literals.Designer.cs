@@ -1006,6 +1006,24 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Positions.
+        /// </summary>
+        public static string Positions {
+            get {
+                return ResourceManager.GetString("Positions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Predictions.
+        /// </summary>
+        public static string Predictions {
+            get {
+                return ResourceManager.GetString("Predictions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Record created successfully..
         /// </summary>
         public static string RecordCreatedOk {
