@@ -12,6 +12,8 @@ public interface IGroupsRepository
 
     Task<ActionResponse<Group>> GetAsync(int id);
 
+    Task<ActionResponse<Group>> GetAsync(string code);
+
     Task<ActionResponse<IEnumerable<Group>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);

@@ -54,6 +54,17 @@ public class GroupsController : GenericController<Group>
         return NotFound(response.Message);
     }
 
+    [HttpGet("code/{code}")]
+    public async Task<IActionResult> GetAsync(string code)
+    {
+        var response = await _groupsUnitOfWork.GetAsync(code);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return NotFound(response.Message);
+    }
+
     [HttpPost("full")]
     public async Task<IActionResult> PostAsync(GroupDTO groupDTO)
     {

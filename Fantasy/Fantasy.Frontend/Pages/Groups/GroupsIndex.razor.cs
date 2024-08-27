@@ -1,4 +1,5 @@
 using System.Net;
+using Fantasy.Frontend.Helpers;
 using Fantasy.Frontend.Repositories;
 using Fantasy.Frontend.Shared;
 using Fantasy.Shared.Entities;
@@ -29,6 +30,8 @@ public partial class GroupsIndex
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
+    [Inject] private IClipboardService ClipboardService { get; set; } = null!;
+    [Inject] private IStringLocalizer<Parameters> Parameters { get; set; } = null!;
 
     [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
 
@@ -47,6 +50,14 @@ public partial class GroupsIndex
         {
             username = user.Identity.Name!;
         }
+    }
+
+    private async Task CopyInvitationAsync(Group group)
+    {
+        var joinURL = $"{Parameters["URLFront"]}/groups/join/?code={group!.Code}";
+        await ClipboardService.CopyToClipboardAsync(joinURL);
+        var text = string.Format(Localizer["InvitationURLCopied"], group!.Name);
+        Snackbar.Add(text, Severity.Success);
     }
 
     private void TeamsAction(Group group)

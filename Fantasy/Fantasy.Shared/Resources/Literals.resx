@@ -517,7 +517,7 @@
     <value>-- Select a Tournament --</value>
   </data>
   <data name="GroupCreated" xml:space="preserve">
-    <value>Group: {0} has been created, with code: {1}, please send the group code to people who want to join this group.</value>
+    <value>Group: {0} has been created, with code: {1}, Invitation URL {2} has been copied to clipboard, please share it with your friends to join your group.</value>
   </data>
   <data name="Active" xml:space="preserve">
     <value>Active</value>
@@ -530,5 +530,14 @@
   </data>
   <data name="JoinExistingGroup" xml:space="preserve">
     <value>Join an existing group</value>
+  </data>
+  <data name="ConfirmGroupMessage" xml:space="preserve">
+    <value>To join the group: {0}, click the button.</value>
+  </data>
+  <data name="CopyInvitationURLTitle" xml:space="preserve">
+    <value>Copy invitation</value>
+  </data>
+  <data name="InvitationURLCopied" xml:space="preserve">
+    <value>Group invitation link {0} copied to clipboard. Share it with your friends to join the group.</value>
   </data>
 </root>

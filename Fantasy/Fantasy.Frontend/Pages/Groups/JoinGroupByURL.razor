@@ -1,0 +1,23 @@
+﻿@page "/groups/join"
+
+@if(group is null)
+{
+    <Loading/>
+}
+else
+{
+    <MudPaper Class="confirmation-container p-4 shadow-sm">
+        <MudGrid>
+            <MudItem xs="12" Class="text-center mb-4">
+                <MudText Typo="Typo.h3">@Localizer["JoinGroup"]</MudText>
+            </MudItem>
+            <MudItem xs="12" Class="text-center mb-4">
+                <MudText Typo="Typo.body1">@string.Format(Localizer["ConfirmGroupMessage"], group.Name)</MudText>
+                <img src="@group.ImageFull" style="width:160px;" />
+            </MudItem>
+            <MudItem xs="12" Class="text-center">
+                <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="JoinGroupAsync">@Localizer["JoinGroup"]</MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+}

@@ -42,7 +42,8 @@ else
             <MudTh>@Localizer["Code"]</MudTh>
             <MudTh style="width: 80px;">@Localizer["IsActive"]</MudTh>
             <MudTh># @Localizer["Members"]</MudTh>
-            <MudTh >@Localizer["Actions"]</MudTh>
+            <MudTh style="width: 80px;">@Localizer["CopyInvitationURLTitle"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
@@ -69,25 +70,32 @@ else
                 }
             </MudTd>
             <MudTd>@context.MembersCount</MudTd>
-                <MudTd>
+            <MudTd>
                 <MudButton Variant="Variant.Filled"
-                           EndIcon="@Icons.Material.Filled.SportsSoccer"
-                           Color="Color.Info"
-                           OnClick="@(() => TeamsAction(@context))" 
-                           Class="me-2">
+                            Color="Color.Secondary"
+                            OnClick="@(() => CopyInvitationAsync(@context))">
+                    <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
+                </MudButton>
+            </MudTd>
+            <MudTd>
+                <MudButton Variant="Variant.Filled"
+                            EndIcon="@Icons.Material.Filled.SportsSoccer"
+                            Color="Color.Info"
+                            OnClick="@(() => TeamsAction(@context))" 
+                            Class="me-2">
                     @Localizer["GroupDetails"]
                 </MudButton>
                 @if (context.Admin.UserName == username)
                     {
                         <MudButton Variant="Variant.Outlined"
-                                   EndIcon="@Icons.Material.Filled.Edit"
-                                   Color="Color.Warning"
-                                   OnClick="@(() => ShowModalAsync(context.Id, true))" 
-                                   Class="m-2">
+                                    EndIcon="@Icons.Material.Filled.Edit"
+                                    Color="Color.Warning"
+                                    OnClick="@(() => ShowModalAsync(context.Id, true))" 
+                                    Class="m-2">
                             @Localizer["Edit"]
                         </MudButton>
                     }
-                </MudTd>
+            </MudTd>
         </RowTemplate>
         <NoRecordsContent>
             <MudText>@Localizer["NoRecords"]</MudText>

@@ -250,6 +250,24 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To join the group: {0}, click the button..
+        /// </summary>
+        public static string ConfirmGroupMessage {
+            get {
+                return ResourceManager.GetString("ConfirmGroupMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy invitation.
+        /// </summary>
+        public static string CopyInvitationURLTitle {
+            get {
+                return ResourceManager.GetString("CopyInvitationURLTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Countries.
         /// </summary>
         public static string Countries {
@@ -574,7 +592,7 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Group: {0} has been created, with code: {1}, please send the group code to people who want to join this group..
+        ///   Looks up a localized string similar to Group: {0} has been created, with code: {1}, Invitation URL {2} has been copied to clipboard, please share it with your friends to join your group..
         /// </summary>
         public static string GroupCreated {
             get {
@@ -633,6 +651,15 @@ namespace Fantasy.Shared.Resources {
         public static string Inactive {
             get {
                 return ResourceManager.GetString("Inactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group invitation link {0} copied to clipboard. Share it with your friends to join the group..
+        /// </summary>
+        public static string InvitationURLCopied {
+            get {
+                return ResourceManager.GetString("InvitationURLCopied", resourceCulture);
             }
         }
         

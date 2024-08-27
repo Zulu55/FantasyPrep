@@ -1,5 +1,5 @@
 using CurrieTechnologies.Razor.SweetAlert2;
-using Fantasy.Frontend.Pages.Teams;
+using Fantasy.Frontend.Helpers;
 using Fantasy.Frontend.Repositories;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
@@ -19,7 +19,9 @@ public partial class GroupCreate
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+    [Inject] private IStringLocalizer<Parameters> Parameters { get; set; } = null!;
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
+    [Inject] private IClipboardService ClipboardService { get; set; } = null!;
 
     private async Task CreateAsync()
     {
@@ -33,12 +35,14 @@ public partial class GroupCreate
             return;
         }
         var group = responseHttp.Response;
+        var joinURL = $"{Parameters["URLFront"]}/groups/join/?code={group!.Code}";
+        await ClipboardService.CopyToClipboardAsync(joinURL);
 
         Return();
         var result = await SweetAlertService.FireAsync(new SweetAlertOptions
         {
             Title = Localizer["Confirmation"],
-            Text = string.Format(Localizer["GroupCreated"], group!.Name, group.Code),
+            Text = string.Format(Localizer["GroupCreated"], group!.Name, group.Code, joinURL),
             Icon = SweetAlertIcon.Info,
         });
     }

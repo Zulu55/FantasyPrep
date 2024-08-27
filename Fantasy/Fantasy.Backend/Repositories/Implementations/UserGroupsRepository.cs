@@ -31,7 +31,7 @@ public class UserGroupsRepository : GenericRepository<UserGroup>, IUserGroupsRep
             };
         }
 
-        var user = await _usersRepository.GetUserAsync(joinGroupDTO.UserName);
+        var user = await _usersRepository.GetUserAsync(joinGroupDTO.UserName!);
         if (user == null)
         {
             return new ActionResponse<UserGroup>
