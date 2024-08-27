@@ -114,6 +114,15 @@ public partial class GroupsIndex
 
     private async Task ShowModalJoinAsync()
     {
+        var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
+        var dialog = DialogService.Show<JoinGroup>($"{Localizer["JoinExistingGroup"]}", options);
+
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadTotalRecordsAsync();
+            await table.ReloadServerData();
+        }
     }
 
     private async Task ShowModalAsync(int id = 0, bool isEdit = false)

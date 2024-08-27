@@ -502,6 +502,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The group code is not valid..
+        /// </summary>
+        public static string ERR017 {
+            get {
+                return ResourceManager.GetString("ERR017", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -633,6 +642,15 @@ namespace Fantasy.Shared.Resources {
         public static string IsActive {
             get {
                 return ResourceManager.GetString("IsActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join an existing group.
+        /// </summary>
+        public static string JoinExistingGroup {
+            get {
+                return ResourceManager.GetString("JoinExistingGroup", resourceCulture);
             }
         }
         
@@ -1218,6 +1236,15 @@ namespace Fantasy.Shared.Resources {
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User added to the group. The user can now enter and enter their predictions..
+        /// </summary>
+        public static string UserAddedToGroupOk {
+            get {
+                return ResourceManager.GetString("UserAddedToGroupOk", resourceCulture);
             }
         }
         

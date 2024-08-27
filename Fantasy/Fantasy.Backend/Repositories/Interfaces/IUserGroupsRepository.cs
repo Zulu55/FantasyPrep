@@ -6,6 +6,8 @@ namespace Fantasy.Backend.Repositories.Interfaces;
 
 public interface IUserGroupsRepository
 {
+    Task<ActionResponse<UserGroup>> JoinAsync(JoinGroupDTO joinGroupDTO);
+
     Task<ActionResponse<UserGroup>> AddAsync(UserGroupDTO userGroupDTO);
 
     Task<ActionResponse<UserGroup>> UpdateAsync(UserGroupDTO userGroupDTO);
