@@ -101,9 +101,21 @@ public partial class Predictions
         NavigationManager.NavigateTo("/groups");
     }
 
-    private async Task EditPredictionAsync(Prediction prediction)
+    private async Task EditPredictionAsync(int id)
     {
-        //TODO: Pending
+        var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
+        var parameters = new DialogParameters
+        {
+            { "Id", id }
+        };
+        var dialog = DialogService.Show<PredictionEdit>($"{Localizer["Edit"]} {Localizer["Prediction"]}", parameters, options);
+
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadAsync();
+            await table.ReloadServerData();
+        }
     }
 
     private async Task WatchPredictionAsync(Prediction prediction)

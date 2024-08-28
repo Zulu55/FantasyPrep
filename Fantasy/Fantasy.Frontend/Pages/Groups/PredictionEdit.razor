@@ -1,0 +1,12 @@
+﻿@if (predictionDTO is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <PredictionForm @ref="predictionForm" PredictionDTO="predictionDTO" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}
