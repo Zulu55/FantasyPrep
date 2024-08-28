@@ -10,7 +10,7 @@ namespace Fantasy.Frontend.Pages.Tournaments;
 public partial class AddMatch
 {
     private MatchDTO? matchDTO;
-    private AddMatchForm? addMatchForm;
+    private MatchForm? addMatchForm;
 
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
@@ -22,8 +22,9 @@ public partial class AddMatch
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        matchDTO = new MatchDTO()
+        matchDTO = new MatchDTO
         {
+            IsActive = true,
             TournamentId = Id,
         };
     }

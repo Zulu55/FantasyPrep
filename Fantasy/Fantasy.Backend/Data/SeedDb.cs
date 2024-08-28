@@ -236,7 +236,7 @@ public class SeedDb
                     new TournamentTeam { Team = bolivia! },
                     new TournamentTeam { Team = paraguay! },
                     new TournamentTeam { Team = unitedStates! },
-                    new TournamentTeam { Team = mexico! },
+                    new TournamentTeam { Team = canada! },
                 ],
                 Matches =
                 [

@@ -11,7 +11,7 @@ using MudBlazor;
 
 namespace Fantasy.Frontend.Pages.Tournaments;
 
-public partial class AddMatchForm
+public partial class MatchForm
 {
     private EditContext editContext = null!;
     private Team selectedLocal = new();
@@ -36,19 +36,41 @@ public partial class AddMatchForm
 
     protected override void OnInitialized()
     {
+        base.OnInitialized();
         editContext = new(MatchDTO);
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadMatchesAsync();
-    }
-
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
         base.OnParametersSet();
+        await LoadMatchesAsync();
         isActiveMessage = MatchDTO.IsActive ? Localizer["MatchActive"] : Localizer["MatchInactive"];
-        MatchDTO.Date = DateTime.Now;
+        if (MatchDTO.Id != 0)
+        {
+            LoadInitialValues();
+        }
+        else
+        {
+            MatchDTO.Date = DateTime.Now;
+        }
+    }
+
+    private void LoadInitialValues()
+    {
+        var local = teams!.FirstOrDefault(x => x.Id == MatchDTO.LocalId)!;
+        var visitor = teams!.FirstOrDefault(x => x.Id == MatchDTO.VisitorId)!;
+        if (local != null)
+        {
+            selectedLocal = local;
+            imageUrlLocal = local.ImageFull;
+        }
+        if (visitor != null)
+        {
+            selectedVisitor = visitor;
+            imageUrlVisitor = visitor.ImageFull;
+        }
+        selectedDate = MatchDTO.Date.ToLocalTime().Date;
+        selectedTime = MatchDTO.Date.ToLocalTime().TimeOfDay;
     }
 
     private async Task LoadMatchesAsync()

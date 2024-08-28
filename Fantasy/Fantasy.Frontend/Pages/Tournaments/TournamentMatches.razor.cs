@@ -133,18 +133,33 @@ public partial class TournamentMatches
         NavigationManager.NavigateTo("/tournaments");
     }
 
-    private async Task ShowModalAsync()
+    private async Task ShowModalAsync(int id = 0, bool isEdit = false)
     {
         var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
-        var parameters = new DialogParameters
+        IDialogReference? dialog;
+        if (isEdit)
+        {
+            var parameters = new DialogParameters
                 {
-                    { "Id", TournamentId }
+                    { "Id", id }
                 };
+            dialog = DialogService.Show<EditMatch>($"{Localizer["Edit"]} {Localizer["Match"]}", parameters, options);
+        }
+        else
+        {
+            var parameters = new DialogParameters
+            {
+                { "Id", TournamentId }
+            };
+            dialog = DialogService.Show<AddMatch>(Localizer["AddMatchToTournament"], parameters, options);
+        }
 
-        var dialog = DialogService.Show<AddMatch>(Localizer["AddMatchToTournament"], parameters, options);
-        await dialog.Result;
-        await LoadAsync();
-        await table.ReloadServerData();
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadAsync();
+            await table.ReloadServerData();
+        }
     }
 
     private void NoTournament()

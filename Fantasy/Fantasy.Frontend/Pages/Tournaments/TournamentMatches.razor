@@ -43,7 +43,7 @@ else
             <MudTh>@Localizer["GoalsVisitor"]</MudTh>
             <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["Visitor"]</MudTh>
-            <MudTh style="width: 170px;">Acciones</MudTh>
+            <MudTh style="width: 280px;">Acciones</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.DateLocal</MudTd>
@@ -68,6 +68,13 @@ else
             </MudTd>
             <MudTd>@context.Visitor.Name</MudTd>
             <MudTd>
+                <MudButton Variant="Variant.Outlined"
+                           EndIcon="@Icons.Material.Filled.Edit"
+                           Color="Color.Warning"
+                           OnClick="@(() => ShowModalAsync(context.Id, true))"
+                           Class="me-2">
+                    @Localizer["Edit"]
+                </MudButton>
                 <MudButton Variant="Variant.Outlined"
                            EndIcon="@Icons.Material.Filled.Delete"
                            Color="Color.Error"
