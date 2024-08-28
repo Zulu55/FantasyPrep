@@ -549,4 +549,7 @@
   <data name="Watch" xml:space="preserve">
     <value>Watch</value>
   </data>
+  <data name="Prediction" xml:space="preserve">
+    <value>Prediction</value>
+  </data>
 </root>
