@@ -13,7 +13,7 @@ namespace Fantasy.Frontend.Pages.Groups;
 public partial class GroupCreate
 {
     private GroupForm? groupForm;
-    private GroupDTO groupDTO = new();
+    private GroupDTO groupDTO = new() { IsActive = true };
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;

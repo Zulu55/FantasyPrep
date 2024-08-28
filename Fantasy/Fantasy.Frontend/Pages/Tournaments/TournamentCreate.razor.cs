@@ -10,7 +10,7 @@ namespace Fantasy.Frontend.Pages.Tournaments;
 public partial class TournamentCreate
 {
     private TournamentForm? tournamentForm;
-    private TournamentDTO tournamentDTO = new();
+    private TournamentDTO tournamentDTO = new() { IsActive = true };
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;

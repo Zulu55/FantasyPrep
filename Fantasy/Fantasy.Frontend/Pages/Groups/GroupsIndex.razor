@@ -73,7 +73,8 @@ else
             <MudTd>
                 <MudButton Variant="Variant.Filled"
                             Color="Color.Secondary"
-                            OnClick="@(() => CopyInvitationAsync(@context))">
+                            OnClick="@(() => CopyInvitationAsync(@context))"
+                            Disabled="@(!context.IsActive)">
                     <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
                 </MudButton>
             </MudTd>
@@ -81,8 +82,9 @@ else
                 <MudButton Variant="Variant.Filled"
                             EndIcon="@Icons.Material.Filled.SportsSoccer"
                             Color="Color.Info"
-                            OnClick="@(() => GroupDetails(@context))" 
-                            Class="me-2">
+                            OnClick="@(() => GroupDetails(@context))"
+                           Class="me-2"
+                           Disabled="@(!context.IsActive)">
                     @Localizer["GroupDetails"]
                 </MudButton>
                 @if (context.Admin.UserName == username)
