@@ -253,7 +253,7 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
             return;
         }
 
-        var wasChanges = false;
+        var newPredictions = new List<Prediction>();
         foreach (var userGroup in group.Members!)
         {
             foreach (var match in tournament!.Matches!)
@@ -264,21 +264,29 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
                                                                                         x.TournamentId == tournament.Id);
                 if (prediction == null)
                 {
-                    wasChanges = true;
-                    _context.Predictions.Add(new Prediction
+                    newPredictions.Add(new Prediction
                     {
                         Group = group,
                         Match = match,
                         Tournament = tournament,
                         User = userGroup.User,
+                        UserId = userGroup.UserId,
                     });
                 }
             }
         }
 
-        if (wasChanges)
+        if (newPredictions.Count > 0)
         {
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.AddRange(newPredictions);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
         }
     }
 }

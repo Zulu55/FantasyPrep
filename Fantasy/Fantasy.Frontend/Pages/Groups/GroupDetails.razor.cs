@@ -21,7 +21,7 @@ public partial class GroupDetails
     protected override async Task OnParametersSetAsync()
     {
         await LoadGroupAsync();
-        _ = Task.Run(() => CheckPredictionsForAllMatchesAsync());
+        await CheckPredictionsForAllMatchesAsync();
     }
 
     private async Task CheckPredictionsForAllMatchesAsync()
