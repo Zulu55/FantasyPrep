@@ -1,3 +1,89 @@
-﻿<h3>Predictions</h3>
+﻿@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@predictions"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true"
+              Class="mt-4">
+        <ToolBarContent>
+            <MudButton Variant="Variant.Outlined"
+                       Class="mr-4"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Tertiary"
+                       OnClick="ReturnAction">
+                @Localizer["Return"]
+            </MudButton>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>@Localizer["Date"]</MudTh>
+            <MudTh>@Localizer["Local"]</MudTh>
+            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["GoalsLocal"]</MudTh>
+            <MudTh>@Localizer["GoalsVisitor"]</MudTh>
+            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["Visitor"]</MudTh>
+            <MudTh>@Localizer["Points"]</MudTh>
+            <MudTh style="width: 170px;">Acciones</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Match.DateLocal</MudTd>
+            <MudTd>@context.Match.Local.Name</MudTd>
+            <MudTd style="text-align:center; vertical-align:middle;">
+                <img src="@context.Match.Local.ImageFull" style="max-width:80px; max-height:80px;" />
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsLocal</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsVisitor</MudText>
+            </MudTd>
+            <MudTd style="text-align:center; vertical-align:middle;">
+                <img src="@context.Match.Visitor.ImageFull" style="max-width:80px; max-height:80px;" />
+            </MudTd>
+            <MudTd>@context.Match.Visitor.Name</MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h3" Align="Align.Center">@context.Points</MudText>
+            </MudTd>
+            <MudTd>
+                @if (CanWatch(context.Match.DateLocal))
+                {
+                    <MudButton Variant="Variant.Filled"
+                               EndIcon="@Icons.Material.Filled.Visibility"
+                               Color="Color.Info"
+                               OnClick=@(() => WatchPredictionAsync(@context))>
+                        @Localizer["Watch"] @Localizer["Predictions"]
+                    </MudButton>
+                }
+                else
+                {
+                    <MudButton Variant="Variant.Filled"
+                               EndIcon="@Icons.Material.Filled.Edit"
+                               Color="Color.Warning"
+                               OnClick=@(() => EditPredictionAsync(@context))>
+                        @Localizer["Edit"] @Localizer["Prediction"]
+                    </MudButton>
+                }
+            </MudTd>
 
-
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

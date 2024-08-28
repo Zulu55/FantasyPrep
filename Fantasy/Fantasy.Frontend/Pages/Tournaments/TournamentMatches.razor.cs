@@ -15,7 +15,6 @@ public partial class TournamentMatches
 {
     private Tournament? tournament;
     private List<Match>? matches;
-
     private MudTable<Match> table = new();
     private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
     private int totalRecords = 0;

@@ -1339,6 +1339,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Watch.
+        /// </summary>
+        public static string Watch {
+            get {
+                return ResourceManager.GetString("Watch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Yes {
