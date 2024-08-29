@@ -253,8 +253,8 @@ namespace Fantasy.Backend.Repositories.Implementations
         private int CalculatePoints(Match match, Prediction prediction)
         {
             int points = 0;
-            var matchStatus = GetMatchStatus(match);
-            var predictionStatus = GetMatchStatus(prediction);
+            var matchStatus = GetMatchStatus(match.GoalsLocal!.Value, match.GoalsVisitor!.Value);
+            var predictionStatus = GetMatchStatus(prediction.GoalsLocal!.Value, prediction.GoalsVisitor!.Value);
             if (matchStatus == predictionStatus) points += 5;
             if (match.GoalsLocal == prediction.GoalsLocal) points += 2;
             if (match.GoalsVisitor == prediction.GoalsVisitor) points += 2;
@@ -262,17 +262,10 @@ namespace Fantasy.Backend.Repositories.Implementations
             return points;
         }
 
-        private MatchStatus GetMatchStatus(Prediction prediction)
+        private MatchStatus GetMatchStatus(int goalsLocal, int goalsVisitor)
         {
-            if (prediction.GoalsLocal > prediction.GoalsVisitor) return MatchStatus.LocalWin;
-            if (prediction.GoalsLocal < prediction.GoalsVisitor) return MatchStatus.VisitorWin;
-            return MatchStatus.Tie;
-        }
-
-        private MatchStatus GetMatchStatus(Match match)
-        {
-            if (match.GoalsLocal > match.GoalsVisitor) return MatchStatus.LocalWin;
-            if (match.GoalsLocal < match.GoalsVisitor) return MatchStatus.VisitorWin;
+            if (goalsLocal > goalsVisitor) return MatchStatus.LocalWin;
+            if (goalsLocal < goalsVisitor) return MatchStatus.VisitorWin;
             return MatchStatus.Tie;
         }
     }
