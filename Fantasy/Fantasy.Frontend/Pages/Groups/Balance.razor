@@ -4,7 +4,7 @@
 }
 else
 {
-    <MudTable Items="@positions"
+    <MudTable Items="@predictions"
               @ref="table"
               ServerData="LoadListAsync"
               Dense="true"
@@ -25,30 +25,36 @@ else
             <FilterComponent ApplyFilter="SetFilterValue" />
         </ToolBarContent>
         <HeaderContent>
-            <MudTh>@Localizer["Image"]</MudTh>
-            <MudTh>@Localizer["User"]</MudTh>
+            <MudTh>@Localizer["Local"]</MudTh>
+            <MudTh>@Localizer["Visitor"]</MudTh>
+            <MudTh>@Localizer["Local"]</MudTh>
+            <MudTh>@Localizer["Visitor"]</MudTh>
+            <MudTh>@Localizer["RealScore"]</MudTh>
+            <MudTh>@Localizer["PredictedScore"]</MudTh>
             <MudTh>@Localizer["Points"]</MudTh>
-            <MudTh style="width: 170px;">@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>
-                <MudImage Src="@context.User.PhotoFull" Width="80" Height="80" Style="border-radius: 50%;" />
+                <MudText Typo="Typo.body1" Align="Align.Center">@context.Match.Local.Name</MudText>
             </MudTd>
             <MudTd>
-                <MudText Typo="Typo.h4" Align="Align.Center">@context.User.FullName</MudText>
+                <MudText Typo="Typo.body1" Align="Align.Center">@context.Match.Visitor.Name</MudText>
             </MudTd>
             <MudTd>
-                <MudText Typo="Typo.h3" Align="Align.Center">@context.Points</MudText>
+                <MudImage Src="@context.Match.Local.ImageFull" Width="60" Height="40" />
             </MudTd>
             <MudTd>
-                <MudButton Variant="Variant.Filled"
-                            EndIcon="@Icons.Material.Filled.Visibility"
-                            Color="Color.Info"
-                            OnClick=@(() => WatchBalanceAsync(@context))>
-                    @Localizer["PredictionsBalance"]
-                </MudButton>
+                <MudImage Src="@context.Match.Visitor.ImageFull" Width="60" Height="40" />
             </MudTd>
-
+            <MudTd>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.Match.GoalsLocal - @context.Match.GoalsVisitor</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.GoalsLocal - @context.GoalsVisitor</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.Points</MudText>
+            </MudTd>
         </RowTemplate>
         <NoRecordsContent>
             <MudText>@Localizer["NoRecords"]</MudText>

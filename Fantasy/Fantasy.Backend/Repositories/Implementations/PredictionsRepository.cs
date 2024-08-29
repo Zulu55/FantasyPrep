@@ -340,4 +340,53 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
             Result = (int)count
         };
     }
+
+    public async Task<ActionResponse<IEnumerable<Prediction>>> GetBalanceAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Predictions
+            .Include(x => x.Match)
+            .ThenInclude(x => x.Local)
+            .Include(x => x.Match)
+            .ThenInclude(x => x.Visitor)
+            .Include(x => x.User)
+            .AsQueryable();
+        queryable = queryable.Where(x => x.GroupId == pagination.Id);
+        queryable = queryable.Where(x => x.User.Email == pagination.Email);
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Match.Local.Name.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                                x.Match.Visitor.Name.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        return new ActionResponse<IEnumerable<Prediction>>
+        {
+            WasSuccess = true,
+            Result = await queryable
+                .OrderBy(x => x.User.FirstName)
+                .ThenBy(x => x.User.LastName)
+                .Paginate(pagination)
+                .ToListAsync()
+        };
+    }
+
+    public async Task<ActionResponse<int>> GetTotalRecordsBalanceAsync(PaginationDTO pagination)
+    {
+        var queryable = _context.Predictions.AsQueryable();
+        queryable = queryable.Where(x => x.GroupId == pagination.Id);
+        queryable = queryable.Where(x => x.User.Email == pagination.Email);
+
+        if (!string.IsNullOrWhiteSpace(pagination.Filter))
+        {
+            queryable = queryable.Where(x => x.Match.Local.Name.ToLower().Contains(pagination.Filter.ToLower()) ||
+                                                x.Match.Visitor.Name.ToLower().Contains(pagination.Filter.ToLower()));
+        }
+
+        double count = await queryable.CountAsync();
+        return new ActionResponse<int>
+        {
+            WasSuccess = true,
+            Result = (int)count
+        };
+    }
 }
