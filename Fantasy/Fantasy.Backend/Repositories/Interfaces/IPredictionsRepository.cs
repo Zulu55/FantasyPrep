@@ -6,6 +6,10 @@ namespace Fantasy.Backend.Repositories.Interfaces;
 
 public interface IPredictionsRepository
 {
+    Task<ActionResponse<IEnumerable<PositionDTO>>> GetPositionsAsync(PaginationDTO pagination);
+
+    Task<ActionResponse<int>> GetTotalRecordsForPositionsAsync(PaginationDTO pagination);
+
     Task<ActionResponse<Prediction>> AddAsync(PredictionDTO predictionDTO);
 
     Task<ActionResponse<Prediction>> UpdateAsync(PredictionDTO predictionDTO);

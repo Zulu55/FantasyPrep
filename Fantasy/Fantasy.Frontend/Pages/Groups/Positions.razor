@@ -1,3 +1,63 @@
-﻿<h3>Positions</h3>
+﻿@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@positions"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true"
+              Class="mt-4">
+        <ToolBarContent>
+            <MudButton Variant="Variant.Outlined"
+                       Class="mr-4"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Tertiary"
+                       OnClick="ReturnAction">
+                @Localizer["Return"]
+            </MudButton>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["User"]</MudTh>
+            <MudTh>@Localizer["Points"]</MudTh>
+            <MudTh style="width: 170px;">@Localizer["Actions"]</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>
+                <img src="@context.User.PhotoFull" width="80" height="80" style="border-radius:50%" />
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h4" Align="Align.Center">@context.User.FullName</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h3" Align="Align.Center">@context.Points</MudText>
+            </MudTd>
+            <MudTd>
+                <MudButton Variant="Variant.Filled"
+                            EndIcon="@Icons.Material.Filled.Visibility"
+                            Color="Color.Info"
+                            OnClick=@(() => WatchPredictionAsync(@context))>
+                    @Localizer["Watch"] @Localizer["Predictions"]
+                </MudButton>
+            </MudTd>
 
-
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

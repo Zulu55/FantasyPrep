@@ -24,4 +24,8 @@ public class PredictionsUnitOfWork : GenericUnitOfWork<Prediction>, IPredictions
     public async Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO paginationDTO) => await _predictionsRepository.GetTotalRecordsAsync(paginationDTO);
 
     public async Task<ActionResponse<Prediction>> UpdateAsync(PredictionDTO predictionDTO) => await _predictionsRepository.UpdateAsync(predictionDTO);
+
+    public async Task<ActionResponse<IEnumerable<PositionDTO>>> GetPositionsAsync(PaginationDTO pagination) => await _predictionsRepository.GetPositionsAsync(pagination);
+
+    public async Task<ActionResponse<int>> GetTotalRecordsForPositionsAsync(PaginationDTO pagination) => await _predictionsRepository.GetTotalRecordsForPositionsAsync(pagination);
 }
