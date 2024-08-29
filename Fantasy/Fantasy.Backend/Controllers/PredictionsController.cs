@@ -20,6 +20,28 @@ public class PredictionsController : GenericController<Prediction>
         _predictionsUnitOfWork = predictionsUnitOfWork;
     }
 
+    [HttpGet("paginatedAllPredictions")]
+    public async Task<IActionResult> GetAllPredictionsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var response = await _predictionsUnitOfWork.GetAllPredictionsAsync(pagination);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return BadRequest();
+    }
+
+    [HttpGet("totalRecordsPaginatedAllPredictions")]
+    public async Task<IActionResult> GetTotalRecordsAllPredictionsAsync([FromQuery] PaginationDTO pagination)
+    {
+        var action = await _predictionsUnitOfWork.GetTotalRecordsAllPredictionsAsync(pagination);
+        if (action.WasSuccess)
+        {
+            return Ok(action.Result);
+        }
+        return BadRequest();
+    }
+
     [HttpGet("positions")]
     public async Task<IActionResult> GetPositionsAsync([FromQuery] PaginationDTO pagination)
     {

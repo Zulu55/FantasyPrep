@@ -1,25 +1,25 @@
 using Fantasy.Frontend.Repositories;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 
 namespace Fantasy.Frontend.Pages.Groups;
 
-[Authorize(Roles = "Admin, User")]
-public partial class Predictions
+public partial class WatchPredictions
 {
     private List<Prediction>? predictions;
     private MudTable<Prediction> table = new();
     private readonly int[] pageSizeOptions = { 10, 25, 50, int.MaxValue };
     private int totalRecords = 0;
     private bool loading;
-    private const string baseUrlMatch = "api/predictions";
+    private const string baseUrl = "api/predictions";
     private string infoFormat = "{first_item}-{last_item} de {all_items}";
+    private Match? match;
 
     [Parameter] public int GroupId { get; set; }
+    [Parameter] public int MatchId { get; set; }
 
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
@@ -43,7 +43,7 @@ public partial class Predictions
     {
         loading = true;
 
-        var url = $"{baseUrlMatch}/totalRecordsPaginated/?id={GroupId}";
+        var url = $"{baseUrl}/totalRecordsPaginatedAllPredictions/?id={GroupId}&id2={MatchId}";
         if (!string.IsNullOrWhiteSpace(Filter))
         {
             url += $"&filter={Filter}";
@@ -64,7 +64,7 @@ public partial class Predictions
     {
         int page = state.Page + 1;
         int pageSize = state.PageSize;
-        var url = $"{baseUrlMatch}/paginated?id={GroupId}&page={page}&recordsnumber={pageSize}";
+        var url = $"{baseUrl}/paginatedAllPredictions/?id={GroupId}&id2={MatchId}&page={page}&recordsnumber={pageSize}";
 
         if (!string.IsNullOrWhiteSpace(Filter))
         {
@@ -98,54 +98,6 @@ public partial class Predictions
 
     private void ReturnAction()
     {
-        NavigationManager.NavigateTo("/groups");
-    }
-
-    private async Task EditPredictionAsync(int id)
-    {
-        var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
-        var parameters = new DialogParameters
-        {
-            { "Id", id }
-        };
-        var dialog = DialogService.Show<PredictionEdit>($"{Localizer["Edit"]} {Localizer["Prediction"]}", parameters, options);
-
-        var result = await dialog.Result;
-        if (result!.Canceled)
-        {
-            await LoadAsync();
-            await table.ReloadServerData();
-        }
-    }
-
-    private async Task WatchPredictionsAsync(Prediction prediction)
-    {
-        var options = new DialogOptions()
-        {
-            CloseOnEscapeKey = true,
-            CloseButton = true,
-            MaxWidth = MaxWidth.Medium,
-            FullWidth = true
-        };
-        var parameters = new DialogParameters
-        {
-            { "GroupId", prediction.GroupId },
-            { "MatchId", prediction.MatchId }
-        };
-        var dialog = DialogService.Show<WatchPredictions>($"{Localizer["Watch"]} {Localizer["Predictions"]}", parameters, options);
-
-        await dialog.Result;
-    }
-
-    private bool CanWatch(Prediction prediction)
-    {
-        if (prediction.Points != null)
-        {
-            return true;
-        }
-
-        var difference = DateTime.Now - prediction.Match.Date;
-        var minutes = difference.TotalMinutes;
-        return minutes >= 10;
+        NavigationManager.NavigateTo($"/groups/details/{GroupId}");
     }
 }

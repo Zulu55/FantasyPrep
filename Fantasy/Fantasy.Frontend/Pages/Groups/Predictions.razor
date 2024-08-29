@@ -58,9 +58,9 @@ else
                 @if (CanWatch(context))
                 {
                     <MudButton Variant="Variant.Filled"
-                               EndIcon="@Icons.Material.Filled.Visibility"
-                               Color="Color.Info"
-                               OnClick=@(() => WatchPredictionAsync(@context))>
+                                EndIcon="@Icons.Material.Filled.Visibility"
+                                Color="Color.Info"
+                                OnClick=@(() => WatchPredictionsAsync(@context))>
                         @Localizer["Watch"] @Localizer["Predictions"]
                     </MudButton>
                 }

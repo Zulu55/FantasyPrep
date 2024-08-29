@@ -1,0 +1,67 @@
+﻿@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@predictions"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true"
+              Class="mt-4">
+        <ToolBarContent>
+            <MudButton Variant="Variant.Outlined"
+                       Class="mr-4"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Tertiary"
+                       OnClick="ReturnAction">
+                @Localizer["Return"]
+            </MudButton>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["User"]</MudTh>
+            <MudTh>@Localizer["Local"]</MudTh>
+            <MudTh>@Localizer["Visitor"]</MudTh>
+            <MudTh>@Localizer["RealScore"]</MudTh>
+            <MudTh>@Localizer["PredictedScore"]</MudTh>
+            <MudTh>@Localizer["Points"]</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>
+                <MudImage Src="@context.User.Photo" Width="60" Height="60" Style="border-radius: 50%;" />
+            </MudTd>
+            <MudTd>@context.User.FullName</MudTd>
+            <MudTd>
+                <MudImage Src="@context.Match.Local.ImageFull" Width="60" Height="40" />
+            </MudTd>
+            <MudTd>
+                <MudImage Src="@context.Match.Visitor.ImageFull" Width="60" Height="40" />
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.Match.GoalsLocal - @context.Match.GoalsVisitor</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.GoalsLocal - @context.GoalsVisitor</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.Points</MudText>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

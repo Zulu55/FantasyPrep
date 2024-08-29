@@ -570,4 +570,10 @@
   <data name="ERR018" xml:space="preserve">
     <value>Este partido ya no admite predicciones.</value>
   </data>
+  <data name="RealScore" xml:space="preserve">
+    <value>Marcador Real</value>
+  </data>
+  <data name="PredictedScore" xml:space="preserve">
+    <value>Marcador Predecido</value>
+  </data>
 </root>

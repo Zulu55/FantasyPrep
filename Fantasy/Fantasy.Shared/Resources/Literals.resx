@@ -570,4 +570,10 @@
   <data name="ERR018" xml:space="preserve">
     <value>This match is no longer open to predictions.</value>
   </data>
+  <data name="RealScore" xml:space="preserve">
+    <value>Real Score</value>
+  </data>
+  <data name="PredictedScore" xml:space="preserve">
+    <value>PredictedScore</value>
+  </data>
 </root>
