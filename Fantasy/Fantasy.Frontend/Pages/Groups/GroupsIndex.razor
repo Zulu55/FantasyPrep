@@ -42,21 +42,20 @@ else
             <MudTh>@Localizer["Code"]</MudTh>
             <MudTh style="width: 80px;">@Localizer["IsActive"]</MudTh>
             <MudTh># @Localizer["Members"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["CopyInvitationURLTitle"]</MudTh>
             <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
             <MudTd>
-                <img src="@context.ImageFull" style="width:80px;" />
+                <MudImage Src="@context.ImageFull" Width="80" />
             </MudTd>
             <MudTd>@context.Admin.FullName</MudTd>
             <MudTd>
-                <img src="@context.Admin.PhotoFull" width="80" height="80" style="border-radius:50%" />
+                <MudImage Src="@context.Admin.PhotoFull" Width="80" Height="80" Style="border-radius: 50%;" />
             </MudTd>
             <MudTd>@context.Tournament.Name</MudTd>
             <MudTd>
-                <img src="@context.Tournament.ImageFull" style="width:80px;" />
+                <MudImage Src="@context.Tournament.ImageFull" Width="80" />
             </MudTd>
             <MudTd>@context.Code</MudTd>
             <MudTd>
@@ -71,32 +70,35 @@ else
             </MudTd>
             <MudTd>@context.MembersCount</MudTd>
             <MudTd>
-                <MudButton Variant="Variant.Filled"
-                            Color="Color.Secondary"
-                            OnClick="@(() => CopyInvitationAsync(@context))"
-                            Disabled="@(!context.IsActive)">
-                    <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
-                </MudButton>
-            </MudTd>
-            <MudTd>
-                <MudButton Variant="Variant.Filled"
-                            EndIcon="@Icons.Material.Filled.SportsSoccer"
-                            Color="Color.Info"
-                            OnClick="@(() => GroupDetails(@context))"
-                           Class="me-2"
-                           Disabled="@(!context.IsActive)">
-                    @Localizer["GroupDetails"]
-                </MudButton>
-                @if (context.Admin.UserName == username)
+                <MudStack Spacing="2">
+                    <MudButton Variant="Variant.Filled"
+                               EndIcon="@Icons.Material.Filled.SportsSoccer"
+                               Color="Color.Info"
+                               OnClick="@(() => GroupDetails(@context))"
+                               Disabled="@(!context.IsActive)">
+                        @Localizer["GroupDetails"]
+                    </MudButton>
+                    @if (context.Admin.UserName == username)
                     {
-                        <MudButton Variant="Variant.Outlined"
-                                    EndIcon="@Icons.Material.Filled.Edit"
-                                    Color="Color.Warning"
-                                    OnClick="@(() => ShowModalAsync(context.Id, true))" 
-                                    Class="m-2">
-                            @Localizer["Edit"]
-                        </MudButton>
+                        <MudStack Row="true" Spacing="2">
+                            <MudTooltip Text="@Localizer["Edit"]">
+                                <MudButton Variant="Variant.Filled"
+                                           Color="Color.Warning"
+                                           OnClick="@(() => ShowModalAsync(context.Id, true))">
+                                    <MudIcon Icon="@Icons.Material.Filled.Edit" />
+                                </MudButton>
+                            </MudTooltip>
+                            <MudTooltip Text="@Localizer["CopyInvitationURLTitle"]">
+                                <MudButton Variant="Variant.Filled"
+                                           Color="Color.Secondary"
+                                           OnClick="@(() => CopyInvitationAsync(@context))"
+                                           Disabled="@(!context.IsActive)">
+                                    <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
+                                </MudButton>
+                            </MudTooltip>
+                        </MudStack>
                     }
+                </MudStack>
             </MudTd>
         </RowTemplate>
         <NoRecordsContent>

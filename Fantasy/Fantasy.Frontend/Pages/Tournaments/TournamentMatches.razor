@@ -15,7 +15,7 @@ else
               FixedHeader="true"
               FixedFooter="true">
         <ToolBarContent>
-            <img src="@tournament!.ImageFull" style="max-width:80px; max-height:80px;" />
+            <MudImage Src="@tournament!.ImageFull" Width="80" Height="80" />
             <MudText Typo="Typo.h6" Class="mr-4">@tournament?.Name</MudText>
             <MudButton Variant="Variant.Outlined"
                        Class="mr-4"
@@ -38,10 +38,10 @@ else
             <MudTh>@Localizer["Date"]</MudTh>
             <MudTh>@Localizer["IsActive"]</MudTh>
             <MudTh>@Localizer["Local"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
+            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["GoalsLocal"]</MudTh>
             <MudTh>@Localizer["GoalsVisitor"]</MudTh>
-            <MudTh style="width: 80px;">@Localizer["Image"]</MudTh>
+            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["Visitor"]</MudTh>
             <MudTh style="width: 410px;">@Localizer["Actions"]</MudTh>
         </HeaderContent>
@@ -59,7 +59,7 @@ else
             </MudTd>
             <MudTd>@context.Local.Name</MudTd>
             <MudTd style="text-align:center; vertical-align:middle;">
-                <img src="@context.Local.ImageFull" style="max-width:80px; max-height:80px;" />
+                <MudImage Src="@context.Local.ImageFull" Width="90" Height="60" />
             </MudTd>
             <MudTd>
                 <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsLocal</MudText>
@@ -68,7 +68,7 @@ else
                 <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsVisitor</MudText>
             </MudTd>
             <MudTd style="text-align:center; vertical-align:middle;">
-                <img src="@context.Visitor.ImageFull" style="max-width:80px; max-height:80px;" />
+                <MudImage Src="@context.Visitor.ImageFull" Width="90" Height="60" />
             </MudTd>
             <MudTd>@context.Visitor.Name</MudTd>
             <MudTd>

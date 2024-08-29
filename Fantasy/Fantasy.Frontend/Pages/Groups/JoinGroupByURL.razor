@@ -13,7 +13,7 @@ else
             </MudItem>
             <MudItem xs="12" Class="text-center mb-4">
                 <MudText Typo="Typo.body1">@string.Format(Localizer["ConfirmGroupMessage"], group.Name)</MudText>
-                <img src="@group.ImageFull" style="width:160px;" />
+                <MudImage Src="@group.ImageFull" Width="160" />
             </MudItem>
             <MudItem xs="12" Class="text-center">
                 <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="JoinGroupAsync">@Localizer["JoinGroup"]</MudButton>
