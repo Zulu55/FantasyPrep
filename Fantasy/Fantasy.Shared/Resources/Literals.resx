@@ -552,4 +552,19 @@
   <data name="Prediction" xml:space="preserve">
     <value>Prediction</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="CloseMatchConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to close the match {0} Vs. {1}?</value>
+  </data>
+  <data name="CloseMatchTitle" xml:space="preserve">
+    <value>Close Match</value>
+  </data>
+  <data name="GoalsLocalError" xml:space="preserve">
+    <value>You must enter a value greater than or equal to zero in local goals.</value>
+  </data>
+  <data name="GoalsVisitorError" xml:space="preserve">
+    <value>You must enter a value greater than or equal to zero in visitor goals.</value>
+  </data>
 </root>

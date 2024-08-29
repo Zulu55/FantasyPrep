@@ -196,6 +196,33 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to close the match {0} Vs. {1}?.
+        /// </summary>
+        public static string CloseMatchConfirmMessage {
+            get {
+                return ResourceManager.GetString("CloseMatchConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close Match.
+        /// </summary>
+        public static string CloseMatchTitle {
+            get {
+                return ResourceManager.GetString("CloseMatchTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         public static string Code {
@@ -574,11 +601,29 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must enter a value greater than or equal to zero in local goals..
+        /// </summary>
+        public static string GoalsLocalError {
+            get {
+                return ResourceManager.GetString("GoalsLocalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Goals Visitor.
         /// </summary>
         public static string GoalsVisitor {
             get {
                 return ResourceManager.GetString("GoalsVisitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter a value greater than or equal to zero in visitor goals..
+        /// </summary>
+        public static string GoalsVisitorError {
+            get {
+                return ResourceManager.GetString("GoalsVisitorError", resourceCulture);
             }
         }
         

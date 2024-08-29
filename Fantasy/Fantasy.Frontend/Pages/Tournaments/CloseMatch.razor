@@ -1,0 +1,12 @@
+﻿@if (matchDTO is null)
+{
+    <Loading />
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <CloseForm @ref="closeForm" MatchDTO="matchDTO" OnValidSubmit="EditAsync" ReturnAction="Return" />
+        </DialogContent>
+    </MudDialog>
+}

@@ -1,0 +1,60 @@
+﻿@if (match is null)
+{
+    <Loading />
+}
+else
+{
+    <NavigationLock OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+    <EditForm EditContext="editContext" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInvalidSubmit">
+        <DataAnnotationsValidator />
+
+        <MudStack Row="true" Spacing="2" Class="my-4">
+            <MudStack Spacing="2">
+                <MudImage Src="@match.Local.ImageFull" Width="100" Height="60" />
+                <MudText Typo="Typo.h5" Align="Align.Center">@match.Local.Name</MudText>
+            </MudStack>
+
+            <MudTextField @bind-Value="@MatchDTO.GoalsLocal"
+                          For="@(() => MatchDTO.GoalsLocal)"
+                          InputType="InputType.Number"
+                          Adornment="Adornment.Start"
+                          Style="font-size: 40px; text-align: center;"
+                          Class="mb-4 p-4"
+                          @onblur="ValidateInput" />
+
+            <MudText Typo="Typo.h3"
+                     Align="Align.Center"
+                     Class="mt-4">
+                Vs.
+            </MudText>
+
+            <MudTextField @bind-Value="@MatchDTO.GoalsVisitor"
+                          For="@(() => MatchDTO.GoalsVisitor)"
+                          InputType="InputType.Number"
+                          Adornment="Adornment.Start"
+                          Style="font-size: 40px; text-align: center;"
+                          Class="mb-4 p-4"
+                          @onblur="ValidateInput" />
+
+            <MudStack Spacing="2">
+                <MudImage Src="@match.Visitor.ImageFull" Width="100" Height="60" />
+                <MudText Typo="Typo.h5" Align="Align.Center">@match.Visitor.Name</MudText>
+            </MudStack>
+        </MudStack>
+
+        <MudButton Variant="Variant.Outlined"
+                   StartIcon="@Icons.Material.Filled.ArrowBack"
+                   Color="Color.Info"
+                   OnClick="ReturnAction">
+            @Localizer["Return"]
+        </MudButton>
+
+        <MudButton Variant="Variant.Outlined"
+                   StartIcon="@Icons.Material.Filled.Check"
+                   Color="Color.Primary"
+                   ButtonType="ButtonType.Submit">
+            @Localizer["SaveChanges"]
+        </MudButton>
+    </EditForm>
+}

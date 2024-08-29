@@ -130,9 +130,9 @@ public partial class TournamentsIndex
     private async Task DeleteAsync(Tournament team)
     {
         var parameters = new DialogParameters
-            {
-                { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Tournament"], team.Name) }
-            };
+        {
+            { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Tournament"], team.Name) }
+        };
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
         var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
         var result = await dialog.Result;

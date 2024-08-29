@@ -123,9 +123,14 @@ public partial class Predictions
         //TODO: Pending
     }
 
-    private bool CanWatch(DateTime date)
+    private bool CanWatch(Prediction prediction)
     {
-        var difference = DateTime.Now - date;
+        if (prediction.Points != null)
+        {
+            return true;
+        }
+
+        var difference = DateTime.Now - prediction.Match.Date;
         var minutes = difference.TotalMinutes;
         return minutes >= 10;
     }

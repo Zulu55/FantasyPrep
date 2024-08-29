@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
+using System.Collections.Generic;
 
 namespace Fantasy.Frontend.Pages.Tournaments;
 
@@ -131,6 +132,23 @@ public partial class TournamentMatches
     private void ReturnAction()
     {
         NavigationManager.NavigateTo("/tournaments");
+    }
+
+    private async Task CloseMatchAsync(int id)
+    {
+        var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
+        var parameters = new DialogParameters
+        {
+            { "Id", id }
+        };
+        var dialog = DialogService.Show<CloseMatch>(Localizer["CloseMatchTitle"], parameters, options);
+
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            await LoadAsync();
+            await table.ReloadServerData();
+        }
     }
 
     private async Task ShowModalAsync(int id = 0, bool isEdit = false)
