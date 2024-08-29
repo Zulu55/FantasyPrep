@@ -556,6 +556,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This match is no longer open to predictions..
+        /// </summary>
+        public static string ERR018 {
+            get {
+                return ResourceManager.GetString("ERR018", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {

@@ -173,13 +173,35 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
 
     public async Task<ActionResponse<Prediction>> UpdateAsync(PredictionDTO predictionDTO)
     {
-        var currentPrediction = await _context.Predictions.FindAsync(predictionDTO.Id);
+        var currentPrediction = await _context.Predictions
+            .Include(x => x.Match)
+            .FirstOrDefaultAsync(x => x.Id == predictionDTO.Id);
         if (currentPrediction == null)
         {
             return new ActionResponse<Prediction>
             {
                 WasSuccess = false,
                 Message = "ERR016"
+            };
+        }
+
+        if (currentPrediction.Match.GoalsLocal != null || currentPrediction.Match.GoalsVisitor != null)
+        {
+            return new ActionResponse<Prediction>
+            {
+                WasSuccess = false,
+                Message = "ERR018"
+            };
+        }
+
+        var difference = currentPrediction.Match.Date - DateTime.UtcNow;
+        var minutes = difference.TotalMinutes;
+        if (minutes <= 10)
+        {
+            return new ActionResponse<Prediction>
+            {
+                WasSuccess = false,
+                Message = "ERR018"
             };
         }
 

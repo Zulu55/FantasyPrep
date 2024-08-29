@@ -567,4 +567,7 @@
   <data name="GoalsVisitorError" xml:space="preserve">
     <value>Debes ingresar un valor mayor o igual a cero en goles del visitante.</value>
   </data>
+  <data name="ERR018" xml:space="preserve">
+    <value>Este partido ya no admite predicciones.</value>
+  </data>
 </root>
