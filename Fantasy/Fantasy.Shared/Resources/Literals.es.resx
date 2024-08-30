@@ -579,4 +579,7 @@
   <data name="PredictionsBalance" xml:space="preserve">
     <value>Resumen de Predicciones</value>
   </data>
+  <data name="AdminUsersGroup" xml:space="preserve">
+    <value>Administrar usuarios de un grupo</value>
+  </data>
 </root>

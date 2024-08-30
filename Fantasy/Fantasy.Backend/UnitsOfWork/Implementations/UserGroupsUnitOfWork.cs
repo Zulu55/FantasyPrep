@@ -26,4 +26,6 @@ public class UserGroupsUnitOfWork : GenericUnitOfWork<UserGroup>, IUserGroupsUni
     public async Task<ActionResponse<UserGroup>> UpdateAsync(UserGroupDTO userGroupDTO) => await _userGroupsRepository.UpdateAsync(userGroupDTO);
 
     public async Task<ActionResponse<UserGroup>> JoinAsync(JoinGroupDTO joinGroupDTO) => await _userGroupsRepository.JoinAsync(joinGroupDTO);
+
+    public async Task<ActionResponse<UserGroup>> GetAsync(int groupId, string email) => await _userGroupsRepository.GetAsync(groupId, email);
 }

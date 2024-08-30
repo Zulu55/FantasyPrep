@@ -3,6 +3,7 @@ using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
 
@@ -18,6 +19,8 @@ public partial class Predictions
     private bool loading;
     private const string baseUrlMatch = "api/predictions";
     private string infoFormat = "{first_item}-{last_item} de {all_items}";
+    private bool userEnabledForGroup;
+    private string username = string.Empty;
 
     [Parameter] public int GroupId { get; set; }
 
@@ -26,12 +29,42 @@ public partial class Predictions
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
     [Inject] private NavigationManager NavigationManager { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
+    [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = null!;
 
     [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
         await LoadAsync();
+        await LoadUserNameAsync();
+        await CheckUserEnabledAsync();
+    }
+
+    private async Task CheckUserEnabledAsync()
+    {
+        var responseHttp = await Repository.GetAsync<UserGroup>($"api/userGroups/{GroupId}/{username}");
+
+        if (responseHttp.Error)
+        {
+            if (responseHttp.HttpResponseMessage.StatusCode != System.Net.HttpStatusCode.NotFound)
+            {
+                var messageError = await responseHttp.GetErrorMessageAsync();
+                Snackbar.Add(messageError, Severity.Error);
+            }
+        }
+        var userGroup = responseHttp.Response;
+        userEnabledForGroup = userGroup!.IsActive;
+    }
+
+    private async Task LoadUserNameAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            username = user.Identity.Name!;
+        }
     }
 
     private async Task LoadAsync()

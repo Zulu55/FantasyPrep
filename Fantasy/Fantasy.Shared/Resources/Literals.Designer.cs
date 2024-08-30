@@ -151,6 +151,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin users group.
+        /// </summary>
+        public static string AdminUsersGroup {
+            get {
+                return ResourceManager.GetString("AdminUsersGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {

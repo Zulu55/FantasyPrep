@@ -237,4 +237,26 @@ public class UserGroupsRepository : GenericRepository<UserGroup>, IUserGroupsRep
             };
         }
     }
+
+    public async Task<ActionResponse<UserGroup>> GetAsync(int groupId, string email)
+    {
+        var userGroup = await _context.UserGroups
+            .Include(x => x.User)
+            .FirstOrDefaultAsync(x => x.GroupId == groupId && x.User.Email == email);
+
+        if (userGroup == null)
+        {
+            return new ActionResponse<UserGroup>
+            {
+                WasSuccess = false,
+                Message = "ERR001"
+            };
+        }
+
+        return new ActionResponse<UserGroup>
+        {
+            WasSuccess = true,
+            Result = userGroup
+        };
+    }
 }

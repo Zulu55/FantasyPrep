@@ -1,0 +1,94 @@
+﻿@if (loading)
+{
+    <Loading />
+}
+else
+{
+    <MudTable Items="@userGroups"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true"
+              Class="mt-4">
+        <ToolBarContent>
+            <MudButton Variant="Variant.Outlined"
+                       Class="mr-4"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Tertiary"
+                       OnClick="ReturnAction">
+                @Localizer["Return"]
+            </MudButton>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["FirstName"]</MudTh>
+            <MudTh>@Localizer["LastName"]</MudTh>
+            <MudTh>@Localizer["Email"]</MudTh>
+            <MudTh>@Localizer["PhoneNumber"]</MudTh>
+            <MudTh style="width: 80px;">@Localizer["IsActive"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>
+                <MudImage Src="@context.User.Photo" Width="60" Height="60" Style="border-radius: 50%;" />
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.body1" Align="Align.Start">@context.User.FirstName</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.body1" Align="Align.Start">@context.User.LastName</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.body1" Align="Align.Start">@context.User.Email</MudText>
+            </MudTd>
+            <MudTd>
+                <MudText Typo="Typo.body1" Align="Align.Start">@context.User.PhoneNumber</MudText>
+            </MudTd>
+            <MudTd>
+                @if (context.IsActive)
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
+                }
+                else
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" />
+                }
+            </MudTd>
+            <MudTd>
+                @if (context.IsActive)
+                {
+                    <MudButton Variant="Variant.Filled"
+                               EndIcon="@Icons.Material.Filled.Cancel"
+                               Color="Color.Error"
+                               OnClick="@(() => DectivateUserGroupAsync(context))">
+                        @Localizer["Deactivate"]
+                    </MudButton>
+                }
+                else
+                {
+                    <MudButton Variant="Variant.Filled"
+                               EndIcon="@Icons.Material.Filled.CheckCircle"
+                               Color="Color.Success"
+                               OnClick="@(() => ActivateUserGroupAsync(context))">
+                        @Localizer["Activate"]
+                    </MudButton>
+                }
+            </MudTd>
+
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
+}

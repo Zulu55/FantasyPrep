@@ -83,17 +83,25 @@ else
                         <MudStack Row="true" Spacing="2">
                             <MudTooltip Text="@Localizer["Edit"]">
                                 <MudButton Variant="Variant.Filled"
-                                           Color="Color.Warning"
-                                           OnClick="@(() => ShowModalAsync(context.Id, true))">
+                                            Color="Color.Warning"
+                                            OnClick="@(() => ShowModalAsync(context.Id, true))">
                                     <MudIcon Icon="@Icons.Material.Filled.Edit" />
                                 </MudButton>
                             </MudTooltip>
                             <MudTooltip Text="@Localizer["CopyInvitationURLTitle"]">
                                 <MudButton Variant="Variant.Filled"
-                                           Color="Color.Secondary"
-                                           OnClick="@(() => CopyInvitationAsync(@context))"
-                                           Disabled="@(!context.IsActive)">
+                                            Color="Color.Secondary"
+                                            OnClick="@(() => CopyInvitationAsync(@context))"
+                                            Disabled="@(!context.IsActive)">
                                     <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
+                                </MudButton>
+                            </MudTooltip>
+                            <MudTooltip Text="@Localizer["AdminUsersGroup"]">
+                                <MudButton Variant="Variant.Filled"
+                                            Color="Color.Primary"
+                                            OnClick="@(() => AdminUsersGroupAsync(@context))"
+                                            Disabled="@(!context.IsActive)">
+                                    <MudIcon Icon="@Icons.Material.Filled.People" />
                                 </MudButton>
                             </MudTooltip>
                         </MudStack>

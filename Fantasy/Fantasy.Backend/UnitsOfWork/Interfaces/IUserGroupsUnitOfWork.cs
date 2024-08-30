@@ -14,6 +14,8 @@ public interface IUserGroupsUnitOfWork
 
     Task<ActionResponse<UserGroup>> GetAsync(int id);
 
+    Task<ActionResponse<UserGroup>> GetAsync(int groupId, string email);
+
     Task<ActionResponse<IEnumerable<UserGroup>>> GetAsync(PaginationDTO pagination);
 
     Task<ActionResponse<int>> GetTotalRecordsAsync(PaginationDTO pagination);

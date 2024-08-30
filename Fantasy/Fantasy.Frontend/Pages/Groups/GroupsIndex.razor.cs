@@ -52,6 +52,25 @@ public partial class GroupsIndex
         }
     }
 
+    private async Task AdminUsersGroupAsync(Group group)
+    {
+        {
+            var options = new DialogOptions()
+            {
+                CloseOnEscapeKey = true,
+                CloseButton = true,
+                MaxWidth = MaxWidth.Medium,
+                FullWidth = true
+            };
+            var parameters = new DialogParameters
+            {
+                { "GroupId", group.Id },
+            };
+            var dialog = DialogService.Show<UsersGroup>(@Localizer["AdminUsersGroup"], parameters, options);
+            await dialog.Result;
+        }
+    }
+
     private async Task CopyInvitationAsync(Group group)
     {
         var joinURL = $"{Parameters["URLFront"]}/groups/join/?code={group!.Code}";

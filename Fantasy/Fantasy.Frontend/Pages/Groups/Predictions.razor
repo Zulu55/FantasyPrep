@@ -69,7 +69,8 @@ else
                     <MudButton Variant="Variant.Filled"
                                 EndIcon="@Icons.Material.Filled.Edit"
                                 Color="Color.Warning"
-                                OnClick=@(() => EditPredictionAsync(context.Id))>
+                                OnClick=@(() => EditPredictionAsync(context.Id))
+                                Disabled="@(!userEnabledForGroup)">
                         @Localizer["Edit"] @Localizer["Prediction"]
                     </MudButton>
                 }
