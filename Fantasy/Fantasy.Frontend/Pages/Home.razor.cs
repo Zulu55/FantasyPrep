@@ -1,4 +1,6 @@
-﻿using Fantasy.Frontend.Repositories;
+﻿using Fantasy.Frontend.Helpers;
+using Fantasy.Frontend.Pages.Groups;
+using Fantasy.Frontend.Repositories;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Components;
@@ -15,6 +17,9 @@ public partial class Home
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
+    [Inject] private IClipboardService ClipboardService { get; set; } = null!;
+    [Inject] private IStringLocalizer<Parameters> Parameters { get; set; } = null!;
+    [Inject] private IDialogService DialogService { get; set; } = null!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -33,5 +38,33 @@ public partial class Home
             return;
         }
         Groups = responseHttp.Response;
+    }
+
+    private async Task CopyInvitationAsync(Group group)
+    {
+        var joinURL = $"{Parameters["URLFront"]}/groups/join/?code={group!.Code}";
+        await ClipboardService.CopyToClipboardAsync(joinURL);
+        var text = string.Format(Localizer["InvitationURLCopied"], group!.Name);
+        Snackbar.Add(text, Severity.Success);
+    }
+
+    private async Task GroupDetailsAsync(Group group)
+    {
+        {
+            var options = new DialogOptions()
+            {
+                CloseOnEscapeKey = true,
+                CloseButton = true,
+                MaxWidth = MaxWidth.Medium,
+                FullWidth = true
+            };
+            var parameters = new DialogParameters
+            {
+                { "GroupId", group.Id },
+                { "IsAnonymouns", true }
+            };
+            var dialog = DialogService.Show<GroupDetails>(@Localizer["GroupDetails"], parameters, options);
+            await dialog.Result;
+        }
     }
 }

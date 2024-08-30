@@ -15,28 +15,40 @@
     }
     else if (Groups.Count != 0)
     {
-        <MudCarousel TData="Group" Style="height: 550px; display: flex; justify-content: center; align-items: center;">
+        <MudCarousel TData="Group" Style="height: 620px; display: flex; justify-content: center; align-items: center;">
             @foreach (var group in Groups)
             {
                 <MudCarouselItem>
                     <MudCard Style="height: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center;">
                         <div style="padding: 2rem;">
-                            <MudCardMedia Image="@group.ImageFull" Alt="Group image" Style="width: 300px; height: 300px; object-fit: cover;" />
+                            <MudCardMedia Image="@group.ImageFull" Alt="Group image" Style="width: 250px; height: 250px; object-fit: cover;" />
                         </div>
-                        <MudCardContent Style="text-align: center;">
-                            <MudText Color="Color.Secondary" Typo="Typo.h3">@group.Name</MudText>
-                            <MudText>@group.Remarks</MudText>
+                        <MudCardContent Style="text-align: center;" Class="mt-8">
+                            <MudStack Spacing="2">
+                                <MudText Color="Color.Secondary" Typo="Typo.h3">@group.Name</MudText>
+                                <MudText>@group.Remarks</MudText>
+                                <MudStack Row="true" Spacing="2" AlignItems="AlignItems.Center">
+                                    <MudImage Src="@group.Admin.PhotoFull" Width="80" Height="80" Style="border-radius: 50%;" />
+                                    <MudText Color="Color.Secondary" Typo="Typo.h5">@group.Admin.FullName</MudText>
+                                    <MudText Color="Color.Info" Typo="Typo.h5">@group.Admin.Email</MudText>
+                                    <MudTooltip Text="@Localizer["CopyInvitationURLTitle"]">
+                                        <MudButton Variant="Variant.Filled"
+                                                   Color="Color.Secondary"
+                                                   OnClick="@(() => CopyInvitationAsync(group))"
+                                                   Disabled="@(!group.IsActive)">
+                                            <MudIcon Icon="@Icons.Material.Filled.ContentCopy" />
+                                        </MudButton>
+                                    </MudTooltip>
+                                </MudStack>
+                            </MudStack>
                         </MudCardContent>
-                        <MudCardActions Style="width: 100%; justify-content: space-around;">
+                        <MudCardActions>
                             <MudButton Variant="Variant.Filled"
                                        EndIcon="@Icons.Material.Filled.SportsSoccer"
-                                       Color="Color.Primary">
-                                @Localizer["Predictions"]
-                            </MudButton>
-                            <MudButton Variant="Variant.Filled"
-                                       EndIcon="@Icons.Material.Filled.Stars"
-                                       Color="Color.Secondary">
-                                @Localizer["Positions"]
+                                       OnClick="@(() => GroupDetailsAsync(group))"
+                                       Color="Color.Primary"
+                                       Class="m-2">
+                                @Localizer["GroupDetails"]
                             </MudButton>
                         </MudCardActions>
                     </MudCard>

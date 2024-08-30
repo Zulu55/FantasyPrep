@@ -28,27 +28,32 @@ else
             <MudTh>@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["User"]</MudTh>
             <MudTh>@Localizer["Points"]</MudTh>
-            <MudTh style="width: 170px;">@Localizer["Actions"]</MudTh>
+            @if (!IsAnonymouns)
+            {
+                <MudTh style="width: 170px;">@Localizer["Actions"]</MudTh>
+            }
         </HeaderContent>
         <RowTemplate>
             <MudTd>
                 <MudImage Src="@context.User.PhotoFull" Width="80" Height="80" Style="border-radius: 50%;" />
             </MudTd>
             <MudTd>
-                <MudText Typo="Typo.h4" Align="Align.Center">@context.User.FullName</MudText>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.User.FullName</MudText>
             </MudTd>
             <MudTd>
-                <MudText Typo="Typo.h3" Align="Align.Center">@context.Points</MudText>
+                <MudText Typo="Typo.h5" Align="Align.Center">@context.Points</MudText>
             </MudTd>
-            <MudTd>
-                <MudButton Variant="Variant.Filled"
-                            EndIcon="@Icons.Material.Filled.Visibility"
-                            Color="Color.Info"
-                            OnClick=@(() => WatchBalanceAsync(@context))>
-                    @Localizer["PredictionsBalance"]
-                </MudButton>
-            </MudTd>
-
+            @if (!IsAnonymouns)
+            {
+                <MudTd>
+                    <MudButton Variant="Variant.Filled"
+                                EndIcon="@Icons.Material.Filled.Visibility"
+                                Color="Color.Info"
+                                OnClick=@(() => WatchBalanceAsync(@context))>
+                        @Localizer["PredictionsBalance"]
+                    </MudButton>
+                </MudTd>
+            }
         </RowTemplate>
         <NoRecordsContent>
             <MudText>@Localizer["NoRecords"]</MudText>

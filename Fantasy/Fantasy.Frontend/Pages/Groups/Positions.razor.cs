@@ -1,6 +1,5 @@
 using Fantasy.Frontend.Repositories;
 using Fantasy.Shared.DTOs;
-using Fantasy.Shared.Entities;
 using Fantasy.Shared.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
@@ -20,8 +19,6 @@ public partial class Positions
     private const string baseUrlMatch = "api/predictions";
     private string infoFormat = "{first_item}-{last_item} de {all_items}";
 
-    [Parameter] public int GroupId { get; set; }
-
     [Inject] private IRepository Repository { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
@@ -29,6 +26,8 @@ public partial class Positions
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
 
     [Parameter, SupplyParameterFromQuery] public string Filter { get; set; } = string.Empty;
+    [Parameter] public int GroupId { get; set; }
+    [Parameter] public bool IsAnonymouns { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -99,7 +98,14 @@ public partial class Positions
 
     private void ReturnAction()
     {
-        NavigationManager.NavigateTo("/groups");
+        if (IsAnonymouns)
+        {
+            NavigationManager.NavigateTo("/");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/groups");
+        }
     }
 
     private async Task WatchBalanceAsync(PositionDTO positionDTO)

@@ -17,6 +17,7 @@ public partial class GroupDetails
     [Inject] private ISnackbar Snackbar { get; set; } = null!;
 
     [Parameter] public int GroupId { get; set; }
+    [Parameter] public bool IsAnonymouns { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
