@@ -28,4 +28,6 @@ public class GroupsUnitOfWork : GenericUnitOfWork<Group>, IGroupsUnitOfWork
     public async Task<ActionResponse<Group>> GetAsync(string code) => await _groupsRepository.GetAsync(code);
 
     public async Task CheckPredictionsForAllMatchesAsync(int id) => await _groupsRepository.CheckPredictionsForAllMatchesAsync(id);
+
+    public async Task<ActionResponse<IEnumerable<Group>>> GetAllAsync() => await _groupsRepository.GetAllAsync();
 }
