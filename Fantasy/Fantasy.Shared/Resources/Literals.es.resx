@@ -582,4 +582,34 @@
   <data name="AdminUsersGroup" xml:space="preserve">
     <value>Administrar usuarios de un grupo</value>
   </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>    &lt;p&gt;Sistema donde diferentes grupos de amigos pueden hacer predicciones sobre torneos de fútbol. En Colombia, se le llama “Polla”; en Argentina, “Prode”; y en Estados Unidos, “Fantasy”. La idea es que cualquier número de torneos de fútbol, como la Copa América, el Mundial, la Eurocopa, la Champions League, o el Torneo Colombiano, entre otros, pueda ser registrado. Los grupos de amigos podrán formar sus propias “Pollas” y realizar predicciones sobre los partidos. Una vez completados los partidos y aplicadas las reglas de negocio, el participante que acumule más puntos ganará la “Fantasy”, la “Polla” o como se le denomine en su país.&lt;/p&gt;
+    
+    &lt;p&gt;Cada usuario podrá crear múltiples grupos o unirse a grupos existentes para participar en cualquier torneo de fútbol habilitado por el administrador. El creador del grupo será considerado el administrador de dicho grupo y podrá definir las condiciones para repartir el premio, por ejemplo:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;70% para el primer puesto.&lt;/li&gt;
+        &lt;li&gt;20% para el segundo puesto.&lt;/li&gt;
+        &lt;li&gt;10% para el tercer puesto.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;br/&gt;
+    &lt;p&gt;El administrador también tendrá la facultad de activar o desactivar a los miembros de su grupo. Por ejemplo, si un miembro no ha pagado el valor correspondiente a la polla, el administrador podrá desactivarlo, y un usuario inactivo no podrá ingresar predicciones.&lt;/p&gt;
+
+    &lt;p&gt;La forma de obtener puntos es la siguiente:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;5 puntos por acertar el ganador o predecir un empate.&lt;/li&gt;
+        &lt;li&gt;2 puntos adicionales por predecir los goles del equipo local.&lt;/li&gt;
+        &lt;li&gt;2 puntos adicionales por predecir los goles del equipo visitante.&lt;/li&gt;
+        &lt;li&gt;1 punto por acertar la diferencia de goles.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;br/&gt;
+    &lt;p&gt;El máximo de puntos por partido será 10, en caso de acertar el resultado perfecto. Ten en cuenta las siguientes consideraciones:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Solo se podrán ingresar o modificar predicciones hasta 10 minutos antes de iniciar un partido.&lt;/li&gt;
+        &lt;li&gt;El resultado se basará en los 90 minutos de tiempo reglamentario más las adiciones. No se tendrán en cuenta los goles en tiempos extra o penales.&lt;/li&gt;
+        &lt;li&gt;Los partidos de segunda ronda en adelante otorgarán el doble de puntos.&lt;/li&gt;
+    &lt;/ul&gt;</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Autor</value>
+  </data>
 </root>

@@ -582,4 +582,34 @@
   <data name="AdminUsersGroup" xml:space="preserve">
     <value>Admin users group</value>
   </data>
+  <data name="AboutText" xml:space="preserve">
+    <value>    &lt;p&gt;A system where different groups of friends can make predictions about football tournaments. In Colombia, it’s called “Polla”; in Argentina, “Prode”; and in the United States, “Fantasy.” The idea is that any number of football tournaments, such as the Copa América, the World Cup, the Euro Cup, the Champions League, or the Colombian League, among others, can be registered. Groups of friends will be able to form their own “Pollas” and make predictions about the matches. Once the matches are completed and business rules are applied, the participant who accumulates the most points will win the “Fantasy,” the “Polla,” or whatever it’s called in their country.&lt;/p&gt;
+    
+    &lt;p&gt;Each user can create multiple groups or join existing groups to participate in any football tournament enabled by the administrator. The group creator will be considered the group administrator and will be able to define the conditions for distributing the prize, for example:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;70% for first place.&lt;/li&gt;
+        &lt;li&gt;20% for second place.&lt;/li&gt;
+        &lt;li&gt;10% for third place.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;br/&gt;
+    &lt;p&gt;The administrator will also have the ability to activate or deactivate members of their group. For example, if a member has not paid the corresponding amount for the “Polla,” the administrator can deactivate them, and an inactive user will not be able to enter predictions.&lt;/p&gt;
+
+    &lt;p&gt;Points are awarded as follows:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;5 points for correctly predicting the winner or a draw.&lt;/li&gt;
+        &lt;li&gt;2 additional points for predicting the goals of the home team.&lt;/li&gt;
+        &lt;li&gt;2 additional points for predicting the goals of the away team.&lt;/li&gt;
+        &lt;li&gt;1 point for correctly predicting the goal difference.&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;br/&gt;
+    &lt;p&gt;The maximum points per match is 10, in the case of a perfect prediction. Please consider the following rules:&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Predictions can only be entered or modified up to 10 minutes before the match starts.&lt;/li&gt;
+        &lt;li&gt;The result is based on the 90 minutes of regulation time plus any added time. Goals scored during extra time or penalties are not counted.&lt;/li&gt;
+        &lt;li&gt;Matches from the second round onwards will award double points.&lt;/li&gt;
+    &lt;/ul&gt;</value>
+  </data>
+  <data name="Author" xml:space="preserve">
+    <value>Author</value>
+  </data>
 </root>

@@ -1,0 +1,20 @@
+﻿@page "/about"
+
+<MudStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Spacing="3">
+    <MudCard Class="p-4">
+        <MudStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center">
+            <MudText Typo="Typo.h2" Class="me-4" Color="Color.Primary">@Localizer["Title"]</MudText>
+            <MudImage Src="images/Logo.png" Width="200" Class="p-3" />
+            <MudText Typo="Typo.input">
+                @((MarkupString)Localizer["AboutText"].ToString())
+            </MudText>
+            <MudText Typo="Typo.h3" Color="Color.Secondary" Class="my-3">@Localizer["Author"]</MudText>
+        </MudStack>
+        <MudStack AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Spacing="2">
+            <MudCard Class="card">
+                <MudImage Src="images/JuanZuluaga.jpg" Width="250" Height="250" />
+                <MudText Typo="Typo.h5" Class="centered-text p-2">Juan Zuluaga</MudText>
+            </MudCard>
+        </MudStack>
+    </MudCard>
+</MudStack>
