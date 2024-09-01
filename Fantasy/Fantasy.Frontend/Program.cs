@@ -14,7 +14,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 var uriBack = "https://fantasybackend.azurewebsites.net";
-//var uriBack = https://localhost:7232;
+//var uriBack = "https://localhost:7232";
 
 builder.Services.AddSingleton(sp => new HttpClient { BaseAddress = new Uri(uriBack) });
 builder.Services.AddScoped<IRepository, Repository>();

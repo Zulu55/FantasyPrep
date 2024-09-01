@@ -60,7 +60,7 @@ public class MatchesController : GenericController<Match>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 
     [HttpPut("full")]
@@ -71,6 +71,6 @@ public class MatchesController : GenericController<Match>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 }

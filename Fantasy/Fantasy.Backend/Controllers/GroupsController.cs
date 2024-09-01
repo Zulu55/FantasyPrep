@@ -95,7 +95,7 @@ public class GroupsController : GenericController<Group>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 
     [HttpPut("full")]
@@ -106,6 +106,6 @@ public class GroupsController : GenericController<Group>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 }

@@ -26,7 +26,7 @@ public partial class JoinGroup
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return;
         }
         var group = responseHttp.Response;

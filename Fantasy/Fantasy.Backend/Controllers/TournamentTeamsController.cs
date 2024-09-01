@@ -33,7 +33,7 @@ public class TournamentTeamsController : GenericController<TournamentTeam>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 
     [HttpGet("paginated")]

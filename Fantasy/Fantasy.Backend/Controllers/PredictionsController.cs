@@ -131,7 +131,7 @@ public class PredictionsController : GenericController<Prediction>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 
     [HttpPut("full")]
@@ -142,6 +142,6 @@ public class PredictionsController : GenericController<Prediction>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 }

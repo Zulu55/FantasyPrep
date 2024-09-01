@@ -77,7 +77,7 @@ public class TournamentsController : GenericController<Tournament>
         {
             return Ok(action.Result);
         }
-        return NotFound(action.Message);
+        return BadRequest(action.Message);
     }
 
     [HttpPut("full")]

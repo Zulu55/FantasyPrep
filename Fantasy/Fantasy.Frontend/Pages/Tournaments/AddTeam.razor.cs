@@ -34,8 +34,8 @@ public partial class AddTeam
 
         if (responseHttp.Error)
         {
-            var mensajeError = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(mensajeError, Severity.Error);
+            var menssageError = await responseHttp.GetErrorMessageAsync();
+            Snackbar.Add(Localizer[menssageError!], Severity.Error);
             return;
         }
 
