@@ -56,7 +56,7 @@ public partial class TournamentTeams
             }
 
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return false;
         }
         tournament = responseHttp.Response;
@@ -85,7 +85,7 @@ public partial class TournamentTeams
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return false;
         }
         totalRecords = responseHttp.Response;
@@ -108,7 +108,7 @@ public partial class TournamentTeams
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return new TableData<TournamentTeam> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)
@@ -171,7 +171,7 @@ public partial class TournamentTeams
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return;
         }
         await LoadAsync();

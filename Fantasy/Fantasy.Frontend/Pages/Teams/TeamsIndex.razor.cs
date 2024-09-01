@@ -48,7 +48,7 @@ public partial class TeamsIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return;
         }
 
@@ -71,7 +71,7 @@ public partial class TeamsIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return new TableData<Team> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)
@@ -141,7 +141,7 @@ public partial class TeamsIndex
             else
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                Snackbar.Add(message, Severity.Error);
+                Snackbar.Add(Localizer[message], Severity.Error);
             }
             return;
         }

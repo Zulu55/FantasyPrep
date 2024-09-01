@@ -50,7 +50,7 @@ public partial class JoinGroupByURL
         {
             message = await responseHttp.GetErrorMessageAsync();
             NavigationManager.NavigateTo("/");
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return;
         }
 

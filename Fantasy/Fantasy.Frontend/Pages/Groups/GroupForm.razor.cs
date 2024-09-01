@@ -53,7 +53,7 @@ public partial class GroupForm
 
         foreach (var message in messages)
         {
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
         }
     }
 

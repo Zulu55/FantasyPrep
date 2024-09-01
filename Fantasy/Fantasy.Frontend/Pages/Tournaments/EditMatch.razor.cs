@@ -61,7 +61,7 @@ public partial class EditMatch
         if (responseHttp.Error)
         {
             var mensajeError = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(mensajeError, Severity.Error);
+            Snackbar.Add(Localizer[mensajeError!], Severity.Error);
             return;
         }
 

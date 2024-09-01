@@ -78,7 +78,7 @@ public partial class EditUser
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return;
         }
         countries = responseHttp.Response;
@@ -108,7 +108,7 @@ public partial class EditUser
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(message, Severity.Error);
+            Snackbar.Add(Localizer[message], Severity.Error);
             return;
         }
 
