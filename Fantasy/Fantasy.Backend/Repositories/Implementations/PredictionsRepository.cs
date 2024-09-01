@@ -194,9 +194,7 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
             };
         }
 
-        var difference = currentPrediction.Match.Date - DateTime.UtcNow;
-        var minutes = difference.TotalMinutes;
-        if (minutes <= 10)
+        if (CanWatch(currentPrediction))
         {
             return new ActionResponse<Prediction>
             {
@@ -388,5 +386,21 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
             WasSuccess = true,
             Result = (int)count
         };
+    }
+
+    private bool CanWatch(Prediction prediction)
+    {
+        if (prediction.Match.GoalsLocal != null || prediction.Match.GoalsVisitor != null)
+        {
+            return true;
+        }
+
+        var dateMatch = prediction.Match.Date.ToLocalTime();
+        var currentDate = DateTime.Now;
+        var minutesMatch = dateMatch.Subtract(DateTime.MinValue).TotalMinutes;
+        var minutesNow = currentDate.Subtract(DateTime.MinValue).TotalMinutes;
+        var difference = minutesNow - minutesMatch;
+        var canWatch = difference >= -10;
+        return canWatch;
     }
 }

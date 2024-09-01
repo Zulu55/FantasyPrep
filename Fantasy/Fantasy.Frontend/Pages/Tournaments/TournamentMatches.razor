@@ -76,20 +76,23 @@ else
                             EndIcon="@Icons.Material.Filled.Edit"
                             Color="Color.Warning"
                             OnClick="@(() => ShowModalAsync(context.Id, true))"
-                            Class="me-2">
+                            Class="me-2"
+                            Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
                     @Localizer["Edit"]
                 </MudButton>
                 <MudButton Variant="Variant.Outlined"
                             EndIcon="@Icons.Material.Filled.Close"
                             Color="Color.Info"
                             OnClick="@(() => CloseMatchAsync(context.Id))"
-                            Class="me-2">
+                            Class="me-2"
+                            Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
                     @Localizer["Close"]
                 </MudButton>
                 <MudButton Variant="Variant.Outlined"
                             EndIcon="@Icons.Material.Filled.Delete"
                             Color="Color.Error"
-                            OnClick=@(() => DeleteAsync(@context))>
+                            OnClick=@(() => DeleteAsync(@context))
+                            Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
                     @Localizer["Delete"]
                 </MudButton>
             </MudTd>

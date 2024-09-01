@@ -253,6 +253,11 @@ namespace Fantasy.Backend.Repositories.Implementations
         private int CalculatePoints(Match match, Prediction prediction)
         {
             int points = 0;
+            if (prediction.GoalsLocal == null || prediction.GoalsVisitor == null)
+            {
+                return points;
+            }
+
             var matchStatus = GetMatchStatus(match.GoalsLocal!.Value, match.GoalsVisitor!.Value);
             var predictionStatus = GetMatchStatus(prediction.GoalsLocal!.Value, prediction.GoalsVisitor!.Value);
             if (matchStatus == predictionStatus) points += 5;

@@ -172,13 +172,17 @@ public partial class Predictions
 
     private bool CanWatch(Prediction prediction)
     {
-        if (prediction.Points != null)
+        if (prediction.Match.GoalsLocal != null || prediction.Match.GoalsVisitor != null)
         {
             return true;
         }
 
-        var difference = DateTime.Now - prediction.Match.Date;
-        var minutes = difference.TotalMinutes;
-        return minutes >= 10;
+        var dateMatch = prediction.Match.Date.ToLocalTime();
+        var currentDate = DateTime.Now;
+        var minutesMatch = dateMatch.Subtract(DateTime.MinValue).TotalMinutes;
+        var minutesNow = currentDate.Subtract(DateTime.MinValue).TotalMinutes;
+        var difference = minutesNow - minutesMatch;
+        var canWatch = difference >= -10;
+        return canWatch;
     }
 }

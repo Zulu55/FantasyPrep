@@ -68,6 +68,6 @@ public partial class PredictionEdit
     private void Return()
     {
         predictionForm!.FormPostedSuccessfully = true;
-        NavigationManager.NavigateTo($"groups/details/{predictionDTO!.GroupId}");
+        NavigationManager.NavigateTo($"groups/details/{predictionDTO!.GroupId}/false");
     }
 }
