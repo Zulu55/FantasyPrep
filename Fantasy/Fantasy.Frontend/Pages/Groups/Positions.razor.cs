@@ -104,7 +104,7 @@ public partial class Positions
         }
         else
         {
-            NavigationManager.NavigateTo($"/groups/details/{GroupId}/false");
+            NavigationManager.NavigateTo("/groups");
         }
     }
 
