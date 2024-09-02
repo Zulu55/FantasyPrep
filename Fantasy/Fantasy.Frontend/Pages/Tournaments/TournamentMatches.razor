@@ -38,12 +38,12 @@ else
             <MudTh>@Localizer["Date"]</MudTh>
             <MudTh>@Localizer["IsActive"]</MudTh>
             <MudTh>@Localizer["Local"]</MudTh>
-            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["GoalsLocal"]</MudTh>
             <MudTh>@Localizer["GoalsVisitor"]</MudTh>
-            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["Visitor"]</MudTh>
-            <MudTh style="width: 410px;">@Localizer["Actions"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.DateLocal</MudTd>
@@ -72,29 +72,32 @@ else
             </MudTd>
             <MudTd>@context.Visitor.Name</MudTd>
             <MudTd>
-                <MudButton Variant="Variant.Outlined"
-                            EndIcon="@Icons.Material.Filled.Edit"
-                            Color="Color.Warning"
-                            OnClick="@(() => ShowModalAsync(context.Id, true))"
-                            Class="me-2"
-                            Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
-                    @Localizer["Edit"]
-                </MudButton>
-                <MudButton Variant="Variant.Outlined"
-                            EndIcon="@Icons.Material.Filled.Close"
-                            Color="Color.Info"
-                            OnClick="@(() => CloseMatchAsync(context.Id))"
-                            Class="me-2"
-                            Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
-                    @Localizer["Close"]
-                </MudButton>
-                <MudButton Variant="Variant.Outlined"
-                            EndIcon="@Icons.Material.Filled.Delete"
-                            Color="Color.Error"
-                            OnClick=@(() => DeleteAsync(@context))
-                            Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
-                    @Localizer["Delete"]
-                </MudButton>
+                <MudStack Row="true">
+                    <MudTooltip Text="@Localizer["Close"]">
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Info"
+                                   OnClick="@(() => CloseMatchAsync(context.Id))"
+                                   Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
+                            <MudIcon Icon="@Icons.Material.Filled.Close" />
+                        </MudButton>
+                    </MudTooltip>
+                    <MudTooltip Text="@Localizer["Edit"]">
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Warning"
+                                   OnClick="@(() => ShowModalAsync(context.Id, true))"
+                                   Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
+                            <MudIcon Icon="@Icons.Material.Filled.Edit" />
+                        </MudButton>
+                    </MudTooltip>
+                    <MudTooltip Text="@Localizer["Delete"]">
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Error"
+                                   OnClick="@(() => DeleteAsync(@context))"
+                                   Disabled="@(context.GoalsLocal != null || context.GoalsVisitor != null)">
+                            <MudIcon Icon="@Icons.Material.Filled.Delete" />
+                        </MudButton>
+                    </MudTooltip>
+                </MudStack>
             </MudTd>
         </RowTemplate>
         <NoRecordsContent>

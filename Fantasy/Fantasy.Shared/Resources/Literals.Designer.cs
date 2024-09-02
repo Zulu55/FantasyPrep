@@ -1465,6 +1465,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Watch Predictions.
+        /// </summary>
+        public static string WatchPredictions {
+            get {
+                return ResourceManager.GetString("WatchPredictions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Yes {

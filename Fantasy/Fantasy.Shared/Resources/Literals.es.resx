@@ -612,4 +612,7 @@
   <data name="Author" xml:space="preserve">
     <value>Autor</value>
   </data>
+  <data name="WatchPredictions" xml:space="preserve">
+    <value>Ver Predicciones</value>
+  </data>
 </root>

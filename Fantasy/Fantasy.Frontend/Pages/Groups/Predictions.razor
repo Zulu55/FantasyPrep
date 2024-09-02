@@ -27,13 +27,13 @@ else
         <HeaderContent>
             <MudTh>@Localizer["Date"]</MudTh>
             <MudTh>@Localizer["Local"]</MudTh>
-            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["GoalsLocal"]</MudTh>
             <MudTh>@Localizer["GoalsVisitor"]</MudTh>
-            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["Visitor"]</MudTh>
             <MudTh>@Localizer["Points"]</MudTh>
-            <MudTh style="width: 170px;">@Localizer["Actions"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Match.DateLocal</MudTd>
@@ -57,22 +57,25 @@ else
             <MudTd>
                 @if (CanWatch(context))
                 {
-                    <MudButton Variant="Variant.Filled"
-                                EndIcon="@Icons.Material.Filled.Visibility"
-                                Color="Color.Info"
-                                OnClick=@(() => WatchPredictionsAsync(@context))>
-                        @Localizer["Watch"] @Localizer["Predictions"]
-                    </MudButton>
+                    <MudTooltip Text="@Localizer["WatchPredictions"]">
+                        <MudButton Variant="Variant.Filled"
+                                   Color="Color.Info"
+                                   OnClick="@(() => WatchPredictionsAsync(@context))"
+                                   Disabled="@(!userEnabledForGroup)">
+                            <MudIcon Icon="@Icons.Material.Filled.Visibility" />
+                        </MudButton>
+                    </MudTooltip>
                 }
                 else
                 {
-                    <MudButton Variant="Variant.Filled"
-                                EndIcon="@Icons.Material.Filled.Edit"
-                                Color="Color.Warning"
-                                OnClick=@(() => EditPredictionAsync(context.Id))
-                                Disabled="@(!userEnabledForGroup)">
-                        @Localizer["Edit"] @Localizer["Prediction"]
-                    </MudButton>
+                    <MudTooltip Text="@Localizer["Edit"]">
+                        <MudButton Variant="Variant.Filled"
+                                    Color="Color.Warning"
+                                    OnClick="@(() => EditPredictionAsync(context.Id))"
+                                    Disabled="@(!userEnabledForGroup)">
+                            <MudIcon Icon="@Icons.Material.Filled.Edit" />
+                        </MudButton>
+                    </MudTooltip>
                 }
             </MudTd>
 

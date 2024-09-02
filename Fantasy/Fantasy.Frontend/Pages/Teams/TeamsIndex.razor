@@ -28,9 +28,9 @@ else
         </ToolBarContent>
         <HeaderContent>
             <MudTh>@Localizer["Team"]</MudTh>
-            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
-            <MudTh style="width: 300px;">@Localizer["Country"]</MudTh>
-            <MudTh style="width: 300px;">@Localizer["Actions"]</MudTh>
+            <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["Country"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
@@ -39,18 +39,20 @@ else
             </MudTd>
             <MudTd>@context.Country.Name</MudTd>
             <MudTd>
-                <MudButton Variant="Variant.Outlined"
-                           EndIcon="@Icons.Material.Filled.Edit"
-                           Color="Color.Warning"
-                           OnClick="@(() => ShowModalAsync(context.Id, true))">
-                    @Localizer["Edit"]
-                </MudButton>
-                <MudButton Variant="Variant.Outlined"
-                           EndIcon="@Icons.Material.Filled.Delete"
-                           Color="Color.Error"
-                           OnClick=@(() => DeleteAsync(@context))>
-                    @Localizer["Delete"]
-                </MudButton>
+                <MudTooltip Text="@Localizer["Edit"]">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Warning"
+                               OnClick="@(() => ShowModalAsync(context.Id, true))">
+                        <MudIcon Icon="@Icons.Material.Filled.Edit" />
+                    </MudButton>
+                </MudTooltip>
+                <MudTooltip Text="@Localizer["Delete"]">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               OnClick="@(() => DeleteAsync(@context))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" />
+                    </MudButton>
+                </MudTooltip>
             </MudTd>
         </RowTemplate>
         <NoRecordsContent>

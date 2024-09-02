@@ -2,67 +2,66 @@
 
 @if (loading)
 {
-        <Loading />
+    <Loading />
 }
 else
 {
-        <MudTable Items="@tournamentTeams"
-                  @ref="table"
-                  ServerData="LoadListAsync"
-                  Dense="true"
-                  Hover="true"
-                  Striped="true"
-                  FixedHeader="true"
-                  FixedFooter="true">
-            <ToolBarContent>
-                <MudImage Src="@tournament!.ImageFull" Width="80" Height="80" />
-                <MudText Typo="Typo.h6" Class="mr-4">@tournament?.Name</MudText>
-                <MudButton Variant="Variant.Outlined" 
-                           Class="mr-4" 
-                           StartIcon="@Icons.Material.Filled.ArrowBack" 
-                           Color="Color.Tertiary" 
-                           OnClick="ReturnAction">
+    <MudTable Items="@tournamentTeams"
+              @ref="table"
+              ServerData="LoadListAsync"
+              Dense="true"
+              Hover="true"
+              Striped="true"
+              FixedHeader="true"
+              FixedFooter="true">
+        <ToolBarContent>
+            <MudImage Src="@tournament!.ImageFull" Width="80" Height="80" />
+            <MudText Typo="Typo.h6" Class="mr-4">@tournament?.Name</MudText>
+            <MudButton Variant="Variant.Outlined"
+                       Class="mr-4"
+                       StartIcon="@Icons.Material.Filled.ArrowBack"
+                       Color="Color.Tertiary"
+                       OnClick="ReturnAction">
                 @Localizer["Return"]
-                </MudButton>
-                <MudButton Variant="Variant.Outlined" 
-                           Class="mr-4" 
-                           EndIcon="@Icons.Material.Filled.Add" 
-                           Color="Color.Info" 
-                           OnClick="@(() => ShowModalAsync())">
+            </MudButton>
+            <MudButton Variant="Variant.Outlined"
+                       Class="mr-4"
+                       EndIcon="@Icons.Material.Filled.Add"
+                       Color="Color.Info"
+                       OnClick="@(() => ShowModalAsync())">
                 @Localizer["Team"]
-                </MudButton>
-                <MudSpacer />
-                <FilterComponent ApplyFilter="SetFilterValue" />
-            </ToolBarContent>
-            <HeaderContent>
+            </MudButton>
+            <MudSpacer />
+            <FilterComponent ApplyFilter="SetFilterValue" />
+        </ToolBarContent>
+        <HeaderContent>
             <MudTh>@Localizer["Team"]</MudTh>
-            <MudTh style="width: 90px;">@Localizer["Image"]</MudTh>
-            <MudTh style="width: 170px;">
-                <MudTh style="width: 410px;">@Localizer["Actions"]</MudTh>
-            </MudTh>
-            </HeaderContent>
-            <RowTemplate>
-                <MudTd>@context.Team.Name</MudTd>
-                <MudTd style="text-align:center; vertical-align:middle;">
-                    <MudImage Src="@context.Team.ImageFull" Width="90" Height="60" />
-                </MudTd>
-                <MudTd>
-                    <MudButton Variant="Variant.Outlined" 
-                               EndIcon="@Icons.Material.Filled.Delete" 
-                               Color="Color.Error" 
-                               OnClick=@(() => DeleteAsync(@context))>
-                    @Localizer["Delete"]
+            <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["Actions"]</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Team.Name</MudTd>
+            <MudTd style="text-align:center; vertical-align:middle;">
+                <MudImage Src="@context.Team.ImageFull" Width="90" Height="60" />
+            </MudTd>
+            <MudTd>
+                <MudTooltip Text="@Localizer["Delete"]">
+                    <MudButton Variant="Variant.Filled"
+                               Color="Color.Error"
+                               OnClick="@(() => DeleteAsync(@context))">
+                        <MudIcon Icon="@Icons.Material.Filled.Delete" />
                     </MudButton>
-                </MudTd>
-            </RowTemplate>
-            <NoRecordsContent>
-                <MudText>@Localizer["NoRecords"]</MudText>
-            </NoRecordsContent>
-            <PagerContent>
-                <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
-                               PageSizeOptions="pageSizeOptions"
-                               AllItemsText=@Localizer["All"]
-                               InfoFormat="@infoFormat" />
-            </PagerContent>
-        </MudTable>
+                </MudTooltip>
+            </MudTd>
+        </RowTemplate>
+        <NoRecordsContent>
+            <MudText>@Localizer["NoRecords"]</MudText>
+        </NoRecordsContent>
+        <PagerContent>
+            <MudTablePager RowsPerPageString=@Localizer["RecordsNumber"]
+                           PageSizeOptions="pageSizeOptions"
+                           AllItemsText=@Localizer["All"]
+                           InfoFormat="@infoFormat" />
+        </PagerContent>
+    </MudTable>
 }
