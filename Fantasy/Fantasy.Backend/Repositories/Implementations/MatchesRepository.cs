@@ -57,6 +57,7 @@ namespace Fantasy.Backend.Repositories.Implementations
                 Tournament = tournament,
                 Local = local,
                 Visitor = visitor,
+                DoublePoints = matchDTO.DoublePoints,
             };
 
             _context.Add(match);
@@ -203,6 +204,7 @@ namespace Fantasy.Backend.Repositories.Implementations
             currentMatch.GoalsLocal = matchDTO.GoalsLocal;
             currentMatch.Date = matchDTO.Date;
             currentMatch.IsActive = matchDTO.IsActive;
+            currentMatch.DoublePoints = matchDTO.DoublePoints;
 
             _context.Update(currentMatch);
             try
@@ -264,6 +266,7 @@ namespace Fantasy.Backend.Repositories.Implementations
             if (match.GoalsLocal == prediction.GoalsLocal) points += 2;
             if (match.GoalsVisitor == prediction.GoalsVisitor) points += 2;
             if (Math.Abs((decimal)match.GoalsLocal! - (decimal)match.GoalsVisitor!) == Math.Abs((decimal)prediction.GoalsLocal! - (decimal)prediction.GoalsVisitor!)) points++;
+            if (match.DoublePoints) points *= 2;
             return points;
         }
 

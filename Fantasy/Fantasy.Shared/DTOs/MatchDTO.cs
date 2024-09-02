@@ -31,4 +31,7 @@ public class MatchDTO
 
     [Display(Name = "GoalsVisitor", ResourceType = typeof(Literals))]
     public int? GoalsVisitor { get; set; }
+
+    [Display(Name = "DoublePoints", ResourceType = typeof(Literals))]
+    public bool DoublePoints { get; set; }
 }

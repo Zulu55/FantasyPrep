@@ -552,8 +552,8 @@
   <data name="Prediction" xml:space="preserve">
     <value>Prediction</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Close</value>
+  <data name="CloseMatch" xml:space="preserve">
+    <value>Close Match</value>
   </data>
   <data name="CloseMatchConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to close the match {0} Vs. {1}?</value>
@@ -614,5 +614,14 @@
   </data>
   <data name="WatchPredictions" xml:space="preserve">
     <value>Watch Predictions</value>
+  </data>
+  <data name="DoublePoints" xml:space="preserve">
+    <value>Double Points</value>
+  </data>
+  <data name="DoublePointsMatchMessage" xml:space="preserve">
+    <value>Double Points Match</value>
+  </data>
+  <data name="SinglePointsMatchMessage" xml:space="preserve">
+    <value>Single Points Match</value>
   </data>
 </root>

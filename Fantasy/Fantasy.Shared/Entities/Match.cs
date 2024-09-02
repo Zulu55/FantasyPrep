@@ -38,6 +38,9 @@ public class Match
     [Display(Name = "GoalsVisitor", ResourceType = typeof(Literals))]
     public int? GoalsVisitor { get; set; }
 
+    [Display(Name = "DoublePoints", ResourceType = typeof(Literals))]
+    public bool DoublePoints { get; set; }
+
     [Display(Name = "Date", ResourceType = typeof(Literals))]
     [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
     public DateTime DateLocal => Date.ToLocalTime();

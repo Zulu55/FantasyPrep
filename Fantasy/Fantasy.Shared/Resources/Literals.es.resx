@@ -552,8 +552,8 @@
   <data name="Prediction" xml:space="preserve">
     <value>Predicción</value>
   </data>
-  <data name="Close" xml:space="preserve">
-    <value>Cerrar</value>
+  <data name="CloseMatch" xml:space="preserve">
+    <value>Cerrar Partido</value>
   </data>
   <data name="CloseMatchConfirmMessage" xml:space="preserve">
     <value>¿Estás seguro de cerrar el partido {0} Vs. {1}?</value>
@@ -614,5 +614,14 @@
   </data>
   <data name="WatchPredictions" xml:space="preserve">
     <value>Ver Predicciones</value>
+  </data>
+  <data name="DoublePoints" xml:space="preserve">
+    <value>Puntaje Doble</value>
+  </data>
+  <data name="DoublePointsMatchMessage" xml:space="preserve">
+    <value>Partido de Doble Puntaje</value>
+  </data>
+  <data name="SinglePointsMatchMessage" xml:space="preserve">
+    <value>Partido de Puntaje Sencillo</value>
   </data>
 </root>

@@ -43,7 +43,33 @@
                    Class="mb-2" />
 
 
-    <MudGrid Justify="Justify.SpaceBetween">
+    <MudGrid Justify="Justify.SpaceBetween" Class="mb-2">
+        <MudItem xs="6">
+            <MudText Typo="Typo.input" Align="Align.Left">@doublePointsMessage</MudText>
+        </MudItem>
+        <MudItem xs="6" class="d-flex justify-content-end">
+            @if (MatchDTO.DoublePoints)
+            {
+                <MudButton Variant="Variant.Filled"
+                            StartIcon="@Icons.Material.Filled.Cancel"
+                            Color="Color.Error"
+                            OnClick="SetDoublePointsOff">
+                    @Localizer["SinglePointsMatchMessage"]
+                </MudButton>
+            }
+            else
+            {
+                <MudButton Variant="Variant.Filled"
+                            StartIcon="@Icons.Material.Filled.CheckCircle"
+                            Color="Color.Success"
+                            OnClick="SetDoublePointsOn">
+                    @Localizer["DoublePointsMatchMessage"]
+                </MudButton>
+            }
+        </MudItem>
+    </MudGrid>
+
+    <MudGrid Justify="Justify.SpaceBetween" Class="mb-2">
         <MudItem xs="6">
             <MudText Typo="Typo.input" Align="Align.Left">@isActiveMessage</MudText>
         </MudItem>
@@ -51,24 +77,23 @@
             @if (MatchDTO.IsActive)
             {
                 <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.Cancel"
-                           Color="Color.Error"
-                           OnClick="SetTournamentOff">
+                            StartIcon="@Icons.Material.Filled.Cancel"
+                            Color="Color.Error"
+                            OnClick="SetTournamentOff">
                     @Localizer["Deactivate"]
                 </MudButton>
             }
             else
             {
                 <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.CheckCircle"
-                           Color="Color.Success"
-                           OnClick="SetTournamentOn">
+                            StartIcon="@Icons.Material.Filled.CheckCircle"
+                            Color="Color.Success"
+                            OnClick="SetTournamentOn">
                     @Localizer["Activate"]
                 </MudButton>
             }
         </MudItem>
     </MudGrid>
-
 
     <div style="display: flex; align-items: center; justify-content: center; margin-top: 30px; margin-bottom: 30px;">
         <div class="mb-2" style="margin-right: 10px;">

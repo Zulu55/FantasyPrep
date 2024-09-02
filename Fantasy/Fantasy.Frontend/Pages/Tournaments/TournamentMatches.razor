@@ -43,6 +43,7 @@ else
             <MudTh>@Localizer["GoalsVisitor"]</MudTh>
             <MudTh>@Localizer["Image"]</MudTh>
             <MudTh>@Localizer["Visitor"]</MudTh>
+            <MudTh>@Localizer["DoublePoints"]</MudTh>
             <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
@@ -72,8 +73,18 @@ else
             </MudTd>
             <MudTd>@context.Visitor.Name</MudTd>
             <MudTd>
+                @if (context.DoublePoints)
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
+                }
+                else
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" />
+                }
+            </MudTd>
+            <MudTd>
                 <MudStack Row="true">
-                    <MudTooltip Text="@Localizer["Close"]">
+                    <MudTooltip Text="@Localizer["CloseMatch"]">
                         <MudButton Variant="Variant.Filled"
                                    Color="Color.Info"
                                    OnClick="@(() => CloseMatchAsync(context.Id))"
