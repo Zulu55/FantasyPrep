@@ -98,6 +98,6 @@ public partial class Balance
 
     private void ReturnAction()
     {
-        NavigationManager.NavigateTo($"/groups/details/{GroupId}");
+        NavigationManager.NavigateTo($"/groups/details/{GroupId}/false");
     }
 }

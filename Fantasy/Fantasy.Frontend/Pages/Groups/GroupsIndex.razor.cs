@@ -59,7 +59,7 @@ public partial class GroupsIndex
             {
                 CloseOnEscapeKey = true,
                 CloseButton = true,
-                MaxWidth = MaxWidth.Medium,
+                MaxWidth = MaxWidth.Large,
                 FullWidth = true
             };
             var parameters = new DialogParameters

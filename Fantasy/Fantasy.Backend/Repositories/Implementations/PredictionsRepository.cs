@@ -348,6 +348,7 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
             .ThenInclude(x => x.Visitor)
             .Include(x => x.User)
             .AsQueryable();
+        queryable = queryable.Where(x => x.Match.GoalsLocal != null && x.Match.GoalsVisitor != null);
         queryable = queryable.Where(x => x.GroupId == pagination.Id);
         queryable = queryable.Where(x => x.User.Email == pagination.Email);
 
@@ -371,6 +372,7 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
     public async Task<ActionResponse<int>> GetTotalRecordsBalanceAsync(PaginationDTO pagination)
     {
         var queryable = _context.Predictions.AsQueryable();
+        queryable = queryable.Where(x => x.Match.GoalsLocal != null && x.Match.GoalsVisitor != null);
         queryable = queryable.Where(x => x.GroupId == pagination.Id);
         queryable = queryable.Where(x => x.User.Email == pagination.Email);
 
