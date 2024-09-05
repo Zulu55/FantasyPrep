@@ -596,10 +596,10 @@
 
     &lt;p&gt;Points are awarded as follows:&lt;/p&gt;
     &lt;ul&gt;
-        &lt;li&gt;5 points for correctly predicting the winner or a draw.&lt;/li&gt;
-        &lt;li&gt;2 additional points for predicting the goals of the home team.&lt;/li&gt;
-        &lt;li&gt;2 additional points for predicting the goals of the away team.&lt;/li&gt;
-        &lt;li&gt;1 point for correctly predicting the goal difference.&lt;/li&gt;
+        &lt;li&gt;5 points for guess the winner or a draw.&lt;/li&gt;
+        &lt;li&gt;2 points for guess the goals of the home team.&lt;/li&gt;
+        &lt;li&gt;2 points for guess  the goals of the away team.&lt;/li&gt;
+        &lt;li&gt;1 point for guess the goal difference.&lt;/li&gt;
     &lt;/ul&gt;
     &lt;br/&gt;
     &lt;p&gt;The maximum points per match is 10, in the case of a perfect prediction. Please consider the following rules:&lt;/p&gt;

@@ -596,9 +596,9 @@
 
     &lt;p&gt;La forma de obtener puntos es la siguiente:&lt;/p&gt;
     &lt;ul&gt;
-        &lt;li&gt;5 puntos por acertar el ganador o predecir un empate.&lt;/li&gt;
-        &lt;li&gt;2 puntos adicionales por predecir los goles del equipo local.&lt;/li&gt;
-        &lt;li&gt;2 puntos adicionales por predecir los goles del equipo visitante.&lt;/li&gt;
+        &lt;li&gt;5 puntos por acertar el ganador o acertar un empate.&lt;/li&gt;
+        &lt;li&gt;2 puntos por acertar los goles del equipo local.&lt;/li&gt;
+        &lt;li&gt;2 puntos por acertar los goles del equipo visitante.&lt;/li&gt;
         &lt;li&gt;1 punto por acertar la diferencia de goles.&lt;/li&gt;
     &lt;/ul&gt;
     &lt;br/&gt;
