@@ -248,7 +248,7 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
         var tournament = await _context.Tournaments
             .Include(x => x.Matches)
             .FirstOrDefaultAsync(x => x.Id == group.TournamentId);
-        if (group == null)
+        if (tournament == null)
         {
             return;
         }
@@ -259,9 +259,9 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
             foreach (var match in tournament!.Matches!)
             {
                 var prediction = await _context.Predictions.FirstOrDefaultAsync(x => x.GroupId == group.Id &&
-                                                                                        x.Match.Id == match.Id &&
-                                                                                        x.UserId == userGroup.UserId &&
-                                                                                        x.TournamentId == tournament.Id);
+                                                                                     x.Match.Id == match.Id &&
+                                                                                     x.UserId == userGroup.UserId &&
+                                                                                     x.TournamentId == tournament.Id);
                 if (prediction == null)
                 {
                     newPredictions.Add(new Prediction
@@ -278,15 +278,8 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
 
         if (newPredictions.Count > 0)
         {
-            try
-            {
-                _context.AddRange(newPredictions);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
+            _context.AddRange(newPredictions);
+            await _context.SaveChangesAsync();
         }
     }
 
