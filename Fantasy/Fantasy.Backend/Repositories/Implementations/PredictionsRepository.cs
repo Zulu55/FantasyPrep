@@ -390,7 +390,7 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
         };
     }
 
-    private bool CanWatch(Prediction prediction)
+    public virtual bool CanWatch(Prediction prediction)
     {
         if (prediction.Match.GoalsLocal != null || prediction.Match.GoalsVisitor != null)
         {
