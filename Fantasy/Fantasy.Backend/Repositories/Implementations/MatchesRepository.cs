@@ -238,7 +238,7 @@ namespace Fantasy.Backend.Repositories.Implementations
             }
         }
 
-        private async Task CloseMatchAsync(Match match)
+        public async Task CloseMatchAsync(Match match)
         {
             var predictions = await _context.Predictions
                 .Where(x => x.MatchId == match.Id)
@@ -252,7 +252,7 @@ namespace Fantasy.Backend.Repositories.Implementations
             await _context.SaveChangesAsync();
         }
 
-        private int CalculatePoints(Match match, Prediction prediction)
+        public int CalculatePoints(Match match, Prediction prediction)
         {
             int points = 0;
             if (prediction.GoalsLocal == null || prediction.GoalsVisitor == null)
@@ -270,7 +270,7 @@ namespace Fantasy.Backend.Repositories.Implementations
             return points;
         }
 
-        private MatchStatus GetMatchStatus(int goalsLocal, int goalsVisitor)
+        public MatchStatus GetMatchStatus(int goalsLocal, int goalsVisitor)
         {
             if (goalsLocal > goalsVisitor) return MatchStatus.LocalWin;
             if (goalsLocal < goalsVisitor) return MatchStatus.VisitorWin;
