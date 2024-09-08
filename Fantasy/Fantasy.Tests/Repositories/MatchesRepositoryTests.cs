@@ -3,6 +3,7 @@ using Fantasy.Backend.Repositories.Implementations;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Enums;
+using Fantasy.Tests.General;
 using Microsoft.EntityFrameworkCore;
 using Match = Fantasy.Shared.Entities.Match;
 
@@ -634,5 +635,247 @@ public class MatchesRepositoryTests
 
         // Assert
         Assert.AreEqual(0, points); // Should return 0 because goals in the prediction are null
+    }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForMatch()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Add related entities to ensure the UpdateAsync process doesn't fail early
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var localTeam = new Team { Id = 1, Name = "Team A" };
+        var visitorTeam = new Team { Id = 2, Name = "Team B" };
+
+        context.Tournaments.Add(tournament);
+        context.Teams.Add(localTeam);
+        context.Teams.Add(visitorTeam);
+
+        var match = new Match { Id = 1, Tournament = tournament, Local = localTeam, Visitor = visitorTeam, Date = DateTime.Now };
+        context.Matches.Add(match);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new MatchesRepository(fakeContext);
+
+        var matchDTO = new MatchDTO
+        {
+            Id = 1,
+            TournamentId = tournament.Id,
+            LocalId = localTeam.Id,
+            VisitorId = visitorTeam.Id,
+            Date = DateTime.Now.AddDays(1),
+            GoalsLocal = 2,
+            GoalsVisitor = 1
+        };
+
+        // Act
+        var result = await repository.UpdateAsync(matchDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Check for the correct error message for DbUpdateException
+    }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenGeneralExceptionOccurs_ForMatch()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create and add entities directly to the context (no need to re-add them later).
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var localTeam = new Team { Id = 1, Name = "Team A" };
+        var visitorTeam = new Team { Id = 2, Name = "Team B" };
+        var match = new Match
+        {
+            Id = 1,
+            Date = DateTime.Now,
+            Local = localTeam,
+            Visitor = visitorTeam,
+            Tournament = tournament
+        };
+
+        context.Tournaments.Add(tournament);
+        context.Teams.AddRange(localTeam, visitorTeam);
+        context.Matches.Add(match);
+        await context.SaveChangesAsync();
+
+        // Use the FakeDbContextWithGeneralException to simulate an exception.
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new MatchesRepository(fakeContext);
+        var matchDTO = new MatchDTO
+        {
+            Id = 1,
+            TournamentId = 1,
+            LocalId = 1,
+            VisitorId = 2,
+            GoalsLocal = 2,
+            GoalsVisitor = 1,
+            Date = DateTime.Now,
+            IsActive = true,
+            DoublePoints = false
+        };
+
+        // Act
+        var result = await repository.UpdateAsync(matchDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForMatch()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Add related entities to ensure the AddAsync process doesn't fail early
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var localTeam = new Team { Id = 1, Name = "Team A" };
+        var visitorTeam = new Team { Id = 2, Name = "Team B" };
+
+        context.Tournaments.Add(tournament);
+        context.Teams.Add(localTeam);
+        context.Teams.Add(visitorTeam);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new MatchesRepository(fakeContext);
+
+        var matchDTO = new MatchDTO
+        {
+            TournamentId = tournament.Id,
+            LocalId = localTeam.Id,
+            VisitorId = visitorTeam.Id,
+            Date = DateTime.Now.AddDays(1),
+            DoublePoints = true
+        };
+
+        // Act
+        var result = await repository.AddAsync(matchDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Check for the correct error message for DbUpdateException
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenGeneralExceptionOccurs_ForMatch()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Add related entities to ensure the AddAsync process doesn't fail early
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var localTeam = new Team { Id = 1, Name = "Team A" };
+        var visitorTeam = new Team { Id = 2, Name = "Team B" };
+
+        context.Tournaments.Add(tournament);
+        context.Teams.Add(localTeam);
+        context.Teams.Add(visitorTeam);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContextWithGeneralException to simulate a general exception
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new MatchesRepository(fakeContext);
+
+        var matchDTO = new MatchDTO
+        {
+            TournamentId = tournament.Id,
+            LocalId = localTeam.Id,
+            VisitorId = visitorTeam.Id,
+            Date = DateTime.Now.AddDays(1),
+            DoublePoints = true
+        };
+
+        // Act
+        var result = await repository.AddAsync(matchDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);  // Check for the correct error message for general exception
+    }
+
+    [TestMethod]
+    public async Task GetAsync_ReturnsFilteredMatches_WhenFilterIsApplied()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create and add some test data
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var localTeam1 = new Team { Id = 1, Name = "Team A" };
+        var visitorTeam1 = new Team { Id = 2, Name = "Team B" };
+        var localTeam2 = new Team { Id = 3, Name = "Team C" };
+        var visitorTeam2 = new Team { Id = 4, Name = "Team D" };
+
+        context.Tournaments.Add(tournament);
+        context.Teams.AddRange(localTeam1, visitorTeam1, localTeam2, visitorTeam2);
+
+        var match1 = new Match
+        {
+            Id = 1,
+            TournamentId = 1,
+            Local = localTeam1,
+            Visitor = visitorTeam1,
+            Date = DateTime.Now.AddDays(1),
+            IsActive = true
+        };
+        var match2 = new Match
+        {
+            Id = 2,
+            TournamentId = 1,
+            Local = localTeam2,
+            Visitor = visitorTeam2,
+            Date = DateTime.Now.AddDays(2),
+            IsActive = true
+        };
+
+        context.Matches.AddRange(match1, match2);
+        await context.SaveChangesAsync();
+
+        var repository = new MatchesRepository(context);
+
+        // Create a PaginationDTO with a filter that matches "Team A" (local) or "Team B" (visitor)
+        var pagination = new PaginationDTO
+        {
+            Id = 1,  // Tournament ID to filter by
+            Filter = "Team A",
+            Page = 1,
+            RecordsNumber = 10
+        };
+
+        // Act
+        var result = await repository.GetAsync(pagination);
+
+        // Assert
+        Assert.IsTrue(result.WasSuccess);
+        Assert.AreEqual(1, result.Result!.Count());  // Only match1 should match the filter
+        Assert.AreEqual("Team A", result.Result!.First().Local.Name);  // Ensure match1 is returned
     }
 }

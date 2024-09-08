@@ -1,8 +1,10 @@
 ﻿using Fantasy.Backend.Data;
+using Fantasy.Backend.Helpers;
 using Fantasy.Backend.Repositories.Implementations;
 using Fantasy.Backend.Repositories.Interfaces;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
+using Fantasy.Tests.General;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -435,5 +437,252 @@ public class UserGroupsRepositoryTests
         // Assert
         Assert.IsFalse(result.WasSuccess);
         Assert.AreEqual("ERR001", result.Message);
+    }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForUserGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create a UserGroup entity with required fields (UserId is required)
+        var userGroup = new UserGroup
+        {
+            Id = 1,
+            UserId = Guid.NewGuid().ToString(), // Ensure UserId is set
+            IsActive = true
+        };
+
+        context.UserGroups.Add(userGroup);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new UserGroupsRepository(fakeContext, _usersRepositoryMock.Object);
+        var userGroupDTO = new UserGroupDTO
+        {
+            Id = 1,
+            IsActive = false  // Update some value
+        };
+
+        // Act
+        var result = await repository.UpdateAsync(userGroupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Ensure the correct error message for DbUpdateException
+    }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenGeneralExceptionOccurs_ForUserGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create and add entities directly to the context
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+        var userGroup = new UserGroup { Id = 1, User = user, Group = group, IsActive = true };
+
+        context.Users.Add(user);
+        context.Groups.Add(group);
+        context.UserGroups.Add(userGroup);
+        await context.SaveChangesAsync();
+
+        // Use the FakeDbContextWithGeneralException to simulate an exception
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new UserGroupsRepository(fakeContext, _usersRepositoryMock.Object);
+        var userGroupDTO = new UserGroupDTO
+        {
+            Id = 1,
+            IsActive = false
+        };
+
+        // Act
+        var result = await repository.UpdateAsync(userGroupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForUserGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the IUsersRepository
+        var mockUsersRepository = new Mock<IUsersRepository>();
+
+        // Create related entities
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+
+        // Mock GetUserAsync to return a valid user
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(user);
+
+        // Add group to the context
+        context.Groups.Add(group);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new UserGroupsRepository(fakeContext, mockUsersRepository.Object);
+
+        var userGroupDTO = new UserGroupDTO
+        {
+            UserId = user.Id,
+            GroupId = group.Id
+        };
+
+        // Act
+        var result = await repository.AddAsync(userGroupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Verify that DbUpdateException is caught and handled
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenGeneralExceptionOccurs_ForUserGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the IUsersRepository
+        var mockUsersRepository = new Mock<IUsersRepository>();
+
+        // Create related entities
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+
+        // Mock GetUserAsync to return a valid user
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(user);
+
+        // Add group to the context
+        context.Groups.Add(group);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContextWithGeneralException to simulate a general exception
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new UserGroupsRepository(fakeContext, mockUsersRepository.Object);
+
+        var userGroupDTO = new UserGroupDTO
+        {
+            UserId = user.Id,
+            GroupId = group.Id
+        };
+
+        // Act
+        var result = await repository.AddAsync(userGroupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);  // Verify that a general exception is caught and handled
+    }
+
+    [TestMethod]
+    public async Task JoinAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForUserGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the IUsersRepository
+        var mockUsersRepository = new Mock<IUsersRepository>();
+
+        // Create related entities
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+
+        // Mock GetUserAsync to return a valid user
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<string>()))
+            .ReturnsAsync(user);
+
+        // Add group to the context
+        context.Groups.Add(group);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new UserGroupsRepository(fakeContext, mockUsersRepository.Object);
+
+        var joinGroupDTO = new JoinGroupDTO
+        {
+            UserName = user.Id,
+            Code = group.Code
+        };
+
+        // Act
+        var result = await repository.JoinAsync(joinGroupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Verify that DbUpdateException is caught and handled
+    }
+
+    [TestMethod]
+    public async Task JoinAsync_ReturnsError_WhenGeneralExceptionOccurs_ForUserGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the IUsersRepository
+        var mockUsersRepository = new Mock<IUsersRepository>();
+
+        // Create related entities
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+
+        // Mock GetUserAsync to return a valid user
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<string>()))
+            .ReturnsAsync(user);
+
+        // Add group to the context
+        context.Groups.Add(group);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContextWithGeneralException to simulate a general exception
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new UserGroupsRepository(fakeContext, mockUsersRepository.Object);
+
+        var joinGroupDTO = new JoinGroupDTO
+        {
+            UserName = user.Id,
+            Code = group.Code
+        };
+
+        // Act
+        var result = await repository.JoinAsync(joinGroupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);  // Verify that a general exception is caught and handled
     }
 }

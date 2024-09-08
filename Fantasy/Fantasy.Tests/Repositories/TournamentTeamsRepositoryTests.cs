@@ -2,6 +2,7 @@
 using Fantasy.Backend.Repositories.Implementations;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
+using Fantasy.Tests.General;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -217,5 +218,79 @@ public class TournamentTeamsRepositoryTests
         // Assert
         Assert.IsTrue(result.WasSuccess);
         Assert.AreEqual(1, result.Result); // Only "Team Alpha" should match the filter
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForTournamentTeam()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create related entities
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var team = new Team { Id = 1, Name = "Team A" };
+
+        // Add the entities to the context
+        context.Tournaments.Add(tournament);
+        context.Teams.Add(team);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new TournamentTeamsRepository(fakeContext);
+
+        var tournamentTeamDTO = new TournamentTeamDTO
+        {
+            TournamentId = tournament.Id,
+            TeamId = team.Id
+        };
+
+        // Act
+        var result = await repository.AddAsync(tournamentTeamDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Verify that DbUpdateException is caught and handled
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenGeneralExceptionOccurs_ForTournamentTeam()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create related entities
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var team = new Team { Id = 1, Name = "Team A" };
+
+        // Add the entities to the context
+        context.Tournaments.Add(tournament);
+        context.Teams.Add(team);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContextWithGeneralException to simulate a general exception
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new TournamentTeamsRepository(fakeContext);
+
+        var tournamentTeamDTO = new TournamentTeamDTO
+        {
+            TournamentId = tournament.Id,
+            TeamId = team.Id
+        };
+
+        // Act
+        var result = await repository.AddAsync(tournamentTeamDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);  // Verify that a general exception is caught and handled
     }
 }

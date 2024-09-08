@@ -4,7 +4,9 @@ using Fantasy.Backend.Repositories.Implementations;
 using Fantasy.Backend.Repositories.Interfaces;
 using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
+using Fantasy.Tests.General;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update;
 using Moq;
 using Match = Fantasy.Shared.Entities.Match;
 
@@ -959,5 +961,148 @@ public class GroupsRepositoryTests
 
         // Verify that SaveFileAsync was called with the correct parameters
         Mock.Get(_fileStorageMock).Verify(f => f.SaveFileAsync(It.IsAny<byte[]>(), ".jpg", "groups"), Times.Once);
+    }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        var group = new Group
+        {
+            Id = 1,
+            Name = "Original Group",
+            AdminId = Guid.NewGuid().ToString(),
+            Code = "GRP123"
+        };
+        context.Groups.Add(group);
+        await context.SaveChangesAsync();
+
+        var fakeContext = new FakeDbContext(options);
+        var repository = new GroupsRepository(fakeContext, _fileStorageMock, _usersRepositoryMock);
+        var groupDTO = new GroupDTO { Id = 1, Name = "Updated Group" };
+
+        // Act
+        var result = await repository.UpdateAsync(groupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);
+    }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenGeneralExceptionOccurs_ForGroup()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        var group = new Group { Id = 1, Name = "Original Group", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+        context.Groups.Add(group);
+        await context.SaveChangesAsync();
+
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new GroupsRepository(fakeContext, _fileStorageMock, _usersRepositoryMock);
+        var groupDTO = new GroupDTO { Id = 1, Name = "Updated Group" };
+
+        // Act
+        var result = await repository.UpdateAsync(groupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message); // Check for the expected exception message
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenDbUpdateExceptionOccurs()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the user repository and file storage
+        var mockUsersRepository = new Mock<IUsersRepository>();
+        var mockFileStorage = new Mock<IFileStorage>();
+
+        // Mocking GetUserAsync to return a valid admin user
+        var adminUser = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<string>()))
+            .ReturnsAsync(adminUser); // Return a valid admin user
+
+        // Adding a valid tournament to the context with required properties
+        var tournament = new Tournament
+        {
+            Id = 1,
+            Name = "Test Tournament", // Set the Name to avoid the required property issue
+            Remarks = "Tournament Remarks"
+        };
+        context.Tournaments.Add(tournament);
+        await context.SaveChangesAsync(); // Save initial tournament data
+
+        var fakeContext = new FakeDbContext(options); // Fake context to simulate DbUpdateException
+        var repository = new GroupsRepository(fakeContext, mockFileStorage.Object, mockUsersRepository.Object);
+
+        var groupDTO = new GroupDTO { AdminId = adminUser.Id, TournamentId = 1, Name = "Test Group" };
+
+        // Act
+        var result = await repository.AddAsync(groupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenGeneralExceptionOccurs()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the user repository and file storage
+        var mockUsersRepository = new Mock<IUsersRepository>();
+        var mockFileStorage = new Mock<IFileStorage>();
+
+        // Mocking GetUserAsync to return a valid admin user
+        var adminUser = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<string>()))
+            .ReturnsAsync(adminUser); // Return a valid admin user
+
+        // Adding a valid tournament to the context with required properties
+        var tournament = new Tournament
+        {
+            Id = 1,
+            Name = "Test Tournament", // Set the Name to avoid the required property issue
+            Remarks = "Tournament Remarks"
+        };
+        context.Tournaments.Add(tournament);
+        await context.SaveChangesAsync(); // Save initial tournament data
+
+        // Use FakeDbContextWithGeneralException to simulate general exception
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new GroupsRepository(fakeContext, mockFileStorage.Object, mockUsersRepository.Object);
+
+        var groupDTO = new GroupDTO { AdminId = adminUser.Id, TournamentId = 1, Name = "Test Group" };
+
+        // Act
+        var result = await repository.AddAsync(groupDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);
     }
 }

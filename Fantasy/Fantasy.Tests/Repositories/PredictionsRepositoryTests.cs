@@ -1569,4 +1569,218 @@ public class PredictionsRepositoryTests
         // Assert
         Assert.IsTrue(result); // Match was more than 10 minutes ago, but the current logic allows watching even if the match has started.
     }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForPrediction()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create the required user entity with FirstName and LastName properties
+        var user = new User
+        {
+            Id = Guid.NewGuid().ToString(),
+            Email = "test@example.com",
+            FirstName = "John",  // Ensure FirstName is set
+            LastName = "Doe"     // Ensure LastName is set
+        };
+
+        // Add the match and prediction entities, ensuring match has no goals set and is not "watchable"
+        var match = new Match
+        {
+            Id = 1,
+            GoalsLocal = null,  // No goals set
+            GoalsVisitor = null,  // No goals set
+            Date = DateTime.Now.AddHours(1)  // Match is in the future to avoid CanWatch logic returning true
+        };
+
+        var prediction = new Prediction
+        {
+            Id = 1,
+            Match = match,
+            User = user,
+            GoalsLocal = 2,
+            GoalsVisitor = 1,
+            Points = 10
+        };
+
+        context.Users.Add(user);
+        context.Matches.Add(match);
+        context.Predictions.Add(prediction);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new PredictionsRepository(fakeContext, _usersRepositoryMock.Object);
+        var predictionDTO = new PredictionDTO
+        {
+            Id = 1,
+            GoalsLocal = 2,
+            GoalsVisitor = 1,
+            Points = 5
+        };
+
+        // Act
+        var result = await repository.UpdateAsync(predictionDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Check for the correct error message for DbUpdateException
+    }
+
+    [TestMethod]
+    public async Task UpdateAsync_ReturnsError_WhenGeneralExceptionOccurs_ForPrediction()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Create and add entities directly to the context.
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+        var match = new Match { Id = 1, Local = new Team { Id = 1, Name = "Team A" }, Visitor = new Team { Id = 2, Name = "Team B" }, Date = DateTime.Now.AddMinutes(30) };  // Future date to bypass CanWatch
+        var prediction = new Prediction
+        {
+            Id = 1,
+            Group = group,
+            User = user,
+            Match = match,
+            GoalsLocal = null,
+            GoalsVisitor = null,
+            Points = null
+        };
+
+        context.Users.Add(user);
+        context.Groups.Add(group);
+        context.Matches.Add(match);
+        context.Predictions.Add(prediction);
+        await context.SaveChangesAsync();
+
+        // Use the FakeDbContextWithGeneralException to simulate an exception.
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new PredictionsRepository(fakeContext, _usersRepositoryMock.Object);
+        var predictionDTO = new PredictionDTO
+        {
+            Id = 1,
+            GoalsLocal = 2,
+            GoalsVisitor = 1,
+            Points = 5
+        };
+
+        // Act
+        var result = await repository.UpdateAsync(predictionDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenDbUpdateExceptionOccurs_ForPrediction()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the IUsersRepository
+        var mockUsersRepository = new Mock<IUsersRepository>();
+
+        // Create related entities
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+        var match = new Match { Id = 1, Local = new Team { Id = 1, Name = "Team A" }, Visitor = new Team { Id = 2, Name = "Team B" }, Date = DateTime.Now.AddMinutes(30) };
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+
+        // Mocking GetUserAsync to return a valid user
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(user);
+
+        // Add the other entities to the context
+        context.Groups.Add(group);
+        context.Matches.Add(match);
+        context.Tournaments.Add(tournament);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContext to simulate DbUpdateException
+        var fakeContext = new FakeDbContext(options);
+        var repository = new PredictionsRepository(fakeContext, mockUsersRepository.Object);
+
+        var predictionDTO = new PredictionDTO
+        {
+            UserId = user.Id,
+            GroupId = group.Id,
+            TournamentId = tournament.Id,
+            MatchId = match.Id,
+            GoalsLocal = 2,
+            GoalsVisitor = 1
+        };
+
+        // Act
+        var result = await repository.AddAsync(predictionDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("ERR003", result.Message);  // Verify that DbUpdateException is caught and handled
+    }
+
+    [TestMethod]
+    public async Task AddAsync_ReturnsError_WhenGeneralExceptionOccurs_ForPrediction()
+    {
+        // Arrange
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+
+        using var context = new DataContext(options);
+
+        // Mocking the IUsersRepository
+        var mockUsersRepository = new Mock<IUsersRepository>();
+
+        // Create related entities
+        var user = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe" };
+        var group = new Group { Id = 1, Name = "Group A", AdminId = Guid.NewGuid().ToString(), Code = "GRP123" };
+        var match = new Match { Id = 1, Local = new Team { Id = 1, Name = "Team A" }, Visitor = new Team { Id = 2, Name = "Team B" }, Date = DateTime.Now.AddMinutes(30) };
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+
+        // Mocking GetUserAsync to return a valid user
+        mockUsersRepository.Setup(repo => repo.GetUserAsync(It.IsAny<Guid>()))
+            .ReturnsAsync(user);
+
+        // Add the other entities to the context
+        context.Groups.Add(group);
+        context.Matches.Add(match);
+        context.Tournaments.Add(tournament);
+        await context.SaveChangesAsync();
+
+        // Use FakeDbContextWithGeneralException to simulate a general exception
+        var fakeContext = new FakeDbContextWithGeneralException(options);
+        var repository = new PredictionsRepository(fakeContext, mockUsersRepository.Object);
+
+        var predictionDTO = new PredictionDTO
+        {
+            UserId = user.Id,
+            GroupId = group.Id,
+            TournamentId = tournament.Id,
+            MatchId = match.Id,
+            GoalsLocal = 2,
+            GoalsVisitor = 1
+        };
+
+        // Act
+        var result = await repository.AddAsync(predictionDTO);
+
+        // Assert
+        Assert.IsFalse(result.WasSuccess);
+        Assert.AreEqual("General exception occurred", result.Message);  // Verify that a general exception is caught and handled
+    }
 }
