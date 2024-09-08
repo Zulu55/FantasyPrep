@@ -301,7 +301,8 @@ public class TournamentsRepositoryTests
     }
 
     [TestMethod]
-    public async Task UpdateAsync_ReturnsError_WhenDbUpdateExceptionOccurs()
+    public async Task
+        UpdateAsync_ReturnsError_WhenDbUpdateExceptionOccurs()
     {
         // Arrange
         var options = new DbContextOptionsBuilder<DataContext>()
