@@ -16,6 +16,7 @@ public partial class TeamForm
     private Country selectedCountry = new();
     private List<Country>? countries;
     private string? imageUrl;
+    private string? shapeImageMessage;
 
     [Inject] private SweetAlertService SweetAlertService { get; set; } = null!;
     [Inject] private IStringLocalizer<Literals> Localizer { get; set; } = null!;
@@ -45,6 +46,7 @@ public partial class TeamForm
             imageUrl = TeamDTO.Image;
             TeamDTO.Image = null;
         }
+        shapeImageMessage = TeamDTO.IsImageSquare ? Localizer["ImageIsSquare"] : Localizer["ImageIsRectangular"];
     }
 
     private async Task LoadCountriesAsync()
@@ -110,5 +112,17 @@ public partial class TeamForm
     {
         selectedCountry = country;
         TeamDTO.CountryId = country.Id;
+    }
+
+    private void SetImageSquare()
+    {
+        TeamDTO.IsImageSquare = true;
+        shapeImageMessage = Localizer["ImageIsSquare"];
+    }
+
+    private void SetImageRectangular()
+    {
+        TeamDTO.IsImageSquare = false;
+        shapeImageMessage = Localizer["ImageIsRectangular"];
     }
 }

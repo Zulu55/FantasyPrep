@@ -41,8 +41,15 @@ else
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Team.Name</MudTd>
-            <MudTd style="text-align:center; vertical-align:middle;">
-                <MudImage Src="@context.Team.ImageFull" Width="90" Height="60" />
+            <MudTd>
+                @if (context.Team.IsImageSquare)
+                {
+                    <MudImage Src="@context.Team.ImageFull" Width="60" Height="60" />
+                }
+                else
+                {
+                    <MudImage Src="@context.Team.ImageFull" Width="90" Height="60" />
+                }
             </MudTd>
             <MudTd>
                 <MudTooltip Text="@Localizer["Delete"]">

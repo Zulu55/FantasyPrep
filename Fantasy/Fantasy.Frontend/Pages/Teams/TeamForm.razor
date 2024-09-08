@@ -9,16 +9,42 @@
                   Class="mb-4" />
 
     <MudAutocomplete T="Country"
-                     Label=@Localizer["Country"]
-                     Placeholder=@Localizer["SelectACountry"]
-                     SearchFunc="SearchCountry"
-                     Value="selectedCountry"
-                     ValueChanged="CountryChanged"
-                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
+                        Label=@Localizer["Country"]
+                        Placeholder=@Localizer["SelectACountry"]
+                        SearchFunc="SearchCountry"
+                        Value="selectedCountry"
+                        ValueChanged="CountryChanged"
+                        ToStringFunc="@(e=> e==null?null : $"{e.Name}")">
         <ItemTemplate Context="itemContext">
             @itemContext.Name
         </ItemTemplate>
     </MudAutocomplete>
+
+    <MudGrid Justify="Justify.SpaceBetween" Class="my-2">
+        <MudItem xs="6">
+            <MudText Typo="Typo.input" Align="Align.Left">@shapeImageMessage</MudText>
+        </MudItem>
+        <MudItem xs="6" class="d-flex justify-content-end">
+            @if (TeamDTO.IsImageSquare)
+            {
+                <MudButton Variant="Variant.Filled"
+                            StartIcon="@Icons.Material.Filled.Square"
+                            Color="Color.Primary"
+                            OnClick="SetImageRectangular">
+                    @Localizer["Rectangular"]
+                </MudButton>
+            }
+            else
+            {
+                <MudButton Variant="Variant.Filled"
+                            StartIcon="@Icons.Material.Filled.Rectangle"
+                            Color="Color.Secondary"
+                            OnClick="SetImageSquare">
+                    @Localizer["Square"]
+                </MudButton>
+            }
+        </MudItem>
+    </MudGrid>
 
     <div class="my-2">
         <InputImg Label=@Localizer["Image"] ImageSelected="ImageSelected" ImageURL="@imageUrl" />

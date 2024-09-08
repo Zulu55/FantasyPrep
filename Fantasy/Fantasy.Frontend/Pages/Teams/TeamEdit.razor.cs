@@ -45,7 +45,8 @@ public partial class TeamEdit
                 Id = team!.Id,
                 Name = team!.Name,
                 Image = team.Image,
-                CountryId = team.CountryId
+                CountryId = team.CountryId,
+                IsImageSquare = team.IsImageSquare
             };
             selectedCountry = team.Country;
         }

@@ -20,6 +20,9 @@ public class Team
     [Range(1, int.MaxValue, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int CountryId { get; set; }
 
+    [Display(Name = "IsImageSquare", ResourceType = typeof(Literals))]
+    public bool IsImageSquare { get; set; }
+
     public string ImageFull => string.IsNullOrEmpty(Image) ? "/images/NoImage.png" : Image;
 
     public ICollection<TournamentTeam>? TournamentTeams { get; set; }

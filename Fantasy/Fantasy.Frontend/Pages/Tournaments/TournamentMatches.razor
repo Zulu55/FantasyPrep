@@ -60,7 +60,14 @@ else
             </MudTd>
             <MudTd>@context.Local.Name</MudTd>
             <MudTd style="text-align:center; vertical-align:middle;">
-                <MudImage Src="@context.Local.ImageFull" Width="90" Height="60" />
+                @if (context.Local.IsImageSquare)
+                {
+                    <MudImage Src="@context.Local.ImageFull" Width="60" Height="60" />
+                }
+                else
+                {
+                    <MudImage Src="@context.Local.ImageFull" Width="90" Height="60" />
+                }
             </MudTd>
             <MudTd>
                 <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsLocal</MudText>
@@ -69,7 +76,14 @@ else
                 <MudText Typo="Typo.h3" Align="Align.Center">@context.GoalsVisitor</MudText>
             </MudTd>
             <MudTd style="text-align:center; vertical-align:middle;">
-                <MudImage Src="@context.Visitor.ImageFull" Width="90" Height="60" />
+                @if (context.Visitor.IsImageSquare)
+                {
+                    <MudImage Src="@context.Visitor.ImageFull" Width="60" Height="60" />
+                }
+                else
+                {
+                    <MudImage Src="@context.Visitor.ImageFull" Width="90" Height="60" />
+                }
             </MudTd>
             <MudTd>@context.Visitor.Name</MudTd>
             <MudTd>

@@ -18,4 +18,7 @@ public class TeamDTO
     [Display(Name = "Country", ResourceType = typeof(Literals))]
     [Range(1, int.MaxValue, ErrorMessageResourceName = "RequiredField", ErrorMessageResourceType = typeof(Literals))]
     public int CountryId { get; set; }
+
+    [Display(Name = "IsImageSquare", ResourceType = typeof(Literals))]
+    public bool IsImageSquare { get; set; }
 }

@@ -624,4 +624,19 @@
   <data name="SinglePointsMatchMessage" xml:space="preserve">
     <value>Single Points Match</value>
   </data>
+  <data name="IsImageSquare" xml:space="preserve">
+    <value>Is Image Square?</value>
+  </data>
+  <data name="ImageIsSquare" xml:space="preserve">
+    <value>The image is square</value>
+  </data>
+  <data name="ImageIsRectangular" xml:space="preserve">
+    <value>The image is rectangular</value>
+  </data>
+  <data name="Square" xml:space="preserve">
+    <value>Square</value>
+  </data>
+  <data name="Rectangular" xml:space="preserve">
+    <value>Rectangular</value>
+  </data>
 </root>

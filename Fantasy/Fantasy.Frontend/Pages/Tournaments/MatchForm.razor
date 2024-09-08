@@ -97,11 +97,31 @@
 
     <div style="display: flex; align-items: center; justify-content: center; margin-top: 30px; margin-bottom: 30px;">
         <div class="mb-2" style="margin-right: 10px;">
-            <MudImage Src="@imageUrlLocal" Width="90" Height="60" />
+            @if(selectedLocal.Id != 0)
+            {
+                @if (selectedLocal.IsImageSquare)
+                {
+                    <MudImage Src="@imageUrlLocal" Width="120" Height="120" />
+                }
+                else
+                {
+                    <MudImage Src="@imageUrlLocal" Width="120" Height="80" />
+                }
+            }
         </div>
         <MudText Typo="Typo.h3" Align="Align.Center" Class="mx-2">Vs</MudText>
         <div class="mb-2" style="margin-left: 10px;">
-            <MudImage Src="@imageUrlVisitor" Width="90" Height="60" />
+            @if (selectedVisitor.Id != 0)
+            {
+                @if (selectedVisitor.IsImageSquare)
+                {
+                    <MudImage Src="@imageUrlVisitor" Width="120" Height="120" />
+                }
+                else
+                {
+                    <MudImage Src="@imageUrlVisitor" Width="120" Height="80" />
+                }
+            }
         </div>
     </div>
 

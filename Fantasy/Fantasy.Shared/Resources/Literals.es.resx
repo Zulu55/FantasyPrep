@@ -624,4 +624,19 @@
   <data name="SinglePointsMatchMessage" xml:space="preserve">
     <value>Partido de Puntaje Sencillo</value>
   </data>
+  <data name="IsImageSquare" xml:space="preserve">
+    <value>¿La imagen es cuadrada?</value>
+  </data>
+  <data name="ImageIsSquare" xml:space="preserve">
+    <value>La imagén es cuadrada</value>
+  </data>
+  <data name="ImageIsRectangular" xml:space="preserve">
+    <value>La imagén es rectangular</value>
+  </data>
+  <data name="Square" xml:space="preserve">
+    <value>Cuadrada</value>
+  </data>
+  <data name="Rectangular" xml:space="preserve">
+    <value>Rectangular</value>
+  </data>
 </root>

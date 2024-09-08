@@ -17,26 +17,36 @@
     </MudAutocomplete>
 
     <MudAutocomplete T="Team"
-                     Label=@Localizer["Team"]
-                     Placeholder=@Localizer["SelectATeam"]
-                     SearchFunc="SearchTeam"
-                     Value="selectedTeam"
-                     ValueChanged="TeamChanged"
-                     ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
-                     Class="mb-2">
+                        Label=@Localizer["Team"]
+                        Placeholder=@Localizer["SelectATeam"]
+                        SearchFunc="SearchTeam"
+                        Value="selectedTeam"
+                        ValueChanged="TeamChanged"
+                        ToStringFunc="@(e=> e==null?null : $"{e.Name}")"
+                        Class="mb-2">
         <ItemTemplate Context="itemContext">
             @itemContext.Name
         </ItemTemplate>
     </MudAutocomplete>
 
-    <div class="mb-2">
-        <MudImage Src="@imageUrl" Width="90" Height="60" />
+    <div class="my-2">
+        @if (selectedTeam.Id != 0)
+        {
+            @if (selectedTeam.IsImageSquare)
+            {
+                <MudImage Src="@imageUrl" Width="120" Height="120" />
+            }
+            else
+            {
+                <MudImage Src="@imageUrl" Width="120" Height="80" />
+            }
+        }
     </div>
 
     <MudButton Variant="Variant.Outlined"
-               StartIcon="@Icons.Material.Filled.ArrowBack"
-               Color="Color.Info"
-               OnClick="ReturnAction">
+                StartIcon="@Icons.Material.Filled.ArrowBack"
+                Color="Color.Info"
+                OnClick="ReturnAction">
         @Localizer["Return"]
     </MudButton>
 

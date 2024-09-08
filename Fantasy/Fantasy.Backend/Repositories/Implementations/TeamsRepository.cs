@@ -35,6 +35,7 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
         {
             Country = country,
             Name = teamDTO.Name,
+            IsImageSquare = teamDTO.IsImageSquare,
         };
 
         if (!string.IsNullOrEmpty(teamDTO.Image))
@@ -109,6 +110,7 @@ public class TeamsRepository : GenericRepository<Team>, ITeamsRepository
 
         currentTeam.Country = country;
         currentTeam.Name = teamDTO.Name;
+        currentTeam.IsImageSquare = teamDTO.IsImageSquare;
 
         _context.Update(currentTeam);
         try

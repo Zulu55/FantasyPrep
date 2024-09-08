@@ -29,13 +29,31 @@ else
         <HeaderContent>
             <MudTh>@Localizer["Team"]</MudTh>
             <MudTh>@Localizer["Image"]</MudTh>
+            <MudTh>@Localizer["IsImageSquare"]</MudTh>
             <MudTh>@Localizer["Country"]</MudTh>
             <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
             <MudTd>
-                <MudImage Src="@context.ImageFull" Width="90" Height="60" />
+                @if (context.IsImageSquare)
+                {
+                    <MudImage Src="@context.ImageFull" Width="60" Height="60" />
+                }
+                else
+                {
+                    <MudImage Src="@context.ImageFull" Width="90" Height="60" />
+                }
+            </MudTd>
+            <MudTd>
+                @if (context.IsImageSquare)
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.CheckCircle" Color="Color.Success" />
+                }
+                else
+                {
+                    <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" />
+                }
             </MudTd>
             <MudTd>@context.Country.Name</MudTd>
             <MudTd>
