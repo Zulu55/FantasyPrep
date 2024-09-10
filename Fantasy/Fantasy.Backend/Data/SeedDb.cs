@@ -1,12 +1,13 @@
-﻿using Azure.Storage.Blobs.Models;
-using Fantasy.Backend.Helpers;
+﻿using Fantasy.Backend.Helpers;
 using Fantasy.Backend.UnitsOfWork.Interfaces;
 using Fantasy.Shared.Entities;
 using Fantasy.Shared.Enums;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Fantasy.Backend.Data;
 
+[ExcludeFromCodeCoverage(Justification = "It is a wrapper used to test other classes. There is no way to prove it.")]
 public class SeedDb
 {
     private readonly DataContext _context;

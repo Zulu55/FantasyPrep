@@ -1,4 +1,6 @@
-﻿namespace Fantasy.Backend.Helpers;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Fantasy.Backend.Helpers;
 
 public interface IFileStorage
 {
