@@ -1,5 +1,4 @@
 ﻿using Fantasy.Shared.Responses;
-using MailKit.Net.Smtp;
 using MimeKit;
 
 namespace Fantasy.Backend.Helpers;
@@ -7,10 +6,12 @@ namespace Fantasy.Backend.Helpers;
 public class MailHelper : IMailHelper
 {
     private readonly IConfiguration _configuration;
+    private readonly ISmtpClient _smtpClient;
 
-    public MailHelper(IConfiguration configuration)
+    public MailHelper(IConfiguration configuration, ISmtpClient smtpClient)
     {
         _configuration = configuration;
+        _smtpClient = smtpClient;
     }
 
     public ActionResponse<string> SendMail(string toName, string toEmail, string subject, string body, string language)
@@ -37,13 +38,10 @@ public class MailHelper : IMailHelper
             };
             message.Body = bodyBuilder.ToMessageBody();
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect(smtp, int.Parse(port!), false);
-                client.Authenticate(from, password);
-                client.Send(message);
-                client.Disconnect(true);
-            }
+            _smtpClient.Connect(smtp!, int.Parse(port!), false);
+            _smtpClient.Authenticate(from!, password!);
+            _smtpClient.Send(message);
+            _smtpClient.Disconnect(true);
 
             return new ActionResponse<string> { WasSuccess = true };
         }
