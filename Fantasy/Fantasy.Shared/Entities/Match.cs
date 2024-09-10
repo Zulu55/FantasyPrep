@@ -45,6 +45,8 @@ public class Match
     [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}")]
     public DateTime DateLocal => Date.ToLocalTime();
 
+    public bool IsClosed { get; set; }
+
     public ICollection<Prediction>? Predictions { get; set; }
 
     public int PredictionsCount => Predictions == null ? 0 : Predictions.Count;

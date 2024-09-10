@@ -40,7 +40,8 @@ public class PredictionsRepository : GenericRepository<Prediction>, IPredictions
         {
             WasSuccess = true,
             Result = await queryable
-                .OrderBy(x => x.Match.Date)
+                .OrderBy(x => x.Match.IsClosed)
+                .ThenBy(x => x.Match.Date)
                 .Paginate(pagination)
                 .ToListAsync()
         };

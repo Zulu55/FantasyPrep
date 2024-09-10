@@ -126,7 +126,8 @@ public class MatchesRepository : GenericRepository<Match>, IMatchesRepository
         {
             WasSuccess = true,
             Result = await queryable
-                .OrderBy(x => x.Date)
+                .OrderBy(x => x.IsClosed)
+                .ThenBy(x => x.Date)
                 .Paginate(pagination)
                 .ToListAsync()
         };
@@ -240,6 +241,9 @@ public class MatchesRepository : GenericRepository<Match>, IMatchesRepository
 
     public async Task CloseMatchAsync(Match match)
     {
+        match.IsClosed = true;
+        _context.Update(match);
+
         var predictions = await _context.Predictions
             .Where(x => x.MatchId == match.Id)
             .ToListAsync();
