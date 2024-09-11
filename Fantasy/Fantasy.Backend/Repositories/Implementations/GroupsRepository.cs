@@ -286,8 +286,7 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
     public async Task<ActionResponse<IEnumerable<Group>>> GetAllAsync()
     {
         var groups = await _context.Groups
-            .Include(x => x.Members!)
-            .ThenInclude(x => x.User)
+            .Include(x => x.Admin)
             .Include(x => x.Tournament)
             .Where(x => x.IsActive)
             .OrderBy(x => x.Name)
