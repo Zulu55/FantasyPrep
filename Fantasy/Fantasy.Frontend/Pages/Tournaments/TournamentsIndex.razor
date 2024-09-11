@@ -48,7 +48,11 @@ else
                     <MudIcon Icon="@Icons.Material.Filled.Cancel" Color="Color.Error" />
                 }
             </MudTd>
-            <MudTd>@context.Remarks</MudTd>
+            <MudTd>
+                <MudText Style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 340px;">
+                    @context.Remarks
+                </MudText>
+            </MudTd>
             <MudTd>
                 <MudTooltip Text="@Localizer["Teams"]">
                     <MudButton Variant="Variant.Filled"
