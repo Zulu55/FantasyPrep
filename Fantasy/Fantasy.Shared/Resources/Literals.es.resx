@@ -645,4 +645,10 @@
   <data name="NoGroups" xml:space="preserve">
     <value>No perteneces a ningún grupo. Puedes unirte a uno con la URL o el código compartido por el administrador del grupo, o bien, ver los grupos disponibles en la página de inicio y luego pedirle al administrador que te active para poder ingresar tus predicciones. También puedes crear tu propio grupo de amigos.</value>
   </data>
+  <data name="Spanish" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>Inglés</value>
+  </data>
 </root>

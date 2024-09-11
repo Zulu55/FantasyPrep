@@ -8,10 +8,18 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\images\JuanZuluaga.jpg" />
+    <Content Remove="wwwroot\images\Spain.png" />
+    <Content Remove="wwwroot\images\United Kingdom.png" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\images\JuanZuluaga.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\Spain.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\images\United Kingdom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

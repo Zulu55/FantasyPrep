@@ -448,6 +448,15 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Record not found..
         /// </summary>
         public static string ERR001 {
@@ -1398,6 +1407,15 @@ namespace Fantasy.Shared.Resources {
         public static string SinglePointsMatchMessage {
             get {
                 return ResourceManager.GetString("SinglePointsMatchMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spanish.
+        /// </summary>
+        public static string Spanish {
+            get {
+                return ResourceManager.GetString("Spanish", resourceCulture);
             }
         }
         

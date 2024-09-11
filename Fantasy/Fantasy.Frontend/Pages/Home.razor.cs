@@ -20,11 +20,22 @@ public partial class Home
     [Inject] private IClipboardService ClipboardService { get; set; } = null!;
     [Inject] private IStringLocalizer<Parameters> Parameters { get; set; } = null!;
     [Inject] private IDialogService DialogService { get; set; } = null!;
+    [Inject] private LanguageService LanguageService { get; set; } = null!;
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+
+    private string selectedLanguage = "es"; // Default to Spanish
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
         await LoadGroupsAsync();
+        selectedLanguage = LanguageService.CurrentLanguage;
+    }
+
+    private void ChangeLanguage(string language)
+    {
+        LanguageService.SetLanguage(language);
+        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
     }
 
     private async Task LoadGroupsAsync()

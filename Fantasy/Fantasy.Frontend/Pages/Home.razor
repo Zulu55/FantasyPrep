@@ -3,8 +3,25 @@
 <PageTitle>@Localizer["Home"]</PageTitle>
 
 <MudPaper Class="p-4 my-4">
-    <MudText Typo="Typo.h3" Align="Align.Center">@Localizer["Title"]</MudText>
-    <MudText Typo="Typo.h5" Align="Align.Center">@Localizer["Subtitle"]</MudText>
+    <MudStack Row Justify="Justify.SpaceBetween">
+        <MudStack>
+            <MudText Typo="Typo.h3">@Localizer["Title"]</MudText>
+            <MudText Typo="Typo.h5">@Localizer["Subtitle"]</MudText>
+        </MudStack>
+
+        <MudStack Row Justify="Justify.FlexEnd">
+            <MudTooltip Text="@Localizer["Spanish"]">
+                <MudButton OnClick="@(() => ChangeLanguage("es"))">
+                    <MudImage Src="/images/Spain.png" Width="50" Height="50" Style="border-radius: 50%;" />
+                </MudButton>
+            </MudTooltip>
+            <MudTooltip Text="@Localizer["English"]">
+                <MudButton OnClick="@(() => ChangeLanguage("en"))">
+                    <MudImage Src="/images/United Kingdom.png" Width="50" Height="50" Style="border-radius: 50%;" />
+                </MudButton>
+            </MudTooltip>
+        </MudStack>
+    </MudStack>
 </MudPaper>
 
 <MudContainer MaxWidth="MaxWidth.Large">
