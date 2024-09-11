@@ -34,7 +34,7 @@ public partial class Home
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return;
         }
         Groups = responseHttp.Response;

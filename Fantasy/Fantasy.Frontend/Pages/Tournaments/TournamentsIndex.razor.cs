@@ -58,7 +58,7 @@ public partial class TournamentsIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return;
         }
 
@@ -81,7 +81,7 @@ public partial class TournamentsIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return new TableData<Tournament> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)
@@ -151,7 +151,7 @@ public partial class TournamentsIndex
             else
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                Snackbar.Add(Localizer[message], Severity.Error);
+                Snackbar.Add(Localizer[message!], Severity.Error);
             }
             return;
         }

@@ -26,7 +26,7 @@ public partial class ConfirmEmail
         {
             message = await responseHttp.GetErrorMessageAsync();
             NavigationManager.NavigateTo("/");
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return;
         }
 

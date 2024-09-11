@@ -639,4 +639,10 @@
   <data name="Rectangular" xml:space="preserve">
     <value>Rectangular</value>
   </data>
+  <data name="MyGroups" xml:space="preserve">
+    <value>My Groups</value>
+  </data>
+  <data name="NoGroups" xml:space="preserve">
+    <value>You are not part of any group. You can join a group using the URL or code shared by the group administrator, or you can view the available groups on the homepage and then ask the administrator to activate you so you can enter your predictions. You can also create your own group of friends.</value>
+  </data>
 </root>

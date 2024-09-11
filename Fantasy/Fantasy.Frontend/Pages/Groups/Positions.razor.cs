@@ -52,7 +52,7 @@ public partial class Positions
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return false;
         }
         totalRecords = responseHttp.Response;
@@ -75,7 +75,7 @@ public partial class Positions
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return new TableData<PositionDTO> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)

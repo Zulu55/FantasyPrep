@@ -62,7 +62,7 @@ public partial class PredictionForm
 
         foreach (var message in messages)
         {
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
         }
     }
 

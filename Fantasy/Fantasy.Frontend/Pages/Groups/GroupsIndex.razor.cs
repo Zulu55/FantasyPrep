@@ -98,7 +98,7 @@ public partial class GroupsIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return;
         }
 
@@ -121,7 +121,7 @@ public partial class GroupsIndex
         if (responseHttp.Error)
         {
             var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message], Severity.Error);
+            Snackbar.Add(Localizer[message!], Severity.Error);
             return new TableData<Group> { Items = [], TotalItems = 0 };
         }
         if (responseHttp.Response == null)
@@ -204,7 +204,7 @@ public partial class GroupsIndex
             else
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                Snackbar.Add(Localizer[message], Severity.Error);
+                Snackbar.Add(Localizer[message!], Severity.Error);
             }
             return;
         }

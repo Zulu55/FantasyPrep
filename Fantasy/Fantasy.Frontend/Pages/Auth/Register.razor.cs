@@ -53,7 +53,7 @@ namespace Fantasy.Frontend.Pages.Auth
             if (responseHttp.Error)
             {
                 var message = await responseHttp.GetErrorMessageAsync();
-                Snackbar.Add(Localizer[message], Severity.Error);
+                Snackbar.Add(Localizer[message!], Severity.Error);
                 return;
             }
             countries = responseHttp.Response;
@@ -111,7 +111,7 @@ namespace Fantasy.Frontend.Pages.Auth
                     Snackbar.Add(Localizer["EmailAlreadyExists"], Severity.Error);
                     return;
                 }
-                Snackbar.Add(Localizer[message], Severity.Error);
+                Snackbar.Add(Localizer[message!], Severity.Error);
                 return;
             }
 
