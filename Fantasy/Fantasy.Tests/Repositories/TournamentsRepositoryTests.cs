@@ -199,6 +199,11 @@ public class TournamentsRepositoryTests
         Assert.IsNotNull(result.Result);
         Assert.AreEqual(1, result.Result.Id);
         Assert.AreEqual("Tournament 1", result.Result.Name);
+        Assert.AreEqual("/images/NoImage.png", result.Result.ImageFull);
+        Assert.AreEqual(0, result.Result.TeamsCount);
+        Assert.AreEqual(0, result.Result.MatchesCount);
+        Assert.AreEqual(0, result.Result.GroupsCount);
+        Assert.AreEqual(0, result.Result.PredictionsCount);
     }
 
     [TestMethod]

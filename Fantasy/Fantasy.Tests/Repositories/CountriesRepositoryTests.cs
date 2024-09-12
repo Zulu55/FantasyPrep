@@ -25,8 +25,8 @@ public class CountriesRepositoryTests
         // Seed the in-memory database
         _context.Countries.AddRange(new List<Country>
             {
-                new Country { Id = 1, Name = "Country B" },
-                new Country { Id = 2, Name = "Country A" }
+                new Country { Id = 1, Name = "Country B", Teams = [], Users = [] },
+                new Country { Id = 2, Name = "Country A", Teams = [], Users = [] }
             });
         _context.SaveChanges();
     }
@@ -117,6 +117,8 @@ public class CountriesRepositoryTests
         // Assert
         Assert.IsTrue(result.WasSuccess);
         Assert.AreEqual("Country B", result.Result!.Name);
+        Assert.AreEqual(0, result.Result!.TeamsCount);
+        Assert.AreEqual(0, result.Result!.UsersCount);
     }
 
     [TestMethod]

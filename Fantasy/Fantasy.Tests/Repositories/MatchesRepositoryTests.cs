@@ -302,29 +302,6 @@ public class MatchesRepositoryTests
     }
 
     [TestMethod]
-    public async Task GetAsync_ShouldReturnMatch_WhenMatchExists()
-    {
-        // Arrange
-        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
-        var team1 = new Team { Id = 1, Name = "Team A" };
-        var team2 = new Team { Id = 2, Name = "Team B" };
-        var match = new Match { Id = 1, Tournament = tournament, Local = team1, Visitor = team2, Date = DateTime.Now };
-
-        _context.Tournaments.Add(tournament);
-        _context.Teams.AddRange(team1, team2);
-        _context.Matches.Add(match);
-        await _context.SaveChangesAsync();
-
-        // Act
-        var result = await _matchesRepository.GetAsync(1);
-
-        // Assert
-        Assert.IsTrue(result.WasSuccess);
-        Assert.IsNotNull(result.Result);
-        Assert.AreEqual(1, result.Result.Id);
-    }
-
-    [TestMethod]
     public async Task GetAsync_ShouldReturnError_WhenMatchDoesNotExist()
     {
         // Act
@@ -877,5 +854,49 @@ public class MatchesRepositoryTests
         Assert.IsTrue(result.WasSuccess);
         Assert.AreEqual(1, result.Result!.Count());  // Only match1 should match the filter
         Assert.AreEqual("Team A", result.Result!.First().Local.Name);  // Ensure match1 is returned
+    }
+
+    [TestMethod]
+    public async Task GetAsync_ShouldReturnMatch_WhenMatchExists()
+    {
+        // Create a unique in-memory database for this test
+        var options = new DbContextOptionsBuilder<DataContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()) // Use a unique database name
+            .Options;
+
+        // Create the data context
+        using var context = new DataContext(options);
+        var matchesRepository = new MatchesRepository(context);
+
+        // Arrange: Set up the data
+        var tournament = new Tournament { Id = 1, Name = "Tournament A" };
+        var team1 = new Team { Id = 1, Name = "Team A" };
+        var team2 = new Team { Id = 2, Name = "Team B" };
+        var match = new Match
+        {
+            Id = 1,
+            Tournament = tournament,
+            Local = team1,
+            Visitor = team2,
+            Date = DateTime.Now
+        };
+
+        // Add the data to the context and save changes
+        context.Tournaments.Add(tournament);
+        context.Teams.AddRange(team1, team2);
+        context.Matches.Add(match);
+        await context.SaveChangesAsync();
+
+        // Act: Execute the method being tested
+        var result = await matchesRepository.GetAsync(match.Id);
+
+        // Assert: Verify the result
+        Assert.IsTrue(result.WasSuccess);
+        Assert.IsNotNull(result.Result);
+        Assert.AreEqual(match.Id, result.Result!.Id);
+        Assert.AreEqual(match.Local.Name, result.Result.Local.Name);
+        Assert.AreEqual(match.Visitor.Name, result.Result.Visitor.Name);
+        Assert.AreEqual(0, result.Result.PredictionsCount);
+        Assert.AreEqual(match.Date.ToLocalTime(), result.Result.DateLocal);
     }
 }

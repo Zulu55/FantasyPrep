@@ -1201,4 +1201,89 @@ public class AccountsControllerTests
         Assert.IsNotNull(notFoundResult);
         Assert.AreEqual(404, notFoundResult.StatusCode);  // Verify the status code is 404 Not Found
     }
+
+    [TestMethod]
+    public async Task CreateUser_ReturnsBadRequest_WhenSendConfirmationEmailFails()
+    {
+        // Arrange
+        var userDTO = new UserDTO { Email = "test@example.com", Password = "password", CountryId = 1, Language = "en" };
+        var user = new User { Id = Guid.NewGuid().ToString(), Email = userDTO.Email };
+        var country = new Country { Id = 1, Name = "Country A" };
+
+        _context.Countries.Add(country);
+        await _context.SaveChangesAsync();
+
+        // Simulate AddUserAsync to return a successful identity result
+        _mockUsersUnitOfWork.Setup(x => x.AddUserAsync(It.IsAny<User>(), It.IsAny<string>()))
+            .ReturnsAsync(IdentityResult.Success);
+
+        // Simulate AddUserToRoleAsync completing successfully
+        _mockUsersUnitOfWork.Setup(x => x.AddUserToRoleAsync(It.IsAny<User>(), It.IsAny<string>()))
+            .Returns(Task.CompletedTask);
+
+        // Simulate the SendConfirmationEmailAsync failing to send the email
+        _mockMailHelper.Setup(x => x.SendMail(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            .Returns(new ActionResponse<string> { WasSuccess = false, Message = "Failed to send email" });
+
+        // Mock configuration to avoid null references for email subject and body
+        _mockConfiguration.Setup(x => x["Mail:SubjectConfirmationEn"]).Returns("Confirm your email");
+        _mockConfiguration.Setup(x => x["Mail:BodyConfirmationEn"]).Returns("Please confirm your email using this link: {0}");
+        _mockConfiguration.Setup(x => x["Url Frontend"]).Returns("http://example.com");
+
+        // Mock Url.Action to return a valid confirmation link
+        var mockUrlHelper = new Mock<IUrlHelper>();
+        mockUrlHelper.Setup(x => x.Action(It.IsAny<UrlActionContext>()))
+            .Returns("http://example.com/confirm_email_link");
+        _controller.Url = mockUrlHelper.Object;
+
+        // Mock HttpContext and Request.Scheme to avoid NullReferenceException
+        var httpContextMock = new Mock<HttpContext>();
+        var requestMock = new Mock<HttpRequest>();
+        requestMock.Setup(x => x.Scheme).Returns("http");
+        httpContextMock.Setup(x => x.Request).Returns(requestMock.Object);
+
+        _controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = httpContextMock.Object
+        };
+
+        // Act
+        var result = await _controller.CreateUser(userDTO);
+
+        // Assert
+        var badRequestResult = result as BadRequestObjectResult;
+        Assert.IsNotNull(badRequestResult);
+        Assert.AreEqual(400, badRequestResult.StatusCode);  // Verify the status code is 400
+        Assert.AreEqual("Failed to send email", badRequestResult.Value);  // Ensure the correct error message is returned
+    }
+
+    [TestMethod]
+    public async Task CreateUser_ReturnsBadRequest_WhenAddUserAsyncFails()
+    {
+        // Arrange
+        var userDTO = new UserDTO { Email = "test@example.com", Password = "password", CountryId = 1, Language = "en" };
+        var user = new User { Id = Guid.NewGuid().ToString(), Email = userDTO.Email };
+        var country = new Country { Id = 1, Name = "Country A" };
+
+        _context.Countries.Add(country);
+        await _context.SaveChangesAsync();
+
+        // Simulate AddUserAsync returning a failed result with an error message
+        var identityResult = IdentityResult.Failed(new IdentityError { Description = "User creation failed" });
+        _mockUsersUnitOfWork.Setup(x => x.AddUserAsync(It.IsAny<User>(), It.IsAny<string>()))
+            .ReturnsAsync(identityResult);
+
+        // Act
+        var result = await _controller.CreateUser(userDTO);
+
+        // Assert
+        var badRequestResult = result as BadRequestObjectResult;
+        Assert.IsNotNull(badRequestResult);
+        Assert.AreEqual(400, badRequestResult.StatusCode);  // Ensure the status code is 400
+
+        // Verify the correct error message is returned
+        var identityError = badRequestResult.Value as IdentityError;
+        Assert.IsNotNull(identityError);
+        Assert.AreEqual("User creation failed", identityError.Description);
+    }
 }

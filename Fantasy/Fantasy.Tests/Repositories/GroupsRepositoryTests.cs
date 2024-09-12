@@ -6,7 +6,6 @@ using Fantasy.Shared.DTOs;
 using Fantasy.Shared.Entities;
 using Fantasy.Tests.General;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update;
 using Moq;
 using Match = Fantasy.Shared.Entities.Match;
 
@@ -693,6 +692,9 @@ public class GroupsRepositoryTests
         Assert.AreEqual(group.Id, response.Result.Id);
         Assert.AreEqual(group.Code, response.Result.Code);
         Assert.AreEqual(group.Name, response.Result.Name);
+        Assert.AreEqual(0, response.Result.PredictionsCount);
+        Assert.AreEqual(0, response.Result.MembersCount);
+        Assert.AreEqual("/images/NoImage.png", response.Result.ImageFull);
     }
 
     [TestMethod]

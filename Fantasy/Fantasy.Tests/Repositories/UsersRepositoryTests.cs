@@ -101,8 +101,26 @@ public class UsersRepositoryTests
         await context.SaveChangesAsync(); // Save the country to avoid conflicts
 
         // Create users and associate them with the country
-        var user1 = new User { Id = Guid.NewGuid().ToString(), FirstName = "John", LastName = "Doe", Country = country };
-        var user2 = new User { Id = Guid.NewGuid().ToString(), FirstName = "Jane", LastName = "Doe", Country = country };
+        var user1 = new User
+        {
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "John",
+            LastName = "Doe",
+            Country = country,
+            GroupsManaged = [],
+            GroupsBelong = [],
+            Predictions = []
+        };
+        var user2 = new User
+        {
+            Id = Guid.NewGuid().ToString(),
+            FirstName = "Jane",
+            LastName = "Doe",
+            Country = country,
+            GroupsManaged = [],
+            GroupsBelong = [],
+            Predictions = []
+        };
 
         // Add users to the in-memory database
         await context.Users.AddRangeAsync(user1, user2);
@@ -119,6 +137,8 @@ public class UsersRepositoryTests
         // Assert: Verify that the result was successful and contains 2 users
         Assert.IsTrue(result.WasSuccess);
         Assert.AreEqual(2, result.Result!.Count());
+        Assert.AreEqual(0, result.Result!.FirstOrDefault()!.PredictionsCount);
+        Assert.AreEqual("/images/NoImage.png", result.Result!.FirstOrDefault()!.PhotoFull);
     }
 
     [TestMethod]

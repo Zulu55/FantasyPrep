@@ -155,6 +155,8 @@ public class TeamsRepositoryTests
         // Assert
         Assert.IsTrue(result.WasSuccess);
         Assert.AreEqual("Team A", result.Result!.Name);
+        Assert.AreEqual("/images/NoImage.png", result.Result!.ImageFull);
+        Assert.AreEqual(0, result.Result!.TournamentsCount);
     }
 
     [TestMethod]
