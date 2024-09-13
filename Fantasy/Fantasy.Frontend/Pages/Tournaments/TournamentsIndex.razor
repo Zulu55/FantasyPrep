@@ -34,7 +34,11 @@ else
             <MudTh>@Localizer["Actions"]</MudTh>
         </HeaderContent>
         <RowTemplate>
-            <MudTd>@context.Name</MudTd>
+            <MudTd>
+                <MudText Style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+                    @context.Name
+                </MudText>
+            </MudTd>
             <MudTd>
                 <MudImage Src="@context.ImageFull" Width="80" />
             </MudTd>
