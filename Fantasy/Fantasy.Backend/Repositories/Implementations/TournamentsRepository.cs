@@ -74,9 +74,8 @@ public class TournamentsRepository : GenericRepository<Tournament>, ITournaments
     public override async Task<ActionResponse<IEnumerable<Tournament>>> GetAsync(PaginationDTO pagination)
     {
         var queryable = _context.Tournaments
-            .Include(x => x.Matches!)
-            .Include(x => x.TournamentTeams!)
-            .ThenInclude(x => x.Team)
+            .Include(x => x.Matches)
+            .Include(x => x.TournamentTeams)
             .AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(pagination.Filter))
