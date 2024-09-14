@@ -24,8 +24,8 @@ public class GroupsRepository : GenericRepository<Group>, IGroupsRepository
     public override async Task<ActionResponse<IEnumerable<Group>>> GetAsync(PaginationDTO pagination)
     {
         var queryable = _context.Groups
-            .Include(x => x.Members!)
-            .ThenInclude(x => x.User)
+            .Include(x => x.Admin)
+            .Include(x => x.Members)
             .Include(x => x.Tournament)
             .AsQueryable();
         queryable = queryable.Where(x => x.Members!.Any(x => x.User.Email == pagination.Email));
