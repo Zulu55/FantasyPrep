@@ -42,22 +42,16 @@ public partial class TournamentForm
         isActiveMessage = TournamentDTO.IsActive ? Localizer["TournamentActive"] : Localizer["TournamentInactive"];
     }
 
+    private void OnToggledChanged(bool toggled)
+    {
+        TournamentDTO.IsActive = toggled;
+        isActiveMessage = TournamentDTO.IsActive ? Localizer["TournamentActive"] : Localizer["TournamentInactive"];
+    }
+
     private void ImageSelected(string imagenBase64)
     {
         TournamentDTO.Image = imagenBase64;
         imageUrl = null;
-    }
-
-    private void SetTournamentOff()
-    {
-        TournamentDTO.IsActive = false;
-        isActiveMessage = Localizer["TournamentInactive"];
-    }
-
-    private void SetTournamentOn()
-    {
-        TournamentDTO.IsActive = true;
-        isActiveMessage = Localizer["TournamentActive"];
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)

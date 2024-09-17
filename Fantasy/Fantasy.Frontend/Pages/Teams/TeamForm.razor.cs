@@ -49,6 +49,12 @@ public partial class TeamForm
         shapeImageMessage = TeamDTO.IsImageSquare ? Localizer["ImageIsSquare"] : Localizer["ImageIsRectangular"];
     }
 
+    private void OnToggledChanged(bool toggled)
+    {
+        TeamDTO.IsImageSquare = toggled;
+        shapeImageMessage = TeamDTO.IsImageSquare ? Localizer["ImageIsSquare"] : Localizer["ImageIsRectangular"];
+    }
+
     private async Task LoadCountriesAsync()
     {
         var responseHttp = await Repository.GetAsync<List<Country>>("/api/countries/combo");
@@ -112,17 +118,5 @@ public partial class TeamForm
     {
         selectedCountry = country;
         TeamDTO.CountryId = country.Id;
-    }
-
-    private void SetImageSquare()
-    {
-        TeamDTO.IsImageSquare = true;
-        shapeImageMessage = Localizer["ImageIsSquare"];
-    }
-
-    private void SetImageRectangular()
-    {
-        TeamDTO.IsImageSquare = false;
-        shapeImageMessage = Localizer["ImageIsRectangular"];
     }
 }

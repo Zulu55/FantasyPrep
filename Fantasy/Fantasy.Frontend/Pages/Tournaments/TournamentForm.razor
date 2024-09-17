@@ -14,31 +14,14 @@
                   Class="mb-4"
                   Lines="5" />
 
-    <MudGrid Justify="Justify.SpaceBetween">
-        <MudItem xs="6">
-            <MudText Typo="Typo.input" Align="Align.Left">@isActiveMessage</MudText>
-        </MudItem>
-        <MudItem xs="6" class="d-flex justify-content-end">
-            @if (TournamentDTO.IsActive)
-            {
-                <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.Cancel"
-                           Color="Color.Error"
-                           OnClick="SetTournamentOff">
-                    @Localizer["Deactivate"]
-                </MudButton>
-            }
-            else
-            {
-                <MudButton Variant="Variant.Filled"
-                           StartIcon="@Icons.Material.Filled.CheckCircle"
-                           Color="Color.Success"
-                           OnClick="SetTournamentOn">
-                    @Localizer["Activate"]
-                </MudButton>
-            }
-        </MudItem>
-    </MudGrid>
+    <MudToggleIconButton Toggled="TournamentDTO.IsActive"
+                         ToggledChanged="OnToggledChanged"
+                         Icon="@Icons.Material.Filled.Cancel"
+                         Color="@Color.Error"
+                         ToggledIcon="@Icons.Material.Filled.CheckCircle"
+                         ToggledColor="@Color.Success"
+                         title="@(TournamentDTO.IsActive ? @Localizer["Deactivate"] : @Localizer["Activate"])" />
+    <span>@isActiveMessage</span>
 
     <div class="my-2">
         <InputImg Label=@Localizer["Image"] ImageSelected="ImageSelected" ImageURL="@imageUrl" />

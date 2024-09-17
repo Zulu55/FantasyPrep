@@ -47,6 +47,12 @@ public partial class GroupForm
         isActiveMessage = GroupDTO.IsActive ? $"{Localizer["Group"]} {Localizer["Active"]}" : $"{Localizer["Group"]} {Localizer["Inactive"]}";
     }
 
+    private void OnToggledChanged(bool toggled)
+    {
+        GroupDTO.IsActive = toggled;
+        isActiveMessage = GroupDTO.IsActive ? $"{Localizer["Group"]} {Localizer["Active"]}" : $"{Localizer["Group"]} {Localizer["Inactive"]}";
+    }
+
     private void OnInvalidSubmit(EditContext editContext)
     {
         var messages = editContext.GetValidationMessages();
@@ -93,18 +99,6 @@ public partial class GroupForm
     {
         GroupDTO.Image = imagenBase64;
         imageUrl = null;
-    }
-
-    private void SetTournamentOff()
-    {
-        GroupDTO.IsActive = false;
-        isActiveMessage = $"{Localizer["Group"]} {Localizer["Inactive"]}";
-    }
-
-    private void SetTournamentOn()
-    {
-        GroupDTO.IsActive = true;
-        isActiveMessage = $"{Localizer["Group"]} {Localizer["Active"]}";
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)

@@ -42,58 +42,23 @@
                    AmPm="false"
                    Class="mb-2" />
 
+    <MudToggleIconButton Toggled="MatchDTO.DoublePoints"
+                         ToggledChanged="OnToggledDoublePointsChanged"
+                         Icon="@Icons.Material.Filled.LooksOne"
+                         Color="@Color.Primary"
+                         ToggledIcon="@Icons.Material.Filled.LooksTwo"
+                         ToggledColor="@Color.Secondary"
+                         title="@(MatchDTO.DoublePoints ? @Localizer["DoublePointsMatchMessage"] : @Localizer["SinglePointsMatchMessage"])" />
+    <span>@doublePointsMessage</span>
 
-    <MudGrid Justify="Justify.SpaceBetween" Class="mb-2">
-        <MudItem xs="6">
-            <MudText Typo="Typo.input" Align="Align.Left">@doublePointsMessage</MudText>
-        </MudItem>
-        <MudItem xs="6" class="d-flex justify-content-end">
-            @if (MatchDTO.DoublePoints)
-            {
-                <MudButton Variant="Variant.Filled"
-                            StartIcon="@Icons.Material.Filled.Cancel"
-                            Color="Color.Error"
-                            OnClick="SetDoublePointsOff">
-                    @Localizer["SinglePointsMatchMessage"]
-                </MudButton>
-            }
-            else
-            {
-                <MudButton Variant="Variant.Filled"
-                            StartIcon="@Icons.Material.Filled.CheckCircle"
-                            Color="Color.Success"
-                            OnClick="SetDoublePointsOn">
-                    @Localizer["DoublePointsMatchMessage"]
-                </MudButton>
-            }
-        </MudItem>
-    </MudGrid>
-
-    <MudGrid Justify="Justify.SpaceBetween" Class="mb-2">
-        <MudItem xs="6">
-            <MudText Typo="Typo.input" Align="Align.Left">@isActiveMessage</MudText>
-        </MudItem>
-        <MudItem xs="6" class="d-flex justify-content-end">
-            @if (MatchDTO.IsActive)
-            {
-                <MudButton Variant="Variant.Filled"
-                            StartIcon="@Icons.Material.Filled.Cancel"
-                            Color="Color.Error"
-                            OnClick="SetTournamentOff">
-                    @Localizer["Deactivate"]
-                </MudButton>
-            }
-            else
-            {
-                <MudButton Variant="Variant.Filled"
-                            StartIcon="@Icons.Material.Filled.CheckCircle"
-                            Color="Color.Success"
-                            OnClick="SetTournamentOn">
-                    @Localizer["Activate"]
-                </MudButton>
-            }
-        </MudItem>
-    </MudGrid>
+    <MudToggleIconButton Toggled="MatchDTO.IsActive"
+                         ToggledChanged="OnToggledIsActiveChanged"
+                         Icon="@Icons.Material.Filled.Cancel"
+                         Color="@Color.Error"
+                         ToggledIcon="@Icons.Material.Filled.CheckCircle"
+                         ToggledColor="@Color.Success"
+                         title="@(MatchDTO.IsActive ? @Localizer["Deactivate"] : @Localizer["Activate"])" />
+    <span>@isActiveMessage</span>
 
     <div style="display: flex; align-items: center; justify-content: center; margin-top: 30px; margin-bottom: 30px;">
         <div class="mb-2" style="margin-right: 10px;">

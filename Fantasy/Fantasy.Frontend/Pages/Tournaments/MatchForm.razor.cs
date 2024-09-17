@@ -57,16 +57,16 @@ public partial class MatchForm
         }
     }
 
-    private void SetDoublePointsOff()
+    private void OnToggledDoublePointsChanged(bool toggled)
     {
-        MatchDTO.DoublePoints = false;
-        doublePointsMessage = Localizer["SinglePointsMatchMessage"];
+        MatchDTO.DoublePoints = toggled;
+        doublePointsMessage = MatchDTO.DoublePoints ? Localizer["DoublePointsMatchMessage"] : Localizer["SinglePointsMatchMessage"];
     }
 
-    private void SetDoublePointsOn()
+    private void OnToggledIsActiveChanged(bool toggled)
     {
-        MatchDTO.DoublePoints = true;
-        doublePointsMessage = Localizer["DoublePointsMatchMessage"];
+        MatchDTO.IsActive = toggled;
+        isActiveMessage = MatchDTO.IsActive ? Localizer["MatchActive"] : Localizer["MatchInactive"];
     }
 
     private void LoadInitialValues()
@@ -173,18 +173,6 @@ public partial class MatchForm
         {
             MatchDTO.Date = selectedDate.Value.Date + selectedTime.Value;
         }
-    }
-
-    private void SetTournamentOff()
-    {
-        MatchDTO.IsActive = false;
-        isActiveMessage = Localizer["MatchInactive"];
-    }
-
-    private void SetTournamentOn()
-    {
-        MatchDTO.IsActive = true;
-        isActiveMessage = Localizer["MatchActive"];
     }
 
     private async Task OnSubmitAsync()
