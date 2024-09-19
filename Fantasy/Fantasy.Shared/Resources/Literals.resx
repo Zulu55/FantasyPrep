@@ -651,4 +651,13 @@
   <data name="English" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="ReOpenMatch" xml:space="preserve">
+    <value>Re-open match</value>
+  </data>
+  <data name="ReOpenMatchConfirm" xml:space="preserve">
+    <value>Are you sure to re-open the {0}: {1}?</value>
+  </data>
+  <data name="ReOpenMatchMessage" xml:space="preserve">
+    <value>The match has been reopened</value>
+  </data>
 </root>

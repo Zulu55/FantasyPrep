@@ -6,6 +6,8 @@ namespace Fantasy.Backend.Repositories.Interfaces
 {
     public interface IMatchesRepository
     {
+        Task<ActionResponse<bool>> ReOpenMatchAsync(int id);
+
         Task<ActionResponse<Match>> AddAsync(MatchDTO matchDTO);
 
         Task<ActionResponse<Match>> UpdateAsync(MatchDTO matchDTO);

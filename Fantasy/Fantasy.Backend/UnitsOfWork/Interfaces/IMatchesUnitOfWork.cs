@@ -6,6 +6,8 @@ namespace Fantasy.Backend.UnitsOfWork.Interfaces;
 
 public interface IMatchesUnitOfWork
 {
+    Task<ActionResponse<bool>> ReOpenMatchAsync(int id);
+
     Task<ActionResponse<Match>> AddAsync(MatchDTO matchDTO);
 
     Task<ActionResponse<Match>> UpdateAsync(MatchDTO matchDTO);

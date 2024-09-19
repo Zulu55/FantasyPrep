@@ -41,6 +41,17 @@ public class MatchesController : GenericController<Match>
         return BadRequest();
     }
 
+    [HttpGet("reopen/{id}")]
+    public async Task<IActionResult> ReOpenMatchAsync(int id)
+    {
+        var response = await _matchesUnitOfWork.ReOpenMatchAsync(id);
+        if (response.WasSuccess)
+        {
+            return Ok(response.Result);
+        }
+        return NotFound(response.Message);
+    }
+
     [HttpGet("{id}")]
     public override async Task<IActionResult> GetAsync(int id)
     {

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using MudBlazor;
-using System.Collections.Generic;
 
 namespace Fantasy.Frontend.Pages.Tournaments;
 
@@ -151,6 +150,59 @@ public partial class TournamentMatches
         }
     }
 
+    private async Task ReOpenMatchAsync(Match match)
+    {
+        var parameters = new DialogParameters
+        {
+            { "Message", string.Format(Localizer["ReOpenMatchConfirm"], Localizer["Match"], $"{match.Local.Name} Vs. {match.Visitor.Name}") }
+        };
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            return;
+        }
+
+        var responseHttp = await Repository.GetAsync($"api/Matches/reopen/{match.Id}");
+        if (responseHttp.Error)
+        {
+            var mensajeError = await responseHttp.GetErrorMessageAsync();
+            Snackbar.Add(Localizer[mensajeError!], Severity.Error);
+            return;
+        }
+
+        await LoadAsync();
+        await table.ReloadServerData();
+        Snackbar.Add(Localizer["ReOpenMatchMessage"], Severity.Success);
+    }
+
+    private async Task DeleteAsync(Match match)
+    {
+        var parameters = new DialogParameters
+        {
+            { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Match"], $"{match.Local.Name} Vs. {match.Visitor.Name}") }
+        };
+        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
+        var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
+        var result = await dialog.Result;
+        if (result!.Canceled)
+        {
+            return;
+        }
+
+        var responseHttp = await Repository.DeleteAsync($"{baseUrlMatch}/{match.Id}");
+        if (responseHttp.Error)
+        {
+            var message = await responseHttp.GetErrorMessageAsync();
+            Snackbar.Add(Localizer[message!], Severity.Error);
+            return;
+        }
+        await LoadAsync();
+        await table.ReloadServerData();
+        Snackbar.Add(Localizer["RecordDeletedOk"], Severity.Success);
+    }
+
     private async Task ShowModalAsync(int id = 0, bool isEdit = false)
     {
         var options = new DialogOptions() { CloseOnEscapeKey = true, CloseButton = true };
@@ -183,31 +235,5 @@ public partial class TournamentMatches
     private void NoTournament()
     {
         NavigationManager.NavigateTo("/tournaments");
-    }
-
-    private async Task DeleteAsync(Match match)
-    {
-        var parameters = new DialogParameters
-        {
-            { "Message", string.Format(Localizer["DeleteConfirm"], Localizer["Match"], $"{match.Local.Name} Vs. {match.Visitor.Name}") }
-        };
-        var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall, CloseOnEscapeKey = true };
-        var dialog = DialogService.Show<ConfirmDialog>(Localizer["Confirmation"], parameters, options);
-        var result = await dialog.Result;
-        if (result!.Canceled)
-        {
-            return;
-        }
-
-        var responseHttp = await Repository.DeleteAsync($"{baseUrlMatch}/{match.Id}");
-        if (responseHttp.Error)
-        {
-            var message = await responseHttp.GetErrorMessageAsync();
-            Snackbar.Add(Localizer[message!], Severity.Error);
-            return;
-        }
-        await LoadAsync();
-        await table.ReloadServerData();
-        Snackbar.Add(Localizer["RecordDeletedOk"], Severity.Success);
     }
 }

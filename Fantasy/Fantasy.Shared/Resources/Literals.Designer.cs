@@ -1285,6 +1285,33 @@ namespace Fantasy.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re-open match.
+        /// </summary>
+        public static string ReOpenMatch {
+            get {
+                return ResourceManager.GetString("ReOpenMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure to re-open the {0}: {1}?.
+        /// </summary>
+        public static string ReOpenMatchConfirm {
+            get {
+                return ResourceManager.GetString("ReOpenMatchConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The match has been reopened.
+        /// </summary>
+        public static string ReOpenMatchMessage {
+            get {
+                return ResourceManager.GetString("ReOpenMatchMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field {0} is required..
         /// </summary>
         public static string RequiredField {
